@@ -137,7 +137,6 @@ a:hover {
 
 .main {
     max-width: 1300px;
-    height: 100vh;
     margin: 0 auto;
     overflow: auto;
     background: #fff;
@@ -147,7 +146,6 @@ a:hover {
     max-width: 1300px;
     margin: 0 auto;
     overflow: auto;
-    height:100vh;
     background: #023563;
 }
 
