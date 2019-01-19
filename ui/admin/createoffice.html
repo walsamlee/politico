@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Politico - Create Political Party</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="/scripts/js/main.js"></script>
+</head>
+<body>
+    <div class="main">
+        <div class="header">
+            <div class="brand">
+                <div class="brand-logo">
+                    <img src="/assets/images/politico.png" alt="brand-logo">
+                </div>
+            </div>
+
+            <div class="navigation-bar">
+                <div class="menu" id="menu">
+                    <nav>
+                        <a href="editparty.html">Home</a>
+                        <a href="createparty.html">Create Party</a>
+                        <a href="/index.html">Logout</a>
+                    </nav>
+                    <div class="search">
+                        <form action="#">
+                            <input type="search" name="search" placeholder="Search">
+                        </form>
+                    </div>
+                    <div class="mini-menu-icon">
+                        <a href="javascript:void(0);" onclick="miniMenu()"><i class="fas fa-bars"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard">
+            <div class="signup-form">
+                <form method="POST" id="sign-up" name="sign-up" action="">
+                    <table class="form-table">
+                        <tr>
+                            <td class="label">
+                                <label for="office-type">Office Type: </label>
+                            </td>
+                            <td>
+                                <select id="office-type" name="office-type">
+                                    <option value="options"></option>
+                                    <option value="federal">Federal</option>
+                                    <option value="legislative">Legislative</option>
+                                    <option value="state">State</option>
+                                    <option value="local government">Local government</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                <label for="officename">Office Name: </label>
+                            </td>
+                            <td>
+                                <input id="officename" type="text" name="officename">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="button" class="btn btn-cart" value="Save">
+                                <input type="reset" class="btn btn-cart" value="Reset">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer">
+            <p>Andela Developer Challenge &copy; 2019</p>
+        </div>
+    </footer>
+</body>
+</html>
