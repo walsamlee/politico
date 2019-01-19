@@ -161,7 +161,7 @@ a:hover {
 
 .sign-in {
     width: 30%;
-    margin: 250px auto;
+    margin: 230px auto;
     text-align: center;
     padding: 20px;
     background: #fff;
@@ -345,48 +345,6 @@ a:hover {
     margin: 0;
 }
 
-/* 
-.menu nav {
-    width: 68%;
-    float: left;
-    padding: 25px 10px;
-}
-
-.menu nav a {
-    padding: 0 10px;
-    color: #fff;
-}
-
-.menu nav a:hover {
-    background: #01213D;
-    text-decoration: none;
-}
-
-.menu nav .submenu button {
-    background: #023563;
-    color: #fff;
-    border: none;
-    font-size: 16px;
-    padding: 25px 10px;
-}
-
-.menu nav .submenu .submenu-content {
-    display: none;
-    position: absolute;
-    background: #01213D;
-    padding: 10px 0;
-}
-
-.menu nav .submenu {
-    float: left;
-}
-
-
-.menu nav .submenu:hover .submenu-content {
-    display: block;
-}
-*/
-
 @media screen and (max-width: 1200px) {
     .sign-in {
         width: 35%;
@@ -433,6 +391,7 @@ a:hover {
     }
     .sign-in {
         width: 75%;
+        margin: 20px auto;
     }
     .col-3 {
         width: 46.95%;
