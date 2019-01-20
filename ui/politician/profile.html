@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Politico - Voting History</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../scripts/js/main.js"></script>
+</head>
+<body>
+    <div class="main">
+        <div class="header">
+            <div class="brand">
+                <div class="brand-logo">
+                    <img src="../assets/images/politico.png" alt="brand-logo">
+                </div>
+            </div>
+
+            <div class="navigation-bar">
+                <div class="menu" id="menu">
+                    <nav>
+                        <a href="../index.html">Logout</a>
+                    </nav>
+                    <div class="search">
+                        <form action="#">
+                            <input type="search" name="search" placeholder="Search">
+                        </form>
+                    </div>
+                    <div class="mini-menu-icon">
+                        <a href="javascript:void(0);" onclick="miniMenu()"><i class="fas fa-bars"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard">
+            <div class="profile-board">
+                <div class="profile">
+                    <div class="personal-details">
+                        <div class="personal-image">
+                            <img src="../assets/images/male.png" alt="">
+                        </div>
+                        <div class="personal-particulars">
+                            <div class="personal-name">
+                                <h3>Adeniyi Jones</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="party-details">
+                        <div class="party-details-logo">
+                            <img src="../assets/images/upn.png" alt="Party Logo">
+                        </div>
+                    </div>
+                </div>
+                <div class="office">
+                    <h3>Choose Office to run for:</h3>
+                    <form action="">
+                        <input type="radio" name="office" value="president"> President<br>
+                        <input type="radio" name="office" value="senator"> Senator<br>
+                        <input type="radio" name="office" value="federal house"> Federal House of Rep. Member<br>
+                        <input type="radio" name="office" value="governor"> Governor<br>
+                        <input type="radio" name="office" value="state house"> State House of Rep. Member<br>
+                        <input type="radio" name="office" value="lga chairman"> LGA Chairman<br>
+                        <input type="radio" name="office" value="councillor"> councillor<br>
+                        <input type="radio" name="office" value="none"> None<br><br>  
+                        <input class="btn btn-cart" type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer">
+            <p>Andela Developer Challenge &copy; 2019</p>
+        </div>
+    </footer>
+</body>
+</html>
