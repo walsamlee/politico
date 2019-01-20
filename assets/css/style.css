@@ -333,6 +333,39 @@ a:hover {
     margin: 20px 0;
 }
 
+.profile-board .profile {
+    width: 48%;
+    float: left;
+    padding: 20px;
+    margin: 0 20px 20px 0;
+    background: #eee;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.profile-board .profile .personal-details, .profile-board .profile .party-details {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.profile-board .profile .personal-details img {
+    width: 30%;
+}
+
+.profile-board .profile .personal-details h3 {
+    margin: 0;
+}
+
+.profile-board .profile .party-details img {
+    width: 20%;
+}
+
+.profile-board .office {
+    width: 40%;
+    float: left;
+    padding: 20px;
+}
+
 .footer {
     max-width: 1300px;
     margin: 0 auto;
