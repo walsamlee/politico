@@ -20,7 +20,8 @@
   "scripts": {
     "start": "node dist/api/app",
     "build": "babel --presets env . -d ./dist --ignore node_modules,dist,ui",
-    "dev": "(babel --presets env . -d ./dist --ignore node_modules,dist,ui) && node dist/api/app"
+    "dev": "(babel --presets env . -d ./dist --ignore node_modules,dist,ui) && node dist/api/app",
+    "test": "mocha dist/test/api.test.js --exit"
   },
   "repository": {
     "type": "git",
