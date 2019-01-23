@@ -1,8 +1,16 @@
 import express from 'express';
+import bodyParser from 'body-parser';
+
+import router from './routes/router';
 
 const app = express();
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 const port = process.env.PORT || 3000;
+
+app.use('/api/v1', router);
 
 const server = app.listen(port, () => {
   console.log(`App listening on port ${port}`);
@@ -27,4 +35,4 @@ app.use((err, req, res) => {
   });
 });
 
-module.exports = server;
+export default server;
