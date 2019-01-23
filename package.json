@@ -4,6 +4,7 @@
   "description": "Politico enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency",
   "main": "app.js",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4"
   },
   "devDependencies": {
@@ -18,9 +19,9 @@
     "supertest": "^3.4.2"
   },
   "scripts": {
-    "start": "node dist/api/app",
-    "build": "babel --presets env . -d ./dist --ignore node_modules,dist,ui",
-    "dev": "(babel --presets env . -d ./dist --ignore node_modules,dist,ui) && node dist/api/app"
+    "start": "node dist/server/v1/app",
+    "build": "babel --presets env . -d ./dist --ignore node_modules,dist,templates",
+    "dev": "(babel --presets env . -d ./dist --ignore node_modules,dist,templates) && node dist/server/v1/app"
   },
   "repository": {
     "type": "git",
