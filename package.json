@@ -1,0 +1,39 @@
+{
+  "name": "politico",
+  "version": "1.0.0",
+  "description": "Politico enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
+  },
+  "scripts": {
+    "start": "node dist/api/app",
+    "build": "babel --presets env . -d ./dist --ignore node_modules,dist,ui",
+    "dev": "(babel --presets env . -d ./dist --ignore node_modules,dist,ui) && node dist/api/app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/walsamlee/politico.git"
+  },
+  "keywords": [
+    "election",
+    "political",
+    "parties",
+    "vote",
+    "voting"
+  ],
+  "author": "Akinwale Samuel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/walsamlee/politico/issues"
+  },
+  "homepage": "https://github.com/walsamlee/politico#readme"
+}
