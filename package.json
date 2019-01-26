@@ -17,13 +17,15 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
     "supertest": "^3.4.2"
   },
   "scripts": {
     "start": "node dist/server/v1/app",
     "build": "babel --presets env . -d ./dist --ignore node_modules,dist,templates",
     "dev": "(babel --presets env . -d ./dist --ignore node_modules,dist,templates) && node dist/server/v1/app",
-    "test": "(babel --presets env . -d ./dist --ignore node_modules,dist,templates) && mocha dist/server/v1/test/api.test.js --exit"
+    "test": "(babel --presets env . -d ./dist --ignore node_modules,dist,templates) && mocha dist/server/v1/test/api.test.js --exit",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
