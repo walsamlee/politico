@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+
 import router from './routes/router';
 
 const app = express();
@@ -34,4 +35,5 @@ app.use((err, req, res) => {
   });
 });
 
-module.exports = server;
+export default server;
+
