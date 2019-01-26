@@ -1,4 +1,4 @@
-const allParties = [
+let allParties = [
     {
         id: 1,
         name: 'Action Peoples Congress',
@@ -27,6 +27,17 @@ const allParties = [
 
 const allOffices = [];
 
+const editParty = (partyId, partyName) => {
+    for(let i = 0; i < allParties.length; i++) {       
+        if (partyId === allParties[i].id) {
+          allParties[i].name = partyName;
+          
+          return true;
+        }
+    }
+    return false;
+}
+
 const addParty = (party) => {
     allParties.push(party);
 }
@@ -48,7 +59,8 @@ const removeParty = (partyId) => {
 const Db = {
     addParty,
     addOffice,
-    removeParty
+    removeParty,
+    editParty
 };
 
 export default Db;
