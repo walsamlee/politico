@@ -25,6 +25,16 @@ const allParties = [
       },
 ];
 
+const allOffices = [];
+
+const addParty = (party) => {
+    allParties.push(party);
+}
+
+const addOffice = (office) => {
+    allOffices.push(office);
+}
+
 const removeParty = (partyId) => {
     for (let i = 0; i < allParties.length; i++) {
         if (partyId === allParties[i].id) {
@@ -36,7 +46,9 @@ const removeParty = (partyId) => {
 }
 
 const Db = {
+    addParty,
+    addOffice,
     removeParty
-}
+};
 
 export default Db;
