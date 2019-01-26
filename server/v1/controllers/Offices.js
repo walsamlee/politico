@@ -1,55 +1,53 @@
 import db from '../models/db';
+import Validations from './Validations';
 
 const Offices = {
   createOffice(req, res) {
-    const newOfficeId = req.body.id;
-    const newOfficeType = req.body.type;
-    const newOfficeName = req.body.name;
+    const result = Validations.validateOffice(req.body);
 
-    const newOffice = {
-      id: newOfficeId,
-      type: newOfficeType,
-      name: newOfficeName,
-    };
-    
-    db.addOffice(newOffice);
+    if (result.error) {
+      return res.json({
+        status: 400,
+        error: `${result.error.details[0].context.value} is an invalid value`,
+      });
+    }
+
+    db.addOffice(req.body);
 
     return res.json({
       status: 201,
       data: {
-        id: newOffice.id,
-        type: newOffice.type,
-        name: newOffice.name,
+        id: req.body.id,
+        type: req.body.type,
+        name: req.body.name,
       },
     });
   },
-  
+
   viewOffices(req, res) {
-      const allOffices = Db.viewOffices();
+    const allOffices = db.viewOffices();
 
-      return res.json({
-          status: 200,
-          data: allOffices
-      });
+    return res.json({
+      status: 200,
+      data: allOffices,
+    });
   },
-  
+
   viewOfficeById(req, res) {
-        const officeId = parseInt(req.params.officeId, 10);
+    const result = Validations.validateId(req.params.officeId);
 
-        const allOffices = Db.viewAnOffice(officeId);
+    if (result.error) {
+      return res.json({
+        status: 400,
+        error: `${result.error.details[0].context.value} is an invalid value`,
+      });
+    }
 
-        if(allOffices.length === 1) {
-            return res.json({
-                status: 200,
-                data: allOffices
-            });
-        } else {
-            return res.json({
-                status: 404,
-                error: `Office with ID ${officeId} not found`
-            });
-        }
-    },
+    return res.json({
+      status: 200,
+      data: db.viewAnOffice(parseInt(req.params.officeId, 10)),
+    });
+  },
 };
 
 export default Offices;

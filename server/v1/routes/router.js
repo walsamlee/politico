@@ -13,6 +13,6 @@ router.get('/parties', Parties.viewParties);
 
 router.post('/offices', Offices.createOffice);
 router.get('/offices', Offices.viewOffices);
-router.get('/offices/:officeId', Office.viewOfficeById);
+router.get('/offices/:officeId', Offices.viewOfficeById);
 
 export default router;

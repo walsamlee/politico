@@ -5,7 +5,8 @@
   "main": "app.js",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "joi": "^14.3.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -22,7 +23,7 @@
     "start": "node dist/server/v1/app",
     "build": "babel --presets env . -d ./dist --ignore node_modules,dist,templates",
     "dev": "(babel --presets env . -d ./dist --ignore node_modules,dist,templates) && node dist/server/v1/app",
-    "test": "mocha dist/server/v1/test/api.test.js --exit"
+    "test": "(babel --presets env . -d ./dist --ignore node_modules,dist,templates) && mocha dist/server/v1/test/api.test.js --exit"
   },
   "repository": {
     "type": "git",
