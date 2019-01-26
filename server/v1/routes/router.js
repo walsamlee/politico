@@ -1,7 +1,7 @@
 import express from 'express';
 
-import Parties from '../controllers/Parties';
 import Offices from '../controllers/Offices';
+import Parties from '../controllers/Parties';
 
 const router = express.Router();
 
@@ -12,5 +12,6 @@ router.get('/parties/:partyId', Parties.viewPartyById);
 router.get('/parties', Parties.viewParties);
 
 router.post('/offices', Offices.createOffice);
+router.get('/offices', Offices.viewOffices);
 
 export default router;
