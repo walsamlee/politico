@@ -35,4 +35,5 @@ app.use((err, req, res) => {
   });
 });
 
-module.exports = server;
+export default server;
+

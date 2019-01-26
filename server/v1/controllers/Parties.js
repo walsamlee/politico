@@ -1,6 +1,15 @@
 import Db from '../models/db';
 
 const Parties = {
+  viewParties(req, res) {
+    const allParties = Db.viewParties();
+    
+    return res.json({
+      status: 200,
+      data: allParties,
+    });
+  },
+    
   editPartyById(req, res) {
     const partyId = parseInt(req.params.partyId, 10);
     const partyName = req.params.name;

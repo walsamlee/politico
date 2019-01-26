@@ -27,6 +27,10 @@ let allParties = [
 
 const allOffices = [];
 
+const viewParties = () => {
+    return allParties;
+}
+
 const editParty = (partyId, partyName) => {
     for(let i = 0; i < allParties.length; i++) {       
         if (partyId === allParties[i].id) {
@@ -68,6 +72,7 @@ const viewParty = (partyId) => {
 }
 
 const Db = {
+    viewParties,
     addParty,
     addOffice,
     removeParty,
