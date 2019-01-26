@@ -25,6 +25,37 @@ let allParties = [
       },
 ];
 
+const allOffices = [];
+
+const editParty = (partyId, partyName) => {
+    for(let i = 0; i < allParties.length; i++) {       
+        if (partyId === allParties[i].id) {
+          allParties[i].name = partyName;
+          
+          return true;
+        }
+    }
+    return false;
+}
+
+const addParty = (party) => {
+    allParties.push(party);
+}
+
+const addOffice = (office) => {
+    allOffices.push(office);
+}
+
+const removeParty = (partyId) => {
+    for (let i = 0; i < allParties.length; i++) {
+        if (partyId === allParties[i].id) {
+          allParties.splice(i, 1);
+          return true;
+        }
+      }
+    return false;
+}
+
 const viewParty = (partyId) => {
     for(let i = 0; i < allParties.length; i++) {       
         if (partyId === allParties[i].id) {
@@ -37,7 +68,11 @@ const viewParty = (partyId) => {
 }
 
 const Db = {
+    addParty,
+    addOffice,
+    removeParty,
+    editParty,
     viewParty
-}
+};
 
 export default Db;
