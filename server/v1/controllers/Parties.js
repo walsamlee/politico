@@ -1,23 +1,16 @@
-const allParties = [];
+import Db from '../models/db';
 
 const Parties = {
     createParty(req, res) {
-        if (req.userData === 1) {
-          const newParty = req.body;
-      
-          allParties.push(newParty);
-      
-          return res.json({
-            status: 200,
-            data: newParty,
-          });
-        } else {
-          return res.json({
-            status: 401,
-            error: 'Access denied',
-          });
-        }
-      }
+        const newParty = req.body;
+        
+        Db.addParty(newParty);
+    
+        return res.json({
+          status: 200,
+          data: newParty,
+        });
+    }
 };
 
 export default Parties;
