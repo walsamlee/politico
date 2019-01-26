@@ -56,11 +56,23 @@ const removeParty = (partyId) => {
     return false;
 }
 
+const viewParty = (partyId) => {
+    for(let i = 0; i < allParties.length; i++) {       
+        if (partyId === allParties[i].id) {
+          const party = [allParties[i]];
+          return party;
+        }
+    }
+
+    return [];
+}
+
 const Db = {
     addParty,
     addOffice,
     removeParty,
-    editParty
+    editParty,
+    viewParty
 };
 
 export default Db;
