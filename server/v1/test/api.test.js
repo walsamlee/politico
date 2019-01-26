@@ -139,7 +139,7 @@ describe('CRUD politico app', () => {
                 if(err) throw err;
                 else {
                     expect(response.body).to.be.a('object');
-                    expect(response.body.data).to.deep.equal(testdata.office[2]);
+                    expect(response.body.data[0]).to.deep.equal(testdata.office[2]);
                 }
                 
                 done();
