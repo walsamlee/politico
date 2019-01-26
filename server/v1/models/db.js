@@ -1,11 +1,17 @@
 const allParties = [];
+const allOffices = [];
 
 const addParty = (party) => {
     allParties.push(party);
 }
 
-const Db = {
-    addParty
+const addOffice = (office) => {
+    allOffices.push(office);
 }
+
+const Db = {
+    addParty,
+    addOffice
+};
 
 export default Db;
