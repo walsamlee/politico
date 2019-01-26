@@ -1,4 +1,4 @@
-const allOffices = [];
+import db from '../models/db';
 
 const Offices = {
   createOffice(req, res) {
@@ -11,8 +11,8 @@ const Offices = {
       type: newOfficeType,
       name: newOfficeName,
     };
-
-    allOffices.push(newOffice);
+    
+    db.addOffice(newOffice);
 
     return res.json({
       status: 201,
