@@ -101,6 +101,15 @@ const viewOffices = () => {
     return allOffices;
 }
 
+const viewAnOffice = (officeId) => {
+    for(let i = 0; i < allOffices.length; i++) {
+        if(allOffices[i].id === officeId) {
+            return [allOffices[i]];
+        }
+    }
+    return [];
+}
+
 const Db = {
     viewParties,
     addParty,
@@ -108,8 +117,8 @@ const Db = {
     removeParty,
     editParty,
     viewParty,
-    viewOffices
+    viewOffices,
+    viewAnOffice
 };
-
 
 export default Db;
