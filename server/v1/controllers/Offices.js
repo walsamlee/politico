@@ -16,11 +16,7 @@ const Offices = {
 
     return res.json({
       status: 201,
-      data: {
-        id: req.body.id,
-        type: req.body.type,
-        name: req.body.name,
-      },
+      data: [req.body],
     });
   },
 

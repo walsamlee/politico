@@ -27,10 +27,12 @@ const Parties = {
     if (Db.editParty(partyId, partyName)) {
       return res.json({
         status: 204,
-        data: {
-          id: partyId,
-          name: partyName,
-        },
+        data: [
+          {
+            id: partyId,
+            name: partyName,
+          }
+        ],
       });
     }
     return res.json({
@@ -53,9 +55,11 @@ const Parties = {
     if (Db.removeParty(partyId)) {
       return res.json({
         status: 204,
-        data: {
-          message: `Party with ID ${partyId} has been deleted`,
-        },
+        data: [
+          {
+            message: `Party with ID ${partyId} has been deleted`,
+          }
+        ],
       });
     }
 
@@ -77,7 +81,7 @@ const Parties = {
 
     return res.json({
       status: 200,
-      data: newParty,
+      data: [newParty],
     });
   },
 
@@ -97,11 +101,7 @@ const Parties = {
     if (party.length === 1) {
       return res.json({
         status: 200,
-        data: {
-          id: partyId,
-          name: party[0].name,
-          logoUrl: party[0].logoUrl,
-        },
+        data: party,
       });
     }
     return res.json({
