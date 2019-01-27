@@ -12,11 +12,24 @@ const Offices = {
       });
     }
 
-    db.addOffice(req.body);
+    const officeId = parseInt(req.body.officeId, 10);
+    const officeType = req.body.type;
+    const officeName = req.body.name;
+
+    const office = {
+      id: officeId,
+      type: officeType,
+      name: officeName
+    }
+
+
+    db.addOffice(office);
 
     return res.json({
       status: 201,
-      data: [req.body],
+      data: [
+        office,
+      ],
     });
   },
 

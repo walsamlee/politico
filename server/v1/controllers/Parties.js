@@ -31,7 +31,7 @@ const Parties = {
           {
             id: partyId,
             name: partyName,
-          }
+          },
         ],
       });
     }
@@ -61,9 +61,12 @@ const Parties = {
           }
         ],
       });
+    } else {
+      return res.json({
+        status: 404,
+        error: `Party with ID ${partyId} not found`,
+      });
     }
-
-    return null;
   },
 
   createParty(req, res) {
@@ -81,7 +84,9 @@ const Parties = {
 
     return res.json({
       status: 200,
-      data: [newParty],
+      data: [
+        newParty,
+      ],
     });
   },
 
