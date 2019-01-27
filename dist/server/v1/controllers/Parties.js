@@ -39,10 +39,10 @@ var Parties = {
     if (_db2.default.editParty(partyId, partyName)) {
       return res.json({
         status: 204,
-        data: {
+        data: [{
           id: partyId,
           name: partyName
-        }
+        }]
       });
     }
     return res.json({
@@ -64,13 +64,16 @@ var Parties = {
     if (_db2.default.removeParty(partyId)) {
       return res.json({
         status: 204,
-        data: {
+        data: [{
           message: 'Party with ID ' + partyId + ' has been deleted'
-        }
+        }]
+      });
+    } else {
+      return res.json({
+        status: 404,
+        error: 'Party with ID ' + partyId + ' not found'
       });
     }
-
-    return null;
   },
   createParty: function createParty(req, res) {
     var result = _Validations2.default.validateParty(req.body);
@@ -87,7 +90,7 @@ var Parties = {
 
     return res.json({
       status: 200,
-      data: newParty
+      data: [newParty]
     });
   },
   viewPartyById: function viewPartyById(req, res) {
@@ -106,11 +109,7 @@ var Parties = {
     if (party.length === 1) {
       return res.json({
         status: 200,
-        data: {
-          id: partyId,
-          name: party[0].name,
-          logoUrl: party[0].logoUrl
-        }
+        data: party
       });
     }
     return res.json({
