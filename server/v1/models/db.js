@@ -132,7 +132,4 @@ const Db = {
   viewAnOffice,
 };
 
-export default {
-  Db,
-  client
-};
+export default Db;
