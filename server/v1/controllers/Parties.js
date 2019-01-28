@@ -3,11 +3,27 @@ import Validations from './Validations';
 
 const Parties = {
   viewParties(req, res) {
-    const allParties = Db.viewParties();
+    Db.client.query('SELECT * FROM parties', (err, result) => {
+      if (err) {
+        return res.json({
+          error: 404,
+          message: 'Data not retrieived',
+        });
+      }
+      const allParties = [];
 
-    return res.json({
-      status: 200,
-      data: allParties,
+      for (let i = 0; i < result.rows.length; i++) {
+        const row = {
+          id: result.rows[i].partyid,
+          name: result.rows[i].name,
+        };
+
+        allParties.push(row);
+      }
+      return res.json({
+        status: 200,
+        data: allParties,
+      });
     });
   },
 
@@ -24,18 +40,42 @@ const Parties = {
     const partyId = parseInt(req.params.partyId, 10);
     const partyName = req.params.name;
 
-    if (Db.editParty(partyId, partyName)) {
-      return res.json({
-        status: 204,
-        data: {
-          id: partyId,
-          name: partyName,
-        },
+    const query = {
+      text: 'SELECT * FROM parties WHERE partyid=$1',
+      values: [partyId],
+    };
+
+    Db.client.query(query, (err, result) => {
+      if (err) {
+        return res.json({
+          status: 400,
+          error: 'Data could not be retireved',
+        });
+      }
+      if (result.rowCount === 0) {
+        return res.json({
+          status: 404,
+          error: `Party with ID ${partyId} not found`,
+        });
+      }
+
+      Db.client.query('UPDATE parties SET name=$1 WHERE partyid=$2', [partyName, partyId], (err, result) => {
+        if (err) {
+          return res.json({
+            status: 400,
+            error: 'Unable to Update row',
+          });
+        }
+        return res.json({
+          status: 200,
+          data: [
+            {
+              id: partyId,
+              name: partyName,
+            },
+          ],
+        });
       });
-    }
-    return res.json({
-      status: 404,
-      error: `Party with ID ${partyId} not found`,
     });
   },
 
@@ -48,18 +88,33 @@ const Parties = {
         error: `${result.error.details[0].context.value} is an invalid value`,
       });
     }
+
     const partyId = parseInt(req.params.partyId, 10);
 
-    if (Db.removeParty(partyId)) {
+    Db.client.query('DELETE FROM parties WHERE partyid=$1', [partyId], (err, result) => {
+      if (err) {
+        return res.json({
+          status: 400,
+          message: 'Row cannot be deleted',
+        });
+      }
+      if (result.rowCount === 0) {
+        return res.json({
+          status: 404,
+          data: {
+            message: `Party with ID ${partyId} not found`,
+          },
+        });
+      }
       return res.json({
-        status: 204,
-        data: {
-          message: `Party with ID ${partyId} has been deleted`,
-        },
+        status: 202,
+        data: [
+          {
+            message: `Party with ID ${partyId} has been deleted`,
+          },
+        ],
       });
-    }
-
-    return null;
+    });
   },
 
   createParty(req, res) {
@@ -71,13 +126,34 @@ const Parties = {
         error: `${result.error.details[0].context.value} is an invalid value`,
       });
     }
-    const newParty = req.body;
+    const party = req.body;
 
-    Db.addParty(newParty);
+    const partyId = req.body.id;
+    const partyName = party.name;
+    const partyHqAddress = party.hqAddress;
+    const partyLogoUrl = party.logoUrl;
 
-    return res.json({
-      status: 200,
-      data: newParty,
+    const query = {
+      text: 'INSERT INTO parties(partyid, name, hqaddress, logourl) VALUES($1, $2, $3, $4)',
+      values: [partyId, partyName, partyHqAddress, partyLogoUrl],
+    };
+
+    Db.client.query(query, (err, result) => {
+      if (err) {
+        return res.json({
+          status: 400,
+          error: 'Data could not be added',
+        });
+      }
+      return res.json({
+        status: 201,
+        data: [
+          {
+            id: partyId,
+            name: partyName,
+          },
+        ],
+      });
     });
   },
 
@@ -92,21 +168,29 @@ const Parties = {
     }
     const partyId = parseInt(req.params.partyId, 10);
 
-    const party = Db.viewParty(partyId);
-
-    if (party.length === 1) {
+    Db.client.query('SELECT * FROM parties WHERE partyid=$1', [partyId], (err, result) => {
+      if (err) {
+        return res.json({
+          status: 400,
+          message: 'Data could not be retrieved',
+        });
+      }
+      if (result.rowCount === 0) {
+        return res.json({
+          error: 404,
+          message: `Party with ID ${partyId} could not be found`,
+        });
+      }
       return res.json({
         status: 200,
-        data: {
-          id: partyId,
-          name: party[0].name,
-          logoUrl: party[0].logoUrl,
-        },
+        data: [
+          {
+            id: result.rows[0].partyid,
+            name: result.rows[0].name,
+            logoUrl: result.rows[0].logourl,
+          },
+        ],
       });
-    }
-    return res.json({
-      status: 404,
-      error: `Party with ID ${partyId} not found`,
     });
   },
 };
