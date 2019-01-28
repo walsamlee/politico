@@ -5,9 +5,19 @@ const Parties = {
   viewParties(req, res) {
     const allParties = Db.viewParties();
 
+    const data = [];
+
+    for(let i = 0; i < allParties.length; i++) {
+      data.push({
+        id: allParties[i].id,
+        name: allParties[i].name,
+        logoUrl: allParties[i].logoUrl
+      });
+    }
+
     return res.json({
       status: 200,
-      data: allParties,
+      data: data,
     });
   },
 
@@ -78,14 +88,29 @@ const Parties = {
         error: `${result.error.details[0].context.value} is an invalid value`,
       });
     }
-    const newParty = req.body;
+    let newPartyId = req.body.id;
+    if(typeof newPartyId === 'string') newPartyId = parseInt(newPartyId, 10);
+
+    const newPartyName = req.body.name;
+    const newPartyHq = req.body.hqAddress;
+    const newPartyLogo = req.body.logoUrl;
+
+    const newParty = {
+      id: newPartyId,
+      name: newPartyName,
+      hqAddress: newPartyHq,
+      logoUrl: newPartyLogo
+    };
 
     Db.addParty(newParty);
 
     return res.json({
       status: 200,
       data: [
-        newParty,
+        {
+          id: newParty.id,
+          name: newParty.name
+        }
       ],
     });
   },
@@ -106,7 +131,13 @@ const Parties = {
     if (party.length === 1) {
       return res.json({
         status: 200,
-        data: party,
+        data: [
+          {
+            id: party[0].id,
+            name: party[0].name,
+            logoUrl: party[0].logoUrl
+          }
+        ]
       });
     }
     return res.json({
