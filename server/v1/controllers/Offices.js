@@ -12,7 +12,10 @@ const Offices = {
       });
     }
 
-    const officeId = parseInt(req.body.officeId, 10);
+    let officeId = req.body.id;
+
+    if(typeof officeId === 'string') officeId = parseInt(officeId, 10);
+
     const officeType = req.body.type;
     const officeName = req.body.name;
 

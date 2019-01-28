@@ -25,15 +25,24 @@ var Offices = {
       });
     }
 
-    _db2.default.addOffice(req.body);
+    var officeId = req.body.id;
+
+    if (typeof officeId === 'string') officeId = parseInt(officeId, 10);
+
+    var officeType = req.body.type;
+    var officeName = req.body.name;
+
+    var office = {
+      id: officeId,
+      type: officeType,
+      name: officeName
+    };
+
+    _db2.default.addOffice(office);
 
     return res.json({
       status: 201,
-      data: {
-        id: req.body.id,
-        type: req.body.type,
-        name: req.body.name
-      }
+      data: [office]
     });
   },
   viewOffices: function viewOffices(req, res) {

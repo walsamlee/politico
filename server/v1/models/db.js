@@ -78,7 +78,7 @@ const removeParty = (partyId) => {
   for (let i = 0; i < allParties.length; i++) {
     if (partyId === allParties[i].id) {
       allParties.splice(i, 1);
-      return true;
+      return [allParties];
     }
   }
   return false;
