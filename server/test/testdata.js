@@ -6,33 +6,40 @@ const user = {
 };
 
 const userLogin = {
+    irstName: 'Adekunle',
+    lastName: 'Oyinda',
     email: 'user1@politico.com',
     password: '6644a19ac656c27203d081e52b281853'
 };
 
 const users = [
     {
-        id: 1,
+        firstName: 'Adekunle',
+        lastName: 'Oyinda',
         email: 'user1@politico.com',
         password: '6644a19ac656c27203d081e52b281853'
     },
     {
-        id: 2,
+        firstName: 'Oluchi',
+        lastName: 'Evans',
         email: 'user2@politico.com',
         password: '6644a19ac656c27203d081e52b281853'
     },
     {
-        id: 3,
+        firstName: 'Sani',
+        lastName: 'Hassan',
         email: 'user3@politico.com',
         password: '6644a19ac656c27203d081e52b281853'
     },
     {
-        id: 4,
+        firstName: 'Albert',
+        lastName: 'George',
         email: 'user4@politico.com',
         password: '6644a19ac656c27203d081e52b281853'
     },
     {
-        id: 5,
+        firstName: 'Ebele',
+        lastName: 'Joe',
         email: 'user5@politico.com',
         password: '6644a19ac656c27203d081e52b281853'
     }
