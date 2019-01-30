@@ -1,3 +1,98 @@
+import { getMaxListeners } from "cluster";
+
+const user = {
+    email: 'user1@politico.com',
+    password: 'politico123'
+};
+
+const userLogin = {
+    irstName: 'Adekunle',
+    lastName: 'Oyinda',
+    email: 'user1@politico.com',
+    password: '6644a19ac656c27203d081e52b281853'
+};
+
+const users = [
+    {
+        firstName: 'Adekunle',
+        lastName: 'Oyinda',
+        email: 'user1@politico.com',
+        password: '6644a19ac656c27203d081e52b281853'
+    },
+    {
+        firstName: 'Oluchi',
+        lastName: 'Evans',
+        email: 'user2@politico.com',
+        password: '6644a19ac656c27203d081e52b281853'
+    },
+    {
+        firstName: 'Sani',
+        lastName: 'Hassan',
+        email: 'user3@politico.com',
+        password: '6644a19ac656c27203d081e52b281853'
+    },
+    {
+        firstName: 'Albert',
+        lastName: 'George',
+        email: 'user4@politico.com',
+        password: '6644a19ac656c27203d081e52b281853'
+    },
+    {
+        firstName: 'Ebele',
+        lastName: 'Joe',
+        email: 'user5@politico.com',
+        password: '6644a19ac656c27203d081e52b281853'
+    }
+];
+
+const candidates = [
+    {
+        officeId: 1,
+        candidateId: 4
+    },
+    {
+        officeId: 1,
+        candidateId: 5
+    },
+]
+
+const votes = [
+    {
+        office: 1,
+        candidate: 4,
+        voter: 1
+    },
+    {
+        office: 1,
+        candidate: 4,
+        voter: 2
+    },
+    {
+        office: 1,
+        candidate: 5,
+        voter: 5
+    },
+    ,
+    {
+        office: 1,
+        candidate: 4,
+        voter: 4
+    },
+];
+
+const result = [
+    {
+        office: 1,
+        candidate: 1,
+        result: 3
+    },
+    {
+        office: 1,
+        candidate: 2,
+        result: 1
+    },
+]
+
 const party = [
     {
         id: 1,
@@ -150,5 +245,11 @@ export default {
     office,
     afterPostOffice,
     officePost,
-    officePut
+    officePut,
+    user,
+    users,
+    votes,
+    result,
+    userLogin,
+    candidates
 }
