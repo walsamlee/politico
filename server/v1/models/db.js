@@ -1,3 +1,8 @@
+import { Pool } from 'pg';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const allParties = [
   {
     id: 1,
@@ -52,6 +57,16 @@ const allOffices = [
     name: 'Chairman',
   },
 ];
+
+const client = new Pool({
+  connectionString: process.env.DATABASE_URL,
+});
+
+
+client.connect((err) => {
+  if (!err) return console.log('Connected to db');
+});
+
 
 const viewParties = () => allParties;
 
