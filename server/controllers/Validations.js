@@ -52,17 +52,27 @@ const validateUser = (user) => {
     password: Joi.required(),
     firstName: Joi.string().required(),
     lastName: Joi.string().required(),
-  }
+  };
 
   return Joi.validate(user, schema);
-}
+};
+
+const validateCandidate = (candidate) => {
+  const schema = {
+    office: Joi.number().integer().required(),
+    user: Joi.number().integer().required(),
+  };
+
+  return Joi.validate(candidate, schema);
+};
 
 const Validatitions = {
   validateParty,
   validateOffice,
   validateId,
   validateEdit,
-  validateUser
+  validateUser,
+  validateCandidate,
 };
 
 export default Validatitions;
