@@ -28,7 +28,7 @@ const Parties = {
   },
 
   editPartyById(req, res) {
-    const result = Validations.validateEdit(req.params.partyId, req.params.name);
+    const result = Validations.validateEdit(req.params.partyId, req.body.name);
 
     if (result.error) {
       return res.json({
@@ -38,7 +38,7 @@ const Parties = {
     }
 
     const partyId = parseInt(req.params.partyId, 10);
-    const partyName = req.params.name;
+    const partyName = req.body.name;
 
     const query = {
       text: 'SELECT * FROM parties WHERE partyid=$1',
