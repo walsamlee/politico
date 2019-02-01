@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 
 import authRouter from './routes/authRoute';
 import router from './routes/router';
+import voteRouter from './routes/voteRouter';
 import officeRouter from './routes/officeRouter';
 
 const app = express();
@@ -14,6 +15,7 @@ const port = process.env.PORT || 3000;
 
 app.use('/auth', authRouter);
 app.use('/api/v1', router);
+app.use('/votes', voteRouter);
 app.use('/office', officeRouter);
 
 const server = app.listen(port, () => {
