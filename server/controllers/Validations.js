@@ -46,14 +46,35 @@ const validateEdit = (id, name) => {
   return Joi.validate(partyDetails, schema);
 };
 
-const validateUserLogin = (user) => {
+const validateUser = (user) => {
   const schema = {
     email: Joi.string().email({ minDomainAtoms: 2 }).required(),
     password: Joi.required(),
+    firstName: Joi.string().required(),
+    lastName: Joi.string().required(),
   };
 
   return Joi.validate(user, schema);
 };
+
+const validateCandidate = (candidate) => {
+  const schema = {
+    office: Joi.number().integer().required(),
+    user: Joi.number().integer().required(),
+  };
+
+  return Joi.validate(candidate, schema);
+};
+
+const validateVote = (vote) => {
+  const schema = {
+    office: Joi.number().integer().required(),
+    candidate: Joi.number().integer().required(),
+    voter: Joi.number().integer().required(),
+  }
+
+  return Joi.validate(vote, schema);
+}
 
 const Validatitions = {
   validateParty,
@@ -61,6 +82,9 @@ const Validatitions = {
   validateId,
   validateEdit,
   validateUserLogin,
+  validateUser,
+  validateCandidate,
+  validateVote
 };
 
 export default Validatitions;
