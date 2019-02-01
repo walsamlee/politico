@@ -76,6 +76,15 @@ const validateVote = (vote) => {
   return Joi.validate(vote, schema);
 }
 
+const validateUserLogin = (user) => {
+  const schema = {
+    email: Joi.string().email({ minDomainAtoms: 2 }).required(),
+    password: Joi.required(),
+  };
+
+  return Joi.validate(user, schema);
+};
+
 const Validatitions = {
   validateParty,
   validateOffice,
