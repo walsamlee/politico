@@ -81,6 +81,7 @@ const Validatitions = {
   validateOffice,
   validateId,
   validateEdit,
+  validateUserLogin,
   validateUser,
   validateCandidate,
   validateVote
