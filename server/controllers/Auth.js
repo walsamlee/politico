@@ -1,5 +1,11 @@
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import dotenv from 'dotenv';
+
 import db from '../models/db';
 import Validations from './Validations';
+
+dotenv.config();
 
 const signup = (req, res) => {
   const result = Validations.validateUser(req.body);
@@ -10,78 +16,68 @@ const signup = (req, res) => {
       error: `${result.error.details[0].context.value} is an invalid value`,
     });
   }
+  const email = req.body.email;
+  const pword = req.body.password;
+  const privilege = 0
 
-  const query = {
-    text: 'INSERT INTO users(email, password, firstname, lastname) VALUES($1, $2, $3, $4)',
-    values: [req.body.email, req.body.password, req.body.firstName, req.body.lastName],
-  };
-
-  db.client.query(query, (err, result) => {
+  bcrypt.hash(pword, 10, (err, hash) => {
     if (err) {
       return res.json({
         status: 400,
-        message: 'Data cannot be added to database',
-      });
-    }
-    return res.json({
-      status: 200,
-      data: [
-        {
-          token: 0,
-          user: {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
-          },
-        },
-      ],
-    });
-  });
-};
-
-const login = (req, res) => {
-  const result = Validations.validateUserLogin(req.body);
-
-  if (result.error) {
-    return res.json({
-      status: 400,
-      error: `${result.error.details[0].context.value} is an invalid value`,
-    });
-  }
-
-  db.client.query('SELECT * FROM users WHERE email=$1 AND password=$2', [req.body.email, req.body.password], (err, result) => {
-    if (err) {
-      return res.json({
-        status: 400,
-        message: 'Data cannot be added to database',
-      });
-    }
-    if (result.rowCount === 0) {
-      return res.json({
-        status: 404,
-        error: `User with email ${req.body.email} not found`,
+        message: 'Password cannot be hashed',
       });
     }
 
-    return res.json({
-      status: 200,
-      data: [
-        {
-          token: 0,
-          user: {
-            firstName: result.rows[0].firstname,
-            lastName: result.rows[0].lastname,
-            email: result.rows[0].email,
-          },
-        },
-      ],
+    jwt.sign({
+      email,
+      privilege: privilege,
+    },
+    process.env.SECRET,
+    {
+      expiresIn: '1y',
+    }, (err, token) => {
+      if (err) {
+        return res.json({
+          status: 400,
+          message: 'Unable to generate token',
+        });
+      }
+
+      const query = {
+        text: 'INSERT INTO users(email, password, firstname, lastname, privilege) VALUES($1, $2, $3, $4, $5)',
+        values: [email, hash, req.body.firstName, req.body.lastName, privilege],
+      };
+
+      db.client.query(query, (err, result) => {
+        if (err) {
+          return res.json({
+            status: 400,
+            message: 'Data cannot be added to database',
+          });
+        }
+        return res.json({
+          status: 200,
+          data: [
+            {
+              token,
+              user: {
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                email,
+              },
+            },
+          ],
+        });
+      });
     });
   });
 };
 
 const Auth = {
+
   login,
   signup,
 };
+
 
 export default Auth;
