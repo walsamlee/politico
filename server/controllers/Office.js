@@ -2,8 +2,14 @@ import db from '../models/db';
 import Validations from './Validations';
 
 const registerCandidate = (req, res) => {
+  if (req.userData.privilege !== 1) {
+    return res.json({
+      status: 401,
+      message: 'Unauthorized access',
+    });
+  }
   const candidateDetails = {
-    office: req.params.register,
+    office: req.body.office,
     user: req.params.userId,
   };
   const result = Validations.validateCandidate(candidateDetails);
@@ -15,7 +21,7 @@ const registerCandidate = (req, res) => {
     });
   }
 
-  const office = parseInt(req.params.register, 10);
+  const office = parseInt(req.body.office, 10);
   const user = parseInt(req.params.userId, 10);
   const query = {
     text: 'INSERT INTO candidates(officeid, userid) VALUES($1, $2)',
@@ -26,7 +32,7 @@ const registerCandidate = (req, res) => {
     if (err) {
       return res.json({
         status: 400,
-        message: 'Data cannot be added to database',
+        message: 'Cannot add user to this office! User may already be registered for this office',
       });
     }
 

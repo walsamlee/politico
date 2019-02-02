@@ -16,9 +16,10 @@ const signup = (req, res) => {
       error: `${result.error.details[0].context.value} is an invalid value`,
     });
   }
+  const passportUrl = req.body.passportUrl;
   const email = req.body.email;
   const pword = req.body.password;
-  const privilege = 0
+  const privilege = 0;
 
   bcrypt.hash(pword, 10, (err, hash) => {
     if (err) {
@@ -28,49 +29,62 @@ const signup = (req, res) => {
       });
     }
 
-    jwt.sign({
-      email,
-      privilege: privilege,
-    },
-    process.env.SECRET,
-    {
-      expiresIn: '1y',
-    }, (err, token) => {
+    const query = {
+      text: 'INSERT INTO users(email, password, firstname, lastname, othername, telephone, privilege, passporturl) VALUES($1, $2, $3, $4, $5, $6, $7, $8)',
+      values: [email, hash, req.body.firstName, req.body.lastName, req.body.otherName, req.body.telephone, privilege, passportUrl],
+    };
+
+    db.client.query(query, (err, result) => {
       if (err) {
         return res.json({
           status: 400,
-          message: 'Unable to generate token',
+          message: 'Account could not be created',
         });
       }
 
-      const query = {
-        text: 'INSERT INTO users(email, password, firstname, lastname, privilege) VALUES($1, $2, $3, $4, $5)',
-        values: [email, hash, req.body.firstName, req.body.lastName, privilege],
-      };
-
-      db.client.query(query, (err, result) => {
+      db.client.query('SELECT * FROM users WHERE email=$1', [email], (err, result) => {
         if (err) {
           return res.json({
             status: 400,
-            message: 'Data cannot be added to database',
+            message: 'Data cannot be retrieved',
           });
         }
-        return res.json({
-          status: 200,
-          data: [
-            {
-              token,
-              user: {
-                firstName: req.body.firstName,
-                lastName: req.body.lastName,
-                email,
-              },
-            },
-          ],
-        });
+
+        jwt.sign({
+          id: result.rows[0].userid,
+          email: result.rows[0].email,
+          privilege: result.rows[0].privilege,
+        },
+        process.env.SECRET,
+        {
+          expiresIn: '1y',
+        }, (err, loginToken) => {
+          if (err) {
+            return res.json({
+              status: 400,
+              message: err,
+            });
+          }
+
+          return res.json({
+            status: 200,
+            data: [
+              {
+                token: loginToken,
+                user: {
+                  passportUrl: result.rows[0].passporturl,
+                  name: `${result.rows[0].firstname} ${result.rows[0].lastname} ${result.rows[0].othername}`,
+                  email: result.rows[0].email,
+                  phoneNumber: result.rows[0].telephone
+                }
+              }
+            ]
+          })
+        });        
       });
     });
   });
+  
 };
 
 const login = (req, res) => {
@@ -83,13 +97,14 @@ const login = (req, res) => {
     });
   }
 
-  db.client.query('SELECT * FROM users WHERE email=$1 AND password=$2', [req.body.email, req.body.password], (err, result) => {
+  db.client.query('SELECT * FROM users WHERE email=$1', [req.body.email], (err, result) => {
     if (err) {
       return res.json({
         status: 400,
         message: 'Data cannot be added to database',
       });
     }
+
     if (result.rowCount === 0) {
       return res.json({
         status: 404,
@@ -97,18 +112,46 @@ const login = (req, res) => {
       });
     }
 
-    return res.json({
-      status: 200,
-      data: [
-        {
-          token: 0,
-          user: {
-            firstName: result.rows[0].firstname,
-            lastName: result.rows[0].lastname,
-            email: result.rows[0].email,
-          },
+    bcrypt.compare(req.body.password, result.rows[0].password, (err, response) => {
+      if(response) {
+        jwt.sign({
+          id: result.rows[0].userid,
+          email: result.rows[0].email,
+          privilege: result.rows[0].privilege,
         },
-      ],
+        process.env.SECRET,
+        {
+          expiresIn: '1y',
+        }, (err, loginToken) => {
+          if (err) {
+            return res.json({
+              status: 400,
+              message: 'Data cannot be added to database',
+            });
+          }
+  
+          return res.json({
+            status: 200,
+            data: [
+              {
+                token: loginToken,
+                user: {
+                  id: result.rows[0].userid,
+                  passportUrl: result.rows[0].passporturl,
+                  name: `${result.rows[0].firstname} ${result.rows[0].lastname} ${result.rows[0].othername}`,
+                  email: result.rows[0].email,
+                  phoneNumber: result.rows[0].telephone
+                }
+              }
+            ]
+          })
+        });
+      } else {
+        return res.json({
+          status: 400,
+          message: 'Invalid username or password',
+        });
+      }
     });
   });
 };

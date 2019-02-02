@@ -28,6 +28,13 @@ const Parties = {
   },
 
   editPartyById(req, res) {
+    if(req.userData.privilege !== 1) {
+      return res.json({
+        status: 401,
+        message: 'Unauthorized access'
+      });
+    }
+
     const result = Validations.validateEdit(req.params.partyId, req.body.name);
 
     if (result.error) {
@@ -80,6 +87,13 @@ const Parties = {
   },
 
   deletePartyById(req, res) {
+    if(req.userData.privilege !== 1) {
+      return res.json({
+        status: 401,
+        message: 'Unauthorized access'
+      });
+    }
+
     const result = Validations.validateId(req.params.partyId);
 
     if (result.error) {
@@ -118,6 +132,13 @@ const Parties = {
   },
 
   createParty(req, res) {
+    if(req.userData.privilege !== 1) {
+      return res.json({
+        status: 401,
+        message: 'Unauthorized access'
+      });
+    }
+    
     const result = Validations.validateParty(req.body);
 
     if (result.error) {

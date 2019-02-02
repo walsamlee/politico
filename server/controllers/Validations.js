@@ -48,10 +48,13 @@ const validateEdit = (id, name) => {
 
 const validateUser = (user) => {
   const schema = {
+    passportUrl: Joi.string().required(),
     email: Joi.string().email({ minDomainAtoms: 2 }).required(),
     password: Joi.required(),
     firstName: Joi.string().required(),
     lastName: Joi.string().required(),
+    otherName: Joi.string().required(),
+    telephone: Joi.number().integer().required(),
   };
 
   return Joi.validate(user, schema);
