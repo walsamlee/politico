@@ -77,7 +77,7 @@ var signup = function signup(req, res) {
           id: result.rows[0].userid,
           email: result.rows[0].email,
           privilege: result.rows[0].privilege
-        }, process.env.SECRET, {
+        }, 'theadminisgreat', {
           expiresIn: '1y'
         }, function (err, loginToken) {
           if (err) {
@@ -136,7 +136,7 @@ var login = function login(req, res) {
           id: result.rows[0].userid,
           email: result.rows[0].email,
           privilege: result.rows[0].privilege
-        }, process.env.SECRET, {
+        }, 'theadminisgreat', {
           expiresIn: '1y'
         }, function (err, loginToken) {
           if (err) {
