@@ -71,6 +71,8 @@ var signup = function signup(req, res) {
           });
         }
 
+        console.log(result);
+
         _jsonwebtoken2.default.sign({
           id: result.rows[0].userid,
           email: result.rows[0].email,

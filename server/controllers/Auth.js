@@ -50,6 +50,8 @@ const signup = (req, res) => {
           });
         }
 
+        console.log(result.rows[0]);
+
         jwt.sign({
           id: result.rows[0].userid,
           email: result.rows[0].email,
