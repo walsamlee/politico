@@ -71,7 +71,7 @@ var signup = function signup(req, res) {
           });
         }
 
-        console.log(result);
+        console.log(result.rows[0]);
 
         _jsonwebtoken2.default.sign({
           id: result.rows[0].userid,
