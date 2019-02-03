@@ -2,12 +2,6 @@ import db from '../models/db';
 import Validations from './Validations';
 
 const registerCandidate = (req, res) => {
-  if (req.userData.privilege !== 1) {
-    return res.json({
-      status: 401,
-      message: 'Unauthorized access',
-    });
-  }
   const candidateDetails = {
     office: req.body.office,
     user: req.params.userId,
