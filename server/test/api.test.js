@@ -5,6 +5,89 @@ import testdata from './testdata';
 import app from '../app';
 
 describe('CRUD politico app', () => {
+    it('test POST /auth/signup', (done) => {
+        request(app)
+            .post('/auth/signup')
+            .send(testdata.user)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end((err, response) => {
+                if(err) throw err;
+                else {
+                    expect(response.data).to.be.a('array');
+                }
+                
+                done();
+            });
+    });
+
+    it('test POST /auth/login', (done) => {
+        request(app)
+            .post('/auth/login')
+            .send(testdata.userLogin)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end((err, response) => {
+                if(err) throw err;
+                else {
+                    expect(response.data).to.be.a('array');
+                }
+                
+                done();
+            });
+    });
+
+    it('test POST /office/:user-id/register', (done) => {
+        request(app)
+            .post('/office/1/1')
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end((err, response) => {
+                if(err) throw err;
+                else {
+                    expect(response.data).to.be.a('object');
+                }
+                
+                done();
+            });
+    });
+
+    it('test POST /votes/', (done) => {
+        request(app)
+            .post('/api/v1/parties')
+            .send(testdata.votes[0])
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end((err, response) => {
+                if(err) throw err;
+                else {
+                    expect(response.data).to.be.a('object');
+                }
+                
+                done();
+            });
+    });
+
+    it('test POST /offices/office-id/result', (done) => {
+        request(app)
+            .post('/offices/1/')
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end((err, response) => {
+                if(err) throw err;
+                else {
+                    expect(response.data).to.be.a('array');
+                }
+                
+                done();
+            });
+    });
+
     it('test POST /api/v1/parties route', (done) => {
         request(app)
             .post('/api/v1/parties')

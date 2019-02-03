@@ -3,6 +3,84 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _cluster = require('cluster');
+
+var user = {
+    email: 'user1@politico.com',
+    password: 'politico123'
+};
+
+var userLogin = {
+    irstName: 'Adekunle',
+    lastName: 'Oyinda',
+    email: 'user1@politico.com',
+    password: '6644a19ac656c27203d081e52b281853'
+};
+
+var users = [{
+    firstName: 'Adekunle',
+    lastName: 'Oyinda',
+    email: 'user1@politico.com',
+    password: '6644a19ac656c27203d081e52b281853'
+}, {
+    firstName: 'Oluchi',
+    lastName: 'Evans',
+    email: 'user2@politico.com',
+    password: '6644a19ac656c27203d081e52b281853'
+}, {
+    firstName: 'Sani',
+    lastName: 'Hassan',
+    email: 'user3@politico.com',
+    password: '6644a19ac656c27203d081e52b281853'
+}, {
+    firstName: 'Albert',
+    lastName: 'George',
+    email: 'user4@politico.com',
+    password: '6644a19ac656c27203d081e52b281853'
+}, {
+    firstName: 'Ebele',
+    lastName: 'Joe',
+    email: 'user5@politico.com',
+    password: '6644a19ac656c27203d081e52b281853'
+}];
+
+var candidates = [{
+    officeId: 1,
+    candidateId: 4
+}, {
+    officeId: 1,
+    candidateId: 5
+}];
+
+var votes = [{
+    office: 1,
+    candidate: 4,
+    voter: 1
+}, {
+    office: 1,
+    candidate: 4,
+    voter: 2
+}, {
+    office: 1,
+    candidate: 5,
+    voter: 5
+},, {
+    office: 1,
+    candidate: 4,
+    voter: 4
+}];
+
+var result = [{
+    office: 1,
+    candidate: 1,
+    result: 3
+}, {
+    office: 1,
+    candidate: 2,
+    result: 1
+}];
+
 var party = [{
     id: 1,
     name: 'Action Peoples Congress',
@@ -131,5 +209,11 @@ exports.default = {
     office: office,
     afterPostOffice: afterPostOffice,
     officePost: officePost,
-    officePut: officePut
+    officePut: officePut,
+    user: user,
+    users: users,
+    votes: votes,
+    result: result,
+    userLogin: userLogin,
+    candidates: candidates
 };

@@ -17,6 +17,56 @@ var _app2 = _interopRequireDefault(_app);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 describe('CRUD politico app', function () {
+    it('test POST /auth/signup', function (done) {
+        (0, _supertest2.default)(_app2.default).post('/auth/signup').send(_testdata2.default.user).set('Accept', 'application/json').expect('Content-Type', /json/).expect(200).end(function (err, response) {
+            if (err) throw err;else {
+                (0, _chai.expect)(response.data).to.be.a('array');
+            }
+
+            done();
+        });
+    });
+
+    it('test POST /auth/login', function (done) {
+        (0, _supertest2.default)(_app2.default).post('/auth/login').send(_testdata2.default.userLogin).set('Accept', 'application/json').expect('Content-Type', /json/).expect(200).end(function (err, response) {
+            if (err) throw err;else {
+                (0, _chai.expect)(response.data).to.be.a('array');
+            }
+
+            done();
+        });
+    });
+
+    it('test POST /office/:user-id/register', function (done) {
+        (0, _supertest2.default)(_app2.default).post('/office/1/1').set('Accept', 'application/json').expect('Content-Type', /json/).expect(200).end(function (err, response) {
+            if (err) throw err;else {
+                (0, _chai.expect)(response.data).to.be.a('object');
+            }
+
+            done();
+        });
+    });
+
+    it('test POST /votes/', function (done) {
+        (0, _supertest2.default)(_app2.default).post('/api/v1/parties').send(_testdata2.default.votes[0]).set('Accept', 'application/json').expect('Content-Type', /json/).expect(200).end(function (err, response) {
+            if (err) throw err;else {
+                (0, _chai.expect)(response.data).to.be.a('object');
+            }
+
+            done();
+        });
+    });
+
+    it('test POST /offices/office-id/result', function (done) {
+        (0, _supertest2.default)(_app2.default).post('/offices/1/').set('Accept', 'application/json').expect('Content-Type', /json/).expect(200).end(function (err, response) {
+            if (err) throw err;else {
+                (0, _chai.expect)(response.data).to.be.a('array');
+            }
+
+            done();
+        });
+    });
+
     it('test POST /api/v1/parties route', function (done) {
         (0, _supertest2.default)(_app2.default).post('/api/v1/parties').send(_testdata2.default.partyPost).set('Accept', 'application/json').expect('Content-Type', /json/).expect(200).end(function (err, response) {
             if (err) throw err;else {

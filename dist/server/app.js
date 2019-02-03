@@ -12,9 +12,21 @@ var _bodyParser = require('body-parser');
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
+var _authRoute = require('./routes/authRoute');
+
+var _authRoute2 = _interopRequireDefault(_authRoute);
+
 var _router = require('./routes/router');
 
 var _router2 = _interopRequireDefault(_router);
+
+var _voteRouter = require('./routes/voteRouter');
+
+var _voteRouter2 = _interopRequireDefault(_voteRouter);
+
+var _officeRouter = require('./routes/officeRouter');
+
+var _officeRouter2 = _interopRequireDefault(_officeRouter);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25,7 +37,10 @@ app.use(_bodyParser2.default.json());
 
 var port = process.env.PORT || 3000;
 
+app.use('/auth', _authRoute2.default);
 app.use('/api/v1', _router2.default);
+app.use('/votes', _voteRouter2.default);
+app.use('/office', _officeRouter2.default);
 
 var server = app.listen(port, function () {
   console.log('App listening on port ' + port);

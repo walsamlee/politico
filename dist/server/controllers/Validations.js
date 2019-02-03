@@ -56,11 +56,57 @@ var validateEdit = function validateEdit(id, name) {
   return _joi2.default.validate(partyDetails, schema);
 };
 
+var validateUser = function validateUser(user) {
+  var schema = {
+    passportUrl: _joi2.default.string().required(),
+    email: _joi2.default.string().email({ minDomainAtoms: 2 }).required(),
+    password: _joi2.default.required(),
+    firstName: _joi2.default.string().required(),
+    lastName: _joi2.default.string().required(),
+    otherName: _joi2.default.string().required(),
+    telephone: _joi2.default.number().integer().required()
+  };
+
+  return _joi2.default.validate(user, schema);
+};
+
+var validateCandidate = function validateCandidate(candidate) {
+  var schema = {
+    office: _joi2.default.number().integer().required(),
+    user: _joi2.default.number().integer().required()
+  };
+
+  return _joi2.default.validate(candidate, schema);
+};
+
+var validateVote = function validateVote(vote) {
+  var schema = {
+    office: _joi2.default.number().integer().required(),
+    candidate: _joi2.default.number().integer().required(),
+    voter: _joi2.default.number().integer().required()
+  };
+
+  return _joi2.default.validate(vote, schema);
+};
+
+var validateUserLogin = function validateUserLogin(user) {
+  var schema = {
+    email: _joi2.default.string().email({ minDomainAtoms: 2 }).required(),
+    password: _joi2.default.required()
+  };
+
+  return _joi2.default.validate(user, schema);
+};
+
 var Validatitions = {
   validateParty: validateParty,
   validateOffice: validateOffice,
   validateId: validateId,
-  validateEdit: validateEdit
+  validateEdit: validateEdit,
+  validateUserLogin: validateUserLogin,
+  validateUser: validateUser,
+  validateCandidate: validateCandidate,
+  validateVote: validateVote
 };
 
 exports.default = Validatitions;
