@@ -57,7 +57,7 @@ const signup = (req, res) => {
           email: result.rows[0].email,
           privilege: result.rows[0].privilege,
         },
-        process.env.SECRET,
+        'theadminisgreat',
         {
           expiresIn: '1y',
         }, (err, loginToken) => {
@@ -121,7 +121,7 @@ const login = (req, res) => {
           email: result.rows[0].email,
           privilege: result.rows[0].privilege,
         },
-        process.env.SECRET,
+        'theadminisgreat',
         {
           expiresIn: '1y',
         }, (err, loginToken) => {
