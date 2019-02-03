@@ -6,7 +6,7 @@ dotenv.config();
 const loggedIn = (req, res, next) => {
   const token = req.headers.token;
 
-  jwt.verify(token, process.env.SECRET, (err, decoded) => {
+  jwt.verify(token, 'theadminisgreat', (err, decoded) => {
     if (err) {
       return res.json({
         status: 401,
@@ -16,8 +16,6 @@ const loggedIn = (req, res, next) => {
 
     req.userData = decoded;
 
-    // res.status(200);
-
     next();
   });
 };
@@ -25,7 +23,7 @@ const loggedIn = (req, res, next) => {
 const isAdmin = (req, res, next) => {
   const token = req.headers.token;
 
-  jwt.verify(token, process.env.SECRET, (err, decoded) => {
+  jwt.verify(token, 'theadminisgreat', (err, decoded) => {
     if (err) {
       return res.json({
         status: 401,

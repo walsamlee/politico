@@ -19,7 +19,7 @@ _dotenv2.default.config();
 var loggedIn = function loggedIn(req, res, next) {
   var token = req.headers.token;
 
-  _jsonwebtoken2.default.verify(token, process.env.SECRET, function (err, decoded) {
+  _jsonwebtoken2.default.verify(token, 'theadminisgreat', function (err, decoded) {
     if (err) {
       return res.json({
         status: 401,
@@ -29,8 +29,6 @@ var loggedIn = function loggedIn(req, res, next) {
 
     req.userData = decoded;
 
-    // res.status(200);
-
     next();
   });
 };
@@ -38,7 +36,7 @@ var loggedIn = function loggedIn(req, res, next) {
 var isAdmin = function isAdmin(req, res, next) {
   var token = req.headers.token;
 
-  _jsonwebtoken2.default.verify(token, process.env.SECRET, function (err, decoded) {
+  _jsonwebtoken2.default.verify(token, 'theadminisgreat', function (err, decoded) {
     if (err) {
       return res.json({
         status: 401,
