@@ -16,14 +16,40 @@ const loggedIn = (req, res, next) => {
 
     req.userData = decoded;
 
-    res.status(200);
+    // res.status(200);
 
     next();
   });
 };
 
+const isAdmin = (req, res, next) => {
+  const token = req.headers.token;
+
+  jwt.verify(token, process.env.SECRET, (err, decoded) => {
+    if (err) {
+      return res.json({
+        status: 401,
+        message: 'Unauthorized access',
+      });
+    }
+
+    if(decoded.privilege !== 1) {
+      return res.json({
+        status: 401,
+        message: 'Unauthorized access'
+      })
+    }
+
+    req.userData = decoded;
+
+    next();
+  });
+
+}
+
 const Verifications = {
   loggedIn,
+  isAdmin,
 };
 
 export default Verifications;

@@ -2,12 +2,6 @@ import db from '../models/db';
 import Validations from './Validations';
 
 const castVote = (req, res) => {
-  if (req.userData.privilege !== 0) {
-    return res.json({
-      status: 401,
-      message: 'Unauthorized access',
-    });
-  }
   const result = Validations.validateVote(req.body);
 
   if (result.error) {

@@ -29,7 +29,7 @@
     "start": "node dist/server/app",
     "build": "babel --presets env . -d ./dist --ignore node_modules,dist,templates",
     "dev": "(babel --presets env . -d ./dist --ignore node_modules,dist,templates) && node dist/server/app",
-    "test": "(babel --presets env . -d ./dist --ignore node_modules,dist,templates && dropdb --if-exists hwzadaoc && createdb hwzadaoc) && NODE_ENV=test && nyc mocha dist/server/test/api.test.js --exit",
+    "test": "(babel --presets env . -d ./dist --ignore node_modules,dist,templates) && NODE_ENV=test nyc mocha dist/server/test/api.test.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {

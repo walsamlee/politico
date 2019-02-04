@@ -3,12 +3,6 @@ import Validations from './Validations';
 
 const Offices = {
   createOffice(req, res) {
-    if(req.userData.privilege !== 1) {
-      return res.json({
-        status: 401,
-        message: 'Unauthorized access'
-      });
-    }
     const result = Validations.validateOffice(req.body);
 
     if (result.error) {
