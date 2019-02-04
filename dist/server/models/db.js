@@ -14,7 +14,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _dotenv2.default.config();
 
-var connectionStr = 'postgres://hwzadaoc:aREdqc0ZeJDcFY0NuW_xSt9YH-_SiA3k@baasu.db.elephantsql.com:5432/hwzadaoc';
+var connectionStr = process.env.NODE_ENV === 'test' ? process.env.TEST_DATABASE_URL : process.env.DATABASE_URL;
 
 var client = new _pg.Pool({
   connectionString: connectionStr
