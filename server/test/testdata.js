@@ -1,12 +1,22 @@
 import { getMaxListeners } from "cluster";
 
 const user = {
-    email: 'user1@politico.com',
+    email: 'user22@politico.com',
     password: 'politico123'
 };
 
+const userSignup = {
+    passportUrl: "../uploads/picture.jpg",
+    firstName: "Yusuf",
+    lastName: "Adekoya",
+    otherName: "Joseph",
+    telephone: "1234567890",
+    email: "user22@politico.com",
+    password: "admin1234"
+}
+
 const userLogin = {
-    irstName: 'Adekunle',
+    firstName: 'Adekunle',
     lastName: 'Oyinda',
     email: 'user1@politico.com',
     password: '6644a19ac656c27203d081e52b281853'
@@ -158,6 +168,13 @@ const partyPost = {
     name: 'Labour Party',
     hqAddress: 'Wuse Zone III, Abuja, Nigeria',
     logoUrl: '../assets/images/labour.png'
+};
+
+const partyPost2 = {
+    id: 4,
+    name: 'All Peoples Grand Alliance',
+    hqAddress: 'Garki, Abuja, Nigeria',
+    logoUrl: '../assets/images/apga.png',
 }
 
 const partyPut = {
@@ -240,6 +257,7 @@ const officePut = {
 export default {
     party,
     partyPost,
+    partyPost2,
     partyPut,
     afterPostParty,
     office,
@@ -251,5 +269,6 @@ export default {
     votes,
     result,
     userLogin,
-    candidates
+    candidates,
+    userSignup
 }

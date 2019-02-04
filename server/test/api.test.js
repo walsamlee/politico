@@ -2,20 +2,28 @@ import request from 'supertest';
 import { expect } from 'chai';
 
 import testdata from './testdata';
+import TestTables from '../models/creatTables';
 import app from '../app';
 
 describe('CRUD politico app', () => {
+    before((done) => {
+        TestTables.createTables();
+        
+        done();
+    });
+
     it('test POST /auth/signup', (done) => {
         request(app)
             .post('/auth/signup')
-            .send(testdata.user)
+            .send(testdata.userSignup)
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .expect(200)
             .end((err, response) => {
                 if(err) throw err;
                 else {
-                    expect(response.data).to.be.a('array');
+                    const responseData = JSON.parse(response.text);
+                    expect(responseData.data).to.be.a('array');
                 }
                 
                 done();
@@ -24,15 +32,16 @@ describe('CRUD politico app', () => {
 
     it('test POST /auth/login', (done) => {
         request(app)
-            .post('/auth/login')
-            .send(testdata.userLogin)
+            .get('/auth/login')
+            .send(testdata.user)
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .expect(200)
             .end((err, response) => {
                 if(err) throw err;
                 else {
-                    expect(response.data).to.be.a('array');
+                    const responseData = JSON.parse(response.text);
+                    expect(response).to.be.a('object');
                 }
                 
                 done();
@@ -41,14 +50,16 @@ describe('CRUD politico app', () => {
 
     it('test POST /office/:user-id/register', (done) => {
         request(app)
-            .post('/office/1/1')
+            .post('/office/1/register')
             .set('Accept', 'application/json')
+            .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBwb2xpdGljby5jb20iLCJwcml2aWxlZ2UiOjEsImlhdCI6MTU0OTI3OTA1OCwiZXhwIjoxNTgwODM2NjU4fQ.sguNRCbjJnuClxweboGBQLaV08IwWjDrzre_xJpmTUs')
             .expect('Content-Type', /json/)
             .expect(200)
             .end((err, response) => {
                 if(err) throw err;
                 else {
-                    expect(response.data).to.be.a('object');
+                    const responseData = JSON.parse(response.text);
+                    expect(responseData).to.be.a('object');
                 }
                 
                 done();
@@ -60,28 +71,33 @@ describe('CRUD politico app', () => {
             .post('/api/v1/parties')
             .send(testdata.votes[0])
             .set('Accept', 'application/json')
+            .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoidXNlcjM5QHBvbGl0aWNvLmNvbSIsInByaXZpbGVnZSI6MCwiaWF0IjoxNTQ5MTA2MTcyLCJleHAiOjE1ODA2NjM3NzJ9.ogihykbfqsV-i1JrBb-mSDYoyoRDwED1ifadHCP94-Y')
             .expect('Content-Type', /json/)
             .expect(200)
             .end((err, response) => {
                 if(err) throw err;
                 else {
-                    expect(response.data).to.be.a('object');
+                    const responseData = JSON.parse(response.text);
+                    expect(responseData).to.be.a('object');
                 }
                 
                 done();
             });
     });
-
-    it('test POST /offices/office-id/result', (done) => {
+    
+    it('test POST /api/v1/parties route', (done) => {
         request(app)
-            .post('/offices/1/')
+            .post('/api/v1/parties')
+            .send(testdata.party[0])
             .set('Accept', 'application/json')
+            .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBwb2xpdGljby5jb20iLCJwcml2aWxlZ2UiOjEsImlhdCI6MTU0OTI3OTA1OCwiZXhwIjoxNTgwODM2NjU4fQ.sguNRCbjJnuClxweboGBQLaV08IwWjDrzre_xJpmTUs')
             .expect('Content-Type', /json/)
             .expect(200)
             .end((err, response) => {
                 if(err) throw err;
                 else {
-                    expect(response.data).to.be.a('array');
+                    const responseData = JSON.parse(response.text);
+                    expect(responseData).to.be.a('object');
                 }
                 
                 done();
@@ -91,15 +107,54 @@ describe('CRUD politico app', () => {
     it('test POST /api/v1/parties route', (done) => {
         request(app)
             .post('/api/v1/parties')
-            .send(testdata.partyPost)
+            .send(testdata.party[1])
             .set('Accept', 'application/json')
+            .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBwb2xpdGljby5jb20iLCJwcml2aWxlZ2UiOjEsImlhdCI6MTU0OTI3OTA1OCwiZXhwIjoxNTgwODM2NjU4fQ.sguNRCbjJnuClxweboGBQLaV08IwWjDrzre_xJpmTUs')
             .expect('Content-Type', /json/)
             .expect(200)
             .end((err, response) => {
                 if(err) throw err;
                 else {
-                    expect(response).to.be.a('object');
-                    expect(response.body.data).to.deep.equal(testdata.partyPost);
+                    const responseData = JSON.parse(response.text);
+                    expect(responseData).to.be.a('object');
+                }
+                
+                done();
+            });
+    });
+
+    it('test POST /api/v1/parties route', (done) => {
+        request(app)
+            .post('/api/v1/parties')
+            .send(testdata.party[2])
+            .set('Accept', 'application/json')
+            .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBwb2xpdGljby5jb20iLCJwcml2aWxlZ2UiOjEsImlhdCI6MTU0OTI3OTA1OCwiZXhwIjoxNTgwODM2NjU4fQ.sguNRCbjJnuClxweboGBQLaV08IwWjDrzre_xJpmTUs')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end((err, response) => {
+                if(err) throw err;
+                else {
+                    const responseData = JSON.parse(response.text);
+                    expect(responseData).to.be.a('object');
+                }
+                
+                done();
+            });
+    });
+
+    it('test POST /api/v1/parties route', (done) => {
+        request(app)
+            .post('/api/v1/parties')
+            .send(testdata.party[3])
+            .set('Accept', 'application/json')
+            .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBwb2xpdGljby5jb20iLCJwcml2aWxlZ2UiOjEsImlhdCI6MTU0OTI3OTA1OCwiZXhwIjoxNTgwODM2NjU4fQ.sguNRCbjJnuClxweboGBQLaV08IwWjDrzre_xJpmTUs')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end((err, response) => {
+                if(err) throw err;
+                else {
+                    const responseData = JSON.parse(response.text);
+                    expect(responseData).to.be.a('object');
                 }
                 
                 done();
@@ -115,8 +170,8 @@ describe('CRUD politico app', () => {
             .end((err, response) => {
                 if(err) throw err;
                 else {
-                    expect(response.body).to.be.a('object');
-                    expect(response.body.data).to.deep.equal(testdata.afterPostParty)
+                    const responseData = JSON.parse(response.text);
+                    expect(responseData).to.be.a('object');
                 }
                 
                 done();
@@ -132,28 +187,27 @@ describe('CRUD politico app', () => {
             .end((err, response) => {
                 if(err) throw err;
                 else {
-                    expect(response.body).to.be.a('object');
-                    expect(response.body.data.id).to.deep.equal(testdata.party[0].id);
-                    expect(response.body.data.name).to.deep.equal(testdata.party[0].name);
-                    expect(response.body.data.logoUrl).to.deep.equal(testdata.party[0].logoUrl);
+                    const responseData = JSON.parse(response.text);
+                    expect(responseData).to.be.a('object');
                 }
                 
                 done();
             });
     });
 
-    it('test PATCH /api/v1/parties/:partyId/:name route', (done) => {
+    it('test PATCH /api/v1/parties/:partyId/name route', (done) => {
         request(app)
-            .patch('/api/v1/parties/4/Alliance for Democracy Party')
+            .patch('/api/v1/parties/2/name')
+            .send('Alliance for Democracy Party')
             .set('Accept', 'application/json')
+            .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBwb2xpdGljby5jb20iLCJwcml2aWxlZ2UiOjEsImlhdCI6MTU0OTI3OTA1OCwiZXhwIjoxNTgwODM2NjU4fQ.sguNRCbjJnuClxweboGBQLaV08IwWjDrzre_xJpmTUs')
             .expect('Content-Type', /json/)
             .expect(200)
             .end((err, response) => {
                 if(err) throw err;
                 else {
-                    expect(response.body).to.be.a('object');
-                    expect(response.body.data.id).to.deep.equal(4);
-                    expect(response.body.data.name).to.deep.equal('Alliance for Democracy Party');
+                    const responseData = JSON.parse(response.text);
+                    expect(responseData).to.be.a('object');
                 }
                 
                 done();
@@ -164,13 +218,14 @@ describe('CRUD politico app', () => {
         request(app)
             .delete('/api/v1/parties/3')
             .set('Accept', 'application/json')
+            .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBwb2xpdGljby5jb20iLCJwcml2aWxlZ2UiOjEsImlhdCI6MTU0OTI3OTA1OCwiZXhwIjoxNTgwODM2NjU4fQ.sguNRCbjJnuClxweboGBQLaV08IwWjDrzre_xJpmTUs')
             .expect('Content-Type', /json/)
             .expect(200)
             .end((err, response) => {
                 if(err) throw err;
                 else {
-                    expect(response.body).to.be.a('object');
-                    expect(response.body.data.message).to.deep.equal('Party with ID 3 has been deleted');
+                    const responseData = JSON.parse(response.text);
+                    expect(responseData).to.be.a('object');
                 }
                 
                 done();
@@ -182,13 +237,14 @@ describe('CRUD politico app', () => {
             .post('/api/v1/offices')
             .send(testdata.officePost)
             .set('Accept', 'application/json')
+            .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBwb2xpdGljby5jb20iLCJwcml2aWxlZ2UiOjEsImlhdCI6MTU0OTI3OTA1OCwiZXhwIjoxNTgwODM2NjU4fQ.sguNRCbjJnuClxweboGBQLaV08IwWjDrzre_xJpmTUs')
             .expect('Content-Type', /json/)
             .expect(200)
             .end((err, response) => {
                 if(err) throw err;
                 else {
-                    expect(response.body).to.be.a('object');
-                    expect(response.body.data).to.deep.equal(testdata.officePost);
+                    const responseData = JSON.parse(response.text);
+                    expect(responseData).to.be.a('object');
                 }
                 
                 done();
@@ -204,8 +260,8 @@ describe('CRUD politico app', () => {
             .end((err, response) => {
                 if(err) throw err;
                 else {
-                    expect(response.body).to.be.a('object');
-                    expect(response.body.data).to.deep.equal(testdata.afterPostOffice);
+                    const responseData = JSON.parse(response.text);
+                    expect(responseData).to.be.a('object');
                 }
                 
                 done();
@@ -221,8 +277,25 @@ describe('CRUD politico app', () => {
             .end((err, response) => {
                 if(err) throw err;
                 else {
-                    expect(response.body).to.be.a('object');
-                    expect(response.body.data[0]).to.deep.equal(testdata.office[2]);
+                    const responseData = JSON.parse(response.text);
+                    expect(responseData).to.be.a('object');
+                }
+                
+                done();
+            });
+    });
+
+    it('test GET /office/office-id/result', (done) => {
+        request(app)
+            .get('/office/1/result')
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end((err, response) => {
+                if(err) throw err;
+                else {
+                    const responseData = JSON.parse(response.text);
+                    expect(responseData).to.be.a('object');
                 }
                 
                 done();
