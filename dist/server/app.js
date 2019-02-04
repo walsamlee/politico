@@ -37,10 +37,7 @@ app.use(_bodyParser2.default.json());
 
 var port = process.env.PORT || 3000;
 
-app.use('/auth', _authRoute2.default);
 app.use('/api/v1', _router2.default);
-app.use('/votes', _voteRouter2.default);
-app.use('/office', _officeRouter2.default);
 
 var server = app.listen(port, function () {
   console.log('App listening on port ' + port);
