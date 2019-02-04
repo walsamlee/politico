@@ -39,7 +39,7 @@ describe('CRUD politico app', function () {
   });
 
   it('test POST /api/v1/auth/login', function (done) {
-    (0, _supertest2.default)(_app2.default).get('/api/v1/auth/login').send(_testdata2.default.user).set('Accept', 'application/json').expect('Content-Type', /json/).expect(200).end(function (err, response) {
+    (0, _supertest2.default)(_app2.default).post('/api/v1/auth/login').send(_testdata2.default.user).set('Accept', 'application/json').expect('Content-Type', /json/).expect(200).end(function (err, response) {
       if (err) throw err;else {
         var responseData = JSON.parse(response.text);
         (0, _chai.expect)(response).to.be.a('object');

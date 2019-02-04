@@ -36,7 +36,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var router = _express2.default.Router();
 
-router.get('/auth/login', _Auth2.default.login);
+router.post('/auth/login', _Auth2.default.login);
 router.post('/auth/signup', _Auth2.default.signup);
 
 router.patch('/parties/:partyId/name', _Verifications2.default.isAdmin, _Parties2.default.editPartyById);
