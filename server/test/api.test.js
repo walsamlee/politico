@@ -235,7 +235,83 @@ describe('CRUD politico app', () => {
     it('test POST /api/v1/offices route', (done) => {
         request(app)
             .post('/api/v1/offices')
-            .send(testdata.officePost)
+            .send(testdata.office[0])
+            .set('Accept', 'application/json')
+            .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBwb2xpdGljby5jb20iLCJwcml2aWxlZ2UiOjEsImlhdCI6MTU0OTI3OTA1OCwiZXhwIjoxNTgwODM2NjU4fQ.sguNRCbjJnuClxweboGBQLaV08IwWjDrzre_xJpmTUs')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end((err, response) => {
+                if(err) throw err;
+                else {
+                    const responseData = JSON.parse(response.text);
+                    expect(responseData).to.be.a('object');
+                }
+                
+                done();
+            });
+    });
+
+    it('test POST /api/v1/offices route', (done) => {
+        request(app)
+            .post('/api/v1/offices')
+            .send(testdata.office[1])
+            .set('Accept', 'application/json')
+            .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBwb2xpdGljby5jb20iLCJwcml2aWxlZ2UiOjEsImlhdCI6MTU0OTI3OTA1OCwiZXhwIjoxNTgwODM2NjU4fQ.sguNRCbjJnuClxweboGBQLaV08IwWjDrzre_xJpmTUs')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end((err, response) => {
+                if(err) throw err;
+                else {
+                    const responseData = JSON.parse(response.text);
+                    expect(responseData).to.be.a('object');
+                }
+                
+                done();
+            });
+    });
+
+    it('test POST /api/v1/offices route', (done) => {
+        request(app)
+            .post('/api/v1/offices')
+            .send(testdata.office[2])
+            .set('Accept', 'application/json')
+            .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBwb2xpdGljby5jb20iLCJwcml2aWxlZ2UiOjEsImlhdCI6MTU0OTI3OTA1OCwiZXhwIjoxNTgwODM2NjU4fQ.sguNRCbjJnuClxweboGBQLaV08IwWjDrzre_xJpmTUs')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end((err, response) => {
+                if(err) throw err;
+                else {
+                    const responseData = JSON.parse(response.text);
+                    expect(responseData).to.be.a('object');
+                }
+                
+                done();
+            });
+    });
+
+    it('test POST /api/v1/offices route', (done) => {
+        request(app)
+            .post('/api/v1/offices')
+            .send(testdata.office[3])
+            .set('Accept', 'application/json')
+            .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBwb2xpdGljby5jb20iLCJwcml2aWxlZ2UiOjEsImlhdCI6MTU0OTI3OTA1OCwiZXhwIjoxNTgwODM2NjU4fQ.sguNRCbjJnuClxweboGBQLaV08IwWjDrzre_xJpmTUs')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end((err, response) => {
+                if(err) throw err;
+                else {
+                    const responseData = JSON.parse(response.text);
+                    expect(responseData).to.be.a('object');
+                }
+                
+                done();
+            });
+    });
+
+    it('test POST /api/v1/offices route', (done) => {
+        request(app)
+            .post('/api/v1/offices')
+            .send(testdata.office[4])
             .set('Accept', 'application/json')
             .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBwb2xpdGljby5jb20iLCJwcml2aWxlZ2UiOjEsImlhdCI6MTU0OTI3OTA1OCwiZXhwIjoxNTgwODM2NjU4fQ.sguNRCbjJnuClxweboGBQLaV08IwWjDrzre_xJpmTUs')
             .expect('Content-Type', /json/)
