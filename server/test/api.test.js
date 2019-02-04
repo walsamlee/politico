@@ -23,7 +23,7 @@ describe('CRUD politico app', () => {
         if (err) throw err;
         else {
           const responseData = JSON.parse(response.text);
-          expect(responseData.data).to.be.a('array');
+          expect(responseData).to.be.a('object');
         }
 
         done();
