@@ -12,9 +12,9 @@ describe('CRUD politico app', () => {
     done();
   });
 
-  it('test POST /auth/signup', (done) => {
+  it('test POST /api/v1/auth/signup', (done) => {
     request(app)
-      .post('/auth/signup')
+      .post('/api/v1/auth/signup')
       .send(testdata.userSignup)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -30,9 +30,9 @@ describe('CRUD politico app', () => {
       });
   });
 
-  it('test POST /auth/login', (done) => {
+  it('test POST /api/v1/auth/login', (done) => {
     request(app)
-      .get('/auth/login')
+      .get('/api/v1/auth/login')
       .send(testdata.user)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -48,9 +48,9 @@ describe('CRUD politico app', () => {
       });
   });
 
-  it('test POST /office/:user-id/register', (done) => {
+  it('test POST /api/v1/office/:user-id/register', (done) => {
     request(app)
-      .post('/office/1/register')
+      .post('/api/v1/office/1/register')
       .set('Accept', 'application/json')
       .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBwb2xpdGljby5jb20iLCJwcml2aWxlZ2UiOjEsImlhdCI6MTU0OTI3OTA1OCwiZXhwIjoxNTgwODM2NjU4fQ.sguNRCbjJnuClxweboGBQLaV08IwWjDrzre_xJpmTUs')
       .expect('Content-Type', /json/)
@@ -66,10 +66,48 @@ describe('CRUD politico app', () => {
       });
   });
 
-  it('test POST /votes/', (done) => {
+  it('test POST /api/v1/votes/', (done) => {
     request(app)
-      .post('/api/v1/parties')
+      .post('/api/v1/votes')
       .send(testdata.votes[0])
+      .set('Accept', 'application/json')
+      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoidXNlcjM5QHBvbGl0aWNvLmNvbSIsInByaXZpbGVnZSI6MCwiaWF0IjoxNTQ5MTA2MTcyLCJleHAiOjE1ODA2NjM3NzJ9.ogihykbfqsV-i1JrBb-mSDYoyoRDwED1ifadHCP94-Y')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end((err, response) => {
+        if (err) throw err;
+        else {
+          const responseData = JSON.parse(response.text);
+          expect(responseData).to.be.a('object');
+        }
+
+        done();
+      });
+  });
+
+  it('test POST /api/v1/votes/', (done) => {
+    request(app)
+      .post('/api/v1/votes')
+      .send(testdata.votes[1])
+      .set('Accept', 'application/json')
+      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoidXNlcjM5QHBvbGl0aWNvLmNvbSIsInByaXZpbGVnZSI6MCwiaWF0IjoxNTQ5MTA2MTcyLCJleHAiOjE1ODA2NjM3NzJ9.ogihykbfqsV-i1JrBb-mSDYoyoRDwED1ifadHCP94-Y')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end((err, response) => {
+        if (err) throw err;
+        else {
+          const responseData = JSON.parse(response.text);
+          expect(responseData).to.be.a('object');
+        }
+
+        done();
+      });
+  });
+
+  it('test POST /api/v1/votes/', (done) => {
+    request(app)
+      .post('/api/v1/votes')
+      .send(testdata.votes[2])
       .set('Accept', 'application/json')
       .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoidXNlcjM5QHBvbGl0aWNvLmNvbSIsInByaXZpbGVnZSI6MCwiaWF0IjoxNTQ5MTA2MTcyLCJleHAiOjE1ODA2NjM3NzJ9.ogihykbfqsV-i1JrBb-mSDYoyoRDwED1ifadHCP94-Y')
       .expect('Content-Type', /json/)
@@ -363,7 +401,7 @@ describe('CRUD politico app', () => {
 
   it('test GET /office/office-id/result', (done) => {
     request(app)
-      .get('/office/1/result')
+      .get('/api/v1/office/1/result')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)
