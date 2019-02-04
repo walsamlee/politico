@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const connectionStr = 'postgres://hwzadaoc:aREdqc0ZeJDcFY0NuW_xSt9YH-_SiA3k@baasu.db.elephantsql.com:5432/hwzadaoc';
+const connectionStr = process.env.NODE_ENV === 'test' ? process.env.TEST_DATABASE_URL : process.env.DATABASE_URL;
 
 const client = new Pool({
   connectionString: connectionStr,
