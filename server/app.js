@@ -6,12 +6,18 @@ import router from './routes/router';
 
 const app = express();
 
+app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const port = process.env.PORT || 3000;
 
-app.use(cors());
+const corsOptions = {
+  origin: 'http://localhost:8080',
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 
 app.use('/api/v1', router);
 
