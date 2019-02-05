@@ -245,6 +245,16 @@ a:hover {
     margin-top: 20px;
 }
 
+.failure {
+    display: none;
+    background: #c22216;
+    color: #fff;
+}
+
+.failure p {
+    padding: 5px 0;
+}
+
 .login-form {
     color: #fff;
     overflow: auto;
