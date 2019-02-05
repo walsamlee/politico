@@ -1,10 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 
-import authRouter from './routes/authRoute';
 import router from './routes/router';
-import voteRouter from './routes/voteRouter';
-import officeRouter from './routes/officeRouter';
 
 const app = express();
 
