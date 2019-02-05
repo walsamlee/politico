@@ -29,7 +29,26 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _dotenv2.default.config();
 
 var signup = function signup(req, res) {
-  var result = _Validations2.default.validateUser(req.body);
+  if (!req.file) {
+    return res.json({
+      status: 400,
+      message: 'Please upload a file'
+    });
+  }
+  var signupUser = {
+    passportUrl: req.file.path,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    otherName: req.body.otherName,
+    telephone: req.body.telephone,
+    password: req.body.password,
+    email: req.body.email
+  };
+  console.log(signupUser);
+
+  var result = _Validations2.default.validateUser(signupUser);
+
+  console.log(req.file);
 
   if (result.error) {
     return res.json({
@@ -37,6 +56,8 @@ var signup = function signup(req, res) {
       error: result.error.details[0].context.value + ' is an invalid value'
     });
   }
+  console.log(req.file);
+
   var passportUrl = req.body.passportUrl;
   var email = req.body.email;
   var pword = req.body.password;

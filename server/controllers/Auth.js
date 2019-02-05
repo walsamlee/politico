@@ -8,7 +8,26 @@ import Validations from './Validations';
 dotenv.config();
 
 const signup = (req, res) => {
-  const result = Validations.validateUser(req.body);
+  if(!req.file) {
+    return res.json({
+      status: 400,
+      message: 'Please upload a file'
+    });
+  }
+  const signupUser = {
+    passportUrl: req.file.path,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    otherName: req.body.otherName,
+    telephone: req.body.telephone,
+    password: req.body.password,
+    email: req.body.email,
+  }
+  console.log(signupUser);
+
+  const result = Validations.validateUser(signupUser);
+  
+  console.log(req.file);
 
   if (result.error) {
     return res.json({
@@ -16,6 +35,8 @@ const signup = (req, res) => {
       error: `${result.error.details[0].context.value} is an invalid value`,
     });
   }
+  console.log(req.file);
+
   const passportUrl = req.body.passportUrl;
   const email = req.body.email;
   const pword = req.body.password;
