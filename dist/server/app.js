@@ -12,6 +12,10 @@ var _bodyParser = require('body-parser');
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
+var _cors = require('cors');
+
+var _cors2 = _interopRequireDefault(_cors);
+
 var _router = require('./routes/router');
 
 var _router2 = _interopRequireDefault(_router);
@@ -24,6 +28,8 @@ app.use(_bodyParser2.default.urlencoded({ extended: false }));
 app.use(_bodyParser2.default.json());
 
 var port = process.env.PORT || 3000;
+
+app.use((0, _cors2.default)());
 
 app.use('/api/v1', _router2.default);
 
