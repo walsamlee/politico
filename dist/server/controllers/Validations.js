@@ -57,12 +57,12 @@ var validateEdit = function validateEdit(id, name) {
 
 var validateUser = function validateUser(user) {
   var schema = {
-    passportUrl: _joi2.default.string().allow(''),
+    passporturl: _joi2.default.string().required(),
     email: _joi2.default.string().email({ minDomainAtoms: 2 }).required(),
     password: _joi2.default.required(),
-    firstName: _joi2.default.string().required(),
-    lastName: _joi2.default.string().required(),
-    otherName: _joi2.default.string().required(),
+    firstname: _joi2.default.string().required(),
+    lastname: _joi2.default.string().required(),
+    othername: _joi2.default.string().required(),
     telephone: _joi2.default.number().integer().required()
   };
 

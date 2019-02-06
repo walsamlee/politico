@@ -58,10 +58,10 @@ var uploads = (0, _multer2.default)({
 });
 
 router.post('/auth/login', _Auth2.default.login);
-router.post('/auth/signup', _Auth2.default.signup);
+router.post('/auth/signup', uploads.single('image'), _Auth2.default.signup);
 
 router.patch('/parties/:partyId/name', _Verifications2.default.isAdmin, _Parties2.default.editPartyById);
-router.post('/parties', _Verifications2.default.isAdmin, uploads.single('logoUrl'), _Parties2.default.createParty);
+router.post('/parties', _Verifications2.default.isAdmin, uploads.single('image'), _Parties2.default.createParty);
 router.delete('/parties/:partyId', _Verifications2.default.isAdmin, _Parties2.default.deletePartyById);
 router.get('/parties/:partyId', _Parties2.default.viewPartyById);
 router.get('/parties', _Parties2.default.viewParties);

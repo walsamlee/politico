@@ -8,7 +8,24 @@ import Validations from './Validations';
 dotenv.config();
 
 const signup = (req, res) => {
-  const result = Validations.validateUser(req.body);
+  if(!req.file) {
+    return res.json({
+      status: 400,
+      message: 'Please upload a party logo'
+    });
+  }
+
+  const signupData = {
+    passporturl: req.file.path,
+    email: req.body.email,
+    password: req.body.password,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    othername: req.body.othername,
+    telephone: req.body.telephone,
+  }
+
+  const result = Validations.validateUser(signupData);
 
   if (result.error) {
     return res.json({
@@ -17,7 +34,7 @@ const signup = (req, res) => {
     });
   }
   
-  const passportUrl = req.body.passportUrl;
+  const passporturl = req.file.path;
   const email = req.body.email;
   const pword = req.body.password;
   const privilege = 0;
@@ -32,7 +49,7 @@ const signup = (req, res) => {
 
     const query = {
       text: 'INSERT INTO users(email, password, firstname, lastname, othername, telephone, privilege, passporturl) VALUES($1, $2, $3, $4, $5, $6, $7, $8)',
-      values: [email, hash, req.body.firstName, req.body.lastName, req.body.otherName, req.body.telephone, privilege, passportUrl],
+      values: [email, hash, req.body.firstname, req.body.lastname, req.body.othername, req.body.telephone, privilege, passporturl],
     };
 
     db.client.query(query, (err, result) => {

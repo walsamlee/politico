@@ -29,7 +29,24 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _dotenv2.default.config();
 
 var signup = function signup(req, res) {
-  var result = _Validations2.default.validateUser(req.body);
+  if (!req.file) {
+    return res.json({
+      status: 400,
+      message: 'Please upload a party logo'
+    });
+  }
+
+  var signupData = {
+    passporturl: req.file.path,
+    email: req.body.email,
+    password: req.body.password,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    othername: req.body.othername,
+    telephone: req.body.telephone
+  };
+
+  var result = _Validations2.default.validateUser(signupData);
 
   if (result.error) {
     return res.json({
@@ -38,7 +55,7 @@ var signup = function signup(req, res) {
     });
   }
 
-  var passportUrl = req.body.passportUrl;
+  var passporturl = req.file.path;
   var email = req.body.email;
   var pword = req.body.password;
   var privilege = 0;
@@ -53,7 +70,7 @@ var signup = function signup(req, res) {
 
     var query = {
       text: 'INSERT INTO users(email, password, firstname, lastname, othername, telephone, privilege, passporturl) VALUES($1, $2, $3, $4, $5, $6, $7, $8)',
-      values: [email, hash, req.body.firstName, req.body.lastName, req.body.otherName, req.body.telephone, privilege, passportUrl]
+      values: [email, hash, req.body.firstname, req.body.lastname, req.body.othername, req.body.telephone, privilege, passporturl]
     };
 
     _db2.default.client.query(query, function (err, result) {
