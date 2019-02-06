@@ -124,7 +124,19 @@ var Parties = {
     });
   },
   createParty: function createParty(req, res) {
-    var result = _Validations2.default.validateParty(req.body);
+    if (!req.file) {
+      return res.json({
+        status: 400,
+        message: 'Please upload a party logo'
+      });
+    }
+
+    var partyData = {
+      name: req.body.name,
+      hqAddress: req.body.hqAddress,
+      logoUrl: req.file.path
+    };
+    var result = _Validations2.default.validateParty(partyData);
 
     if (result.error) {
       return res.json({
@@ -137,25 +149,25 @@ var Parties = {
     var partyId = req.body.id;
     var partyName = party.name;
     var partyHqAddress = party.hqAddress;
-    var partyLogoUrl = party.logoUrl;
 
     var query = {
-      text: 'INSERT INTO parties(partyid, name, hqaddress, logourl) VALUES($1, $2, $3, $4)',
-      values: [partyId, partyName, partyHqAddress, partyLogoUrl]
+      text: 'INSERT INTO parties(name, hqaddress, logourl) VALUES($1, $2, $3) RETURNING *',
+      values: [partyName, partyHqAddress, req.file.path]
     };
 
     _db2.default.client.query(query, function (err, result) {
       if (err) {
         return res.json({
           status: 400,
-          error: 'Data could not be added'
+          error: err
         });
       }
       return res.json({
         status: 201,
         data: [{
-          id: partyId,
-          name: partyName
+          id: result.rows[0].partyid,
+          name: result.rows[0].name,
+          logoUrl: result.rows[0].logourl
         }]
       });
     });

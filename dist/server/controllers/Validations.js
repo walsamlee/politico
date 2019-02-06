@@ -12,7 +12,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var validateParty = function validateParty(party) {
   var schema = {
-    id: _joi2.default.number().integer().required(),
     name: _joi2.default.string().required(),
     hqAddress: _joi2.default.string().required(),
     logoUrl: _joi2.default.string().required()

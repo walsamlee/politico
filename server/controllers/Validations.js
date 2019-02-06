@@ -2,7 +2,6 @@ import Joi from 'joi';
 
 const validateParty = (party) => {
   const schema = {
-    id: Joi.number().integer().required(),
     name: Joi.string().required(),
     hqAddress: Joi.string().required(),
     logoUrl: Joi.string().required(),

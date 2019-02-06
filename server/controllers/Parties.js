@@ -117,8 +117,20 @@ const Parties = {
     });
   },
 
-  createParty(req, res) {   
-    const result = Validations.validateParty(req.body);
+  createParty(req, res) {
+    if(!req.file) {
+      return res.json({
+        status: 400,
+        message: 'Please upload a party logo'
+      });
+    }
+    
+    const partyData = {
+      name: req.body.name,
+      hqAddress: req.body.hqAddress,
+      logoUrl: req.file.path
+    }
+    const result = Validations.validateParty(partyData);
 
     if (result.error) {
       return res.json({
@@ -131,26 +143,25 @@ const Parties = {
     const partyId = req.body.id;
     const partyName = party.name;
     const partyHqAddress = party.hqAddress;
-    const partyLogoUrl = party.logoUrl;
 
     const query = {
-      text: 'INSERT INTO parties(partyid, name, hqaddress, logourl) VALUES($1, $2, $3, $4)',
-      values: [partyId, partyName, partyHqAddress, partyLogoUrl],
+      text: 'INSERT INTO parties(name, hqaddress, logourl) VALUES($1, $2, $3) RETURNING *',
+      values: [partyName, partyHqAddress, req.file.path],
     };
 
     Db.client.query(query, (err, result) => {
       if (err) {
         return res.json({
           status: 400,
-          error: 'Data could not be added',
+          error: err,
         });
       }
       return res.json({
         status: 201,
         data: [
           {
-            id: partyId,
-            name: partyName,
+            id: result.rows[0].partyid,
+            name: result.rows[0].name,
           },
         ],
       });

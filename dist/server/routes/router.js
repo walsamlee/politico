@@ -1,12 +1,16 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
+
+var _multer = require('multer');
+
+var _multer2 = _interopRequireDefault(_multer);
 
 var _Verifications = require('../middlewares/Verifications');
 
@@ -36,11 +40,28 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var router = _express2.default.Router();
 
+var storage = _multer2.default.diskStorage({
+    destination: function destination(req, file, cb) {
+        cb(null, './uploads');
+    },
+    filename: function filename(req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+
+var limits = {
+    fileSize: 1024 * 1024 * 2
+};
+var uploads = (0, _multer2.default)({
+    storage: storage,
+    limits: limits
+});
+
 router.post('/auth/login', _Auth2.default.login);
 router.post('/auth/signup', _Auth2.default.signup);
 
 router.patch('/parties/:partyId/name', _Verifications2.default.isAdmin, _Parties2.default.editPartyById);
-router.post('/parties', _Verifications2.default.isAdmin, _Parties2.default.createParty);
+router.post('/parties', _Verifications2.default.isAdmin, uploads.single('logoUrl'), _Parties2.default.createParty);
 router.delete('/parties/:partyId', _Verifications2.default.isAdmin, _Parties2.default.deletePartyById);
 router.get('/parties/:partyId', _Parties2.default.viewPartyById);
 router.get('/parties', _Parties2.default.viewParties);
