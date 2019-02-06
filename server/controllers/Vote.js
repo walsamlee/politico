@@ -13,7 +13,7 @@ const castVote = (req, res) => {
 
   const officeId = parseInt(req.body.office, 10);
   const candidateId = parseInt(req.body.candidate, 10);
-  const voterId = parseInt(req.body.voter, 10);
+  const voterId = parseInt(req.userData.id, 10);
 
   const query = {
     text: 'INSERT INTO votes(officeid, candidateid, voterid) VALUES($1, $2, $3)',

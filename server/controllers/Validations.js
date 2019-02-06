@@ -48,7 +48,7 @@ const validateEdit = (id, name) => {
 
 const validateUser = (user) => {
   const schema = {
-    passportUrl: Joi.string().required(),
+    passportUrl: Joi.string().allow(''),
     email: Joi.string().email({ minDomainAtoms: 2 }).required(),
     password: Joi.required(),
     firstName: Joi.string().required(),

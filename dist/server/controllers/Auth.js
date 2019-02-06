@@ -29,26 +29,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _dotenv2.default.config();
 
 var signup = function signup(req, res) {
-  if (!req.file) {
-    return res.json({
-      status: 400,
-      message: 'Please upload a file'
-    });
-  }
-  var signupUser = {
-    passportUrl: req.file.path,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    otherName: req.body.otherName,
-    telephone: req.body.telephone,
-    password: req.body.password,
-    email: req.body.email
-  };
-  console.log(signupUser);
-
-  var result = _Validations2.default.validateUser(signupUser);
-
-  console.log(req.file);
+  var result = _Validations2.default.validateUser(req.body);
 
   if (result.error) {
     return res.json({
@@ -56,7 +37,6 @@ var signup = function signup(req, res) {
       error: result.error.details[0].context.value + ' is an invalid value'
     });
   }
-  console.log(req.file);
 
   var passportUrl = req.body.passportUrl;
   var email = req.body.email;
@@ -92,13 +72,10 @@ var signup = function signup(req, res) {
           });
         }
 
-        console.log(result.rows[0]);
-
         _jsonwebtoken2.default.sign({
           id: result.rows[0].userid,
-          email: result.rows[0].email,
           privilege: result.rows[0].privilege
-        }, 'theadminisgreat', {
+        }, process.env.SECRET, {
           expiresIn: '1y'
         }, function (err, loginToken) {
           if (err) {
@@ -116,7 +93,8 @@ var signup = function signup(req, res) {
                 passportUrl: result.rows[0].passporturl,
                 name: result.rows[0].firstname + ' ' + result.rows[0].lastname + ' ' + result.rows[0].othername,
                 email: result.rows[0].email,
-                phoneNumber: result.rows[0].telephone
+                phoneNumber: result.rows[0].telephone,
+                isAdmin: result.rows[0].privilege
               }
             }]
           });
@@ -155,9 +133,8 @@ var login = function login(req, res) {
       if (response) {
         _jsonwebtoken2.default.sign({
           id: result.rows[0].userid,
-          email: result.rows[0].email,
           privilege: result.rows[0].privilege
-        }, 'theadminisgreat', {
+        }, process.env.SECRET, {
           expiresIn: '1y'
         }, function (err, loginToken) {
           if (err) {
@@ -176,7 +153,8 @@ var login = function login(req, res) {
                 passportUrl: result.rows[0].passporturl,
                 name: result.rows[0].firstname + ' ' + result.rows[0].lastname + ' ' + result.rows[0].othername,
                 email: result.rows[0].email,
-                phoneNumber: result.rows[0].telephone
+                phoneNumber: result.rows[0].telephone,
+                isAdmin: result.rows[0].privilege
               }
             }]
           });

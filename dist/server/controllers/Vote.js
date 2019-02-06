@@ -26,7 +26,7 @@ var castVote = function castVote(req, res) {
 
   var officeId = parseInt(req.body.office, 10);
   var candidateId = parseInt(req.body.candidate, 10);
-  var voterId = parseInt(req.body.voter, 10);
+  var voterId = parseInt(req.userData.id, 10);
 
   var query = {
     text: 'INSERT INTO votes(officeid, candidateid, voterid) VALUES($1, $2, $3)',

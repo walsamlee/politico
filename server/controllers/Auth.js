@@ -8,26 +8,7 @@ import Validations from './Validations';
 dotenv.config();
 
 const signup = (req, res) => {
-  if(!req.file) {
-    return res.json({
-      status: 400,
-      message: 'Please upload a file'
-    });
-  }
-  const signupUser = {
-    passportUrl: req.file.path,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    otherName: req.body.otherName,
-    telephone: req.body.telephone,
-    password: req.body.password,
-    email: req.body.email,
-  }
-  console.log(signupUser);
-
-  const result = Validations.validateUser(signupUser);
-  
-  console.log(req.file);
+  const result = Validations.validateUser(req.body);
 
   if (result.error) {
     return res.json({
@@ -35,8 +16,7 @@ const signup = (req, res) => {
       error: `${result.error.details[0].context.value} is an invalid value`,
     });
   }
-  console.log(req.file);
-
+  
   const passportUrl = req.body.passportUrl;
   const email = req.body.email;
   const pword = req.body.password;
@@ -71,14 +51,11 @@ const signup = (req, res) => {
           });
         }
 
-        console.log(result.rows[0]);
-
         jwt.sign({
           id: result.rows[0].userid,
-          email: result.rows[0].email,
           privilege: result.rows[0].privilege,
         },
-        'theadminisgreat',
+        process.env.SECRET,
         {
           expiresIn: '1y',
         }, (err, loginToken) => {
@@ -98,7 +75,8 @@ const signup = (req, res) => {
                   passportUrl: result.rows[0].passporturl,
                   name: `${result.rows[0].firstname} ${result.rows[0].lastname} ${result.rows[0].othername}`,
                   email: result.rows[0].email,
-                  phoneNumber: result.rows[0].telephone
+                  phoneNumber: result.rows[0].telephone,
+                  isAdmin: result.rows[0].privilege,
                 }
               }
             ]
@@ -106,8 +84,7 @@ const signup = (req, res) => {
         });        
       });
     });
-  });
-  
+  }); 
 };
 
 const login = (req, res) => {
@@ -139,10 +116,9 @@ const login = (req, res) => {
       if(response) {
         jwt.sign({
           id: result.rows[0].userid,
-          email: result.rows[0].email,
           privilege: result.rows[0].privilege,
         },
-        'theadminisgreat',
+        process.env.SECRET,
         {
           expiresIn: '1y',
         }, (err, loginToken) => {
@@ -163,7 +139,8 @@ const login = (req, res) => {
                   passportUrl: result.rows[0].passporturl,
                   name: `${result.rows[0].firstname} ${result.rows[0].lastname} ${result.rows[0].othername}`,
                   email: result.rows[0].email,
-                  phoneNumber: result.rows[0].telephone
+                  phoneNumber: result.rows[0].telephone,
+                  isAdmin: result.rows[0].privilege
                 }
               }
             ]

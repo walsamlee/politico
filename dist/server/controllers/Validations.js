@@ -58,7 +58,7 @@ var validateEdit = function validateEdit(id, name) {
 
 var validateUser = function validateUser(user) {
   var schema = {
-    passportUrl: _joi2.default.string().required(),
+    passportUrl: _joi2.default.string().allow(''),
     email: _joi2.default.string().email({ minDomainAtoms: 2 }).required(),
     password: _joi2.default.required(),
     firstName: _joi2.default.string().required(),
