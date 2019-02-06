@@ -295,6 +295,17 @@ a:hover {
     color: #034A8A;
 }
 
+.success {
+    display: none;
+    color: #fff;
+    background: #5cb85c
+}
+
+.success p {
+    margin: 0;
+    padding: 5px 0;
+}
+
 #login input[type=text], #login input[type=password], .form-table input[type=text], .form-table input[type=email], .form-table input[type=password] {
     display: block;
     width: 100%;
