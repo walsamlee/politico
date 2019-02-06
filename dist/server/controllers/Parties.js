@@ -166,8 +166,7 @@ var Parties = {
         status: 201,
         data: [{
           id: result.rows[0].partyid,
-          name: result.rows[0].name,
-          logoUrl: result.rows[0].logourl
+          name: result.rows[0].name
         }]
       });
     });
