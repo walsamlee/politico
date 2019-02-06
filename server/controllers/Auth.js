@@ -56,7 +56,7 @@ const signup = (req, res) => {
       if (err) {
         return res.json({
           status: 400,
-          message: 'Account could not be created',
+          message: err.detail.replace(/[=,(,)]/gi, ''),
         });
       }
 
