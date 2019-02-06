@@ -255,6 +255,31 @@ a:hover {
     padding: 5px 0;
 }
 
+#password-compare {
+    display: none;
+    color: #ff0505;
+    background: #ffeaea;
+    padding: 5px 10px;
+}
+
+#error-message {
+    display: none;
+    margin: 10px 0;
+    padding: 7px 0;
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+#success-message {
+    display: none;
+    margin: 10px 0;
+    padding: 7px 0;
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
 .login-form {
     color: #fff;
     overflow: auto;
