@@ -93,6 +93,54 @@ a:hover {
     display: none;
 }
 
+.center-img {
+    max-width: 1300px;
+}
+
+.center-img img {
+    width: 100%;
+}
+
+.homepage {
+    max-width: 1300px;
+    min-height: 500px;
+    padding: 30px;
+    background: #fff;
+}
+
+.homepage .sect1 {
+    margin: 50px 0;
+}
+
+.homepage .sect1 h2, p {
+    text-align: center;
+}
+
+.homepage .sect2 {
+
+}
+
+.sect-title {
+    text-align: center;
+}
+
+.sect-title h1 {
+    margin: 0;
+    font-size: 45px;
+    color: #c22216;
+}
+
+.sect-title h4 {
+    margin: 0 0 20px 0;
+    color: #c22216;
+}
+
+.sect-body {
+    background: #eee;
+    padding: 20px;
+    border-radius: 4px;
+}
+
 .btn {
     display: inline-block;
     padding: 6px 12px;
@@ -147,6 +195,24 @@ a:hover {
     margin: 0 auto;
     overflow: auto;
     background: #023563;
+}
+
+.signin-main .navigation-bar {
+    background: #01213D;
+}
+
+.signin-main .menu nav a {
+    text-transform: uppercase;
+}
+
+.signin-main .menu nav a:hover {
+    background: #023563;
+    text-decoration: none;
+}
+
+.signin-main .menu nav {
+    width: 98%;
+    text-align: right;
 }
 
 .signin-logo {
@@ -411,6 +477,9 @@ a:hover {
     .brand {
         display: none;
     }
+    .signin-main .menu nav {
+        width: 70%;
+    }
     .menu a, .menu .search {
         display: none;
     }
@@ -502,6 +571,9 @@ a:hover {
   }
 
 @media screen and (max-width: 450px) {
+    .homepage .sect1 {
+        margin: 10px 0;
+    }
     .col-3 {
         width: 93.9%;
     }
