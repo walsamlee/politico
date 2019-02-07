@@ -1,4 +1,4 @@
-const createOfficeToken = localStorage.getItem('token')
+const createOfficeToken = localStorage.getItem('token');
 
 const createOffice = (form) => {
   const url = 'https://sam-politico.herokuapp.com/api/v1/offices';

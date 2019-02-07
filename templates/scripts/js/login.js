@@ -21,12 +21,11 @@ const thisLogin = (form) => {
       } else {
         localStorage.setItem('token', response.data[0].token);
         localStorage.setItem('user', response.data[0].user.id);
-        if(response.data[0].user.isAdmin === 0) {
+        if (response.data[0].user.isAdmin === 0) {
           window.location = `http://${document.location.host}/users/viewparties.html`;
         } else {
           window.location = `http://${document.location.host}/admin/editparty.html`;
         }
-        
       }
     })
     .catch(error => console.error('Error:', error));

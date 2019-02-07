@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 body {
+    font-family: 'Roboto', sans-serif;
     background: #555;
 }
 
@@ -160,9 +163,17 @@ a:hover {
 }
 
 .btn-cart {
+    color: #000;
+    /* background-color: #e5eaef; */
+    /* border-color: #01213D; */
+    margin-bottom: 20px;
+    border: 1px solid #e5eaef;
+}
+
+.btn-cart:hover {
     color: #fff;
-    background-color: #01213D;
-    border-color: #01213D;
+    background: #003566;
+    text-decoration: none;
 }
 
 .btn-login {
@@ -363,9 +374,13 @@ a:hover {
 
 .edit-board .party {
     text-align: center;
-    width: 100%;
-    padding: 10px 0;
-    background: #e6eaef;
+    margin-bottom: 20px;
+    width: 99%;
+    border: 1px solid #e6eaef;
+    padding: 14px 0;
+    box-shadow: inset 0px 0px 2px 0px #80808059;
+    border-radius: 7px;
+    /* background: #e6eaef61; */
 }
 
 .edit-board .party .party-logo {
@@ -476,6 +491,36 @@ a:hover {
     width: 40%;
     float: left;
     padding: 20px;
+}
+
+.party-info {
+    overflow: auto;
+}
+
+.party-info .party-logo {
+    width: 40%;
+    float: left;
+}
+
+.party-info .party-logo img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    border-radius: 15px;
+}
+
+.party-details {
+    width: 55%;
+    float: left;
+}
+
+.party-details p {
+    text-align: left;
+}
+
+.party-candidates {
+    margin: 10px 0;
 }
 
 .footer {
