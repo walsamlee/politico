@@ -26,15 +26,6 @@
     "nyc": "^13.1.0",
     "supertest": "^3.4.2"
   },
-  "nyc": {
-    "exclude": [
-      "dist/server/controllers",
-      "dist/server/middlewares",
-      "dist/server/models",
-      "dist/server/app.js",
-      "server/*"
-    ]
-  },
   "scripts": {
     "start": "node dist/server/app",
     "build": "babel --presets env . -d ./dist --ignore node_modules,dist,templates",

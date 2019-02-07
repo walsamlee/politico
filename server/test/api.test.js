@@ -440,7 +440,6 @@ describe('CRUD politico app', () => {
       const next = () => {};
 
       Auth.isAdmin(req, res, next);
-      console.log(res);
       expect(res.statusCode).to.deep.equal(200);
       
       done();
