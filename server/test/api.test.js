@@ -440,8 +440,8 @@ describe('CRUD politico app', () => {
       const next = () => {};
 
       Auth.isAdmin(req, res, next);
-      console.log(req);
-      expect(req.token).to.deep.equal('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ1c2VyM0Bwb2xpdGljby5jb20iLCJwcml2aWxlZ2UiOjEsImlhdCI6MTU0OTQwMTY2NCwiZXhwIjoxNTgwOTU5MjY0fQ.0l8bspMrUvO9bYB3koEG6qSP0xtwni3xOJ245S0qBPo');
+      console.log(res);
+      expect(res.statusCode).to.deep.equal(200);
       
       done();
   });
@@ -465,7 +465,7 @@ describe('CRUD politico app', () => {
 
       Auth.loggedIn(req, res, next);
       
-      expect(req.token).to.deep.equal('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ1c2VyM0Bwb2xpdGljby5jb20iLCJwcml2aWxlZ2UiOjEsImlhdCI6MTU0OTQwMTY2NCwiZXhwIjoxNTgwOTU5MjY0fQ.0l8bspMrUvO9bYB3koEG6qSP0xtwni3xOJ245S0qBPo');
+      expect(res.statusCode).to.deep.equal(200);
       
       done();
   });
