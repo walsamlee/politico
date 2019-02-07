@@ -57,13 +57,13 @@ var validateEdit = function validateEdit(id, name) {
 
 var validateUser = function validateUser(user) {
   var schema = {
-    passporturl: _joi2.default.string().required(),
+    passportUrl: _joi2.default.string().allow(''),
     email: _joi2.default.string().email({ minDomainAtoms: 2 }).required(),
     password: _joi2.default.required(),
     firstname: _joi2.default.string().required(),
     lastname: _joi2.default.string().required(),
-    othername: _joi2.default.string().required(),
-    telephone: _joi2.default.number().integer().required()
+    othername: _joi2.default.string().allow(''),
+    phoneNumber: _joi2.default.number().integer().required()
   };
 
   return _joi2.default.validate(user, schema);
@@ -91,7 +91,7 @@ var validateVote = function validateVote(vote) {
 var validateUserLogin = function validateUserLogin(user) {
   var schema = {
     email: _joi2.default.string().email({ minDomainAtoms: 2 }).required(),
-    password: _joi2.default.required()
+    password: _joi2.default.string().required()
   };
 
   return _joi2.default.validate(user, schema);

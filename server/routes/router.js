@@ -1,5 +1,4 @@
 import express from 'express';
-import multer from 'multer';
 
 import Verifications from '../middlewares/Verifications';
 import Auth from '../controllers/Auth';
@@ -10,28 +9,11 @@ import Vote from '../controllers/Vote';
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, './uploads')
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname)
-    }
-});
-
-const limits = {
-    fileSize: 1024 * 1024 * 2
-};
-const uploads = multer({
-    storage: storage,
-    limits: limits
-});
-
 router.post('/auth/login', Auth.login);
-router.post('/auth/signup', uploads.single('image'), Auth.signup);
+router.post('/auth/signup', Auth.signup);
 
 router.patch('/parties/:partyId/name', Verifications.isAdmin, Parties.editPartyById);
-router.post('/parties', Verifications.isAdmin, uploads.single('image'), Parties.createParty);
+router.post('/parties', Verifications.isAdmin, Parties.createParty);
 router.delete('/parties/:partyId', Verifications.isAdmin, Parties.deletePartyById);
 router.get('/parties/:partyId', Parties.viewPartyById);
 router.get('/parties', Parties.viewParties);

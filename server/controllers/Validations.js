@@ -47,13 +47,13 @@ const validateEdit = (id, name) => {
 
 const validateUser = (user) => {
   const schema = {
-    passporturl: Joi.string().required(),
+    passportUrl: Joi.string().allow(''),
     email: Joi.string().email({ minDomainAtoms: 2 }).required(),
     password: Joi.required(),
     firstname: Joi.string().required(),
     lastname: Joi.string().required(),
-    othername: Joi.string().required(),
-    telephone: Joi.number().integer().required(),
+    othername: Joi.string().allow(''),
+    phoneNumber: Joi.number().integer().required(),
   };
 
   return Joi.validate(user, schema);
@@ -81,7 +81,7 @@ const validateVote = (vote) => {
 const validateUserLogin = (user) => {
   const schema = {
     email: Joi.string().email({ minDomainAtoms: 2 }).required(),
-    password: Joi.required(),
+    password: Joi.string().required(),
   };
 
   return Joi.validate(user, schema);

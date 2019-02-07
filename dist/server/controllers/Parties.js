@@ -18,9 +18,9 @@ var Parties = {
   viewParties: function viewParties(req, res) {
     _db2.default.client.query('SELECT * FROM parties', function (err, result) {
       if (err) {
-        return res.json({
+        return res.status(404).json({
           error: 404,
-          message: 'Data not retrieived'
+          message: err.detail
         });
       }
       var allParties = [];
@@ -28,12 +28,13 @@ var Parties = {
       for (var i = 0; i < result.rows.length; i++) {
         var row = {
           id: result.rows[i].partyid,
-          name: result.rows[i].name
+          name: result.rows[i].name,
+          logoUrl: result.rows[i].logourl
         };
 
         allParties.push(row);
       }
-      return res.json({
+      return res.status(200).json({
         status: 200,
         data: allParties
       });
@@ -43,9 +44,11 @@ var Parties = {
     var result = _Validations2.default.validateEdit(req.params.partyId, req.body.name);
 
     if (result.error) {
-      return res.json({
+      var errMessage = result.error.details[0].message;
+
+      return res.status(400).json({
         status: 400,
-        error: result.error.details[0].context.value + ' is an invalid value'
+        error: errMessage.replace(/[^a-zA-Z ]/g, "")
       });
     }
 
@@ -59,13 +62,13 @@ var Parties = {
 
     _db2.default.client.query(query, function (err, result) {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           status: 400,
-          error: 'Data could not be retireved'
+          error: err.detail
         });
       }
       if (result.rowCount === 0) {
-        return res.json({
+        return res.status(404).json({
           status: 404,
           error: 'Party with ID ' + partyId + ' not found'
         });
@@ -73,12 +76,12 @@ var Parties = {
 
       _db2.default.client.query('UPDATE parties SET name=$1 WHERE partyid=$2', [partyName, partyId], function (err, result) {
         if (err) {
-          return res.json({
+          return res.status(400).json({
             status: 400,
-            error: 'Unable to Update row'
+            error: err.detail
           });
         }
-        return res.json({
+        return res.status(200).json({
           status: 200,
           data: [{
             id: partyId,
@@ -92,9 +95,11 @@ var Parties = {
     var result = _Validations2.default.validateId(req.params.partyId);
 
     if (result.error) {
-      return res.json({
+      var errMessage = result.error.details[0].message;
+
+      return res.status(400).json({
         status: 400,
-        error: result.error.details[0].context.value + ' is an invalid value'
+        error: errMessage.replace(/[^a-zA-Z ]/g, "")
       });
     }
 
@@ -102,21 +107,21 @@ var Parties = {
 
     _db2.default.client.query('DELETE FROM parties WHERE partyid=$1', [partyId], function (err, result) {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           status: 400,
-          message: 'Row cannot be deleted'
+          message: err.detail
         });
       }
       if (result.rowCount === 0) {
-        return res.json({
+        return res.status(404).json({
           status: 404,
           data: {
             message: 'Party with ID ' + partyId + ' not found'
           }
         });
       }
-      return res.json({
-        status: 202,
+      return res.status(200).json({
+        status: 200,
         data: [{
           message: 'Party with ID ' + partyId + ' has been deleted'
         }]
@@ -124,45 +129,30 @@ var Parties = {
     });
   },
   createParty: function createParty(req, res) {
-    if (!req.file) {
-      return res.json({
-        status: 400,
-        message: 'Please upload a party logo'
-      });
-    }
-
-    var partyData = {
-      name: req.body.name,
-      hqAddress: req.body.hqAddress,
-      logoUrl: req.file.path
-    };
-    var result = _Validations2.default.validateParty(partyData);
+    var result = _Validations2.default.validateParty(req.body);
 
     if (result.error) {
-      return res.json({
+      var errMessage = result.error.details[0].message;
+
+      return res.status(400).json({
         status: 400,
-        error: result.error.details[0].context.value + ' is an invalid value'
+        error: errMessage.replace(/[^a-zA-Z ]/g, "")
       });
     }
-    var party = req.body;
-
-    var partyId = req.body.id;
-    var partyName = party.name;
-    var partyHqAddress = party.hqAddress;
 
     var query = {
       text: 'INSERT INTO parties(name, hqaddress, logourl) VALUES($1, $2, $3) RETURNING *',
-      values: [partyName, partyHqAddress, req.file.path]
+      values: [req.body.name, req.body.hqAddress, req.body.logoUrl]
     };
 
     _db2.default.client.query(query, function (err, result) {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           status: 400,
-          error: err
+          error: err.detail
         });
       }
-      return res.json({
+      return res.status(201).json({
         status: 201,
         data: [{
           id: result.rows[0].partyid,
@@ -175,27 +165,29 @@ var Parties = {
     var result = _Validations2.default.validateId(req.params.partyId);
 
     if (result.error) {
-      return res.json({
+      var errMessage = result.error.details[0].message;
+
+      return res.status(400).json({
         status: 400,
-        error: result.error.details[0].context.value + ' is an invalid value'
+        error: errMessage.replace(/[^a-zA-Z ]/g, "")
       });
     }
     var partyId = parseInt(req.params.partyId, 10);
 
     _db2.default.client.query('SELECT * FROM parties WHERE partyid=$1', [partyId], function (err, result) {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           status: 400,
-          message: 'Data could not be retrieved'
+          message: err.detail
         });
       }
       if (result.rowCount === 0) {
-        return res.json({
+        return res.status(404).json({
           error: 404,
           message: 'Party with ID ' + partyId + ' could not be found'
         });
       }
-      return res.json({
+      return res.status(200).json({
         status: 200,
         data: [{
           id: result.rows[0].partyid,

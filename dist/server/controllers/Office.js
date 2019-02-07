@@ -22,9 +22,11 @@ var registerCandidate = function registerCandidate(req, res) {
   var result = _Validations2.default.validateCandidate(candidateDetails);
 
   if (result.error) {
-    return res.json({
+    var errMessage = result.error.details[0].message;
+
+    return res.status(400).json({
       status: 400,
-      error: result.error.details[0].context.value + ' is an invalid value'
+      error: errMessage.replace(/[^a-zA-Z ]/g, "")
     });
   }
 
@@ -37,13 +39,13 @@ var registerCandidate = function registerCandidate(req, res) {
 
   _db2.default.client.query(query, function (err, result) {
     if (err) {
-      return res.json({
+      return res.status(400).json({
         status: 400,
-        message: 'Cannot add user to this office! User may already be registered for this office'
+        message: err.detail
       });
     }
 
-    return res.json({
+    return res.status(200).json({
       status: 200,
       data: {
         office: office,
@@ -57,9 +59,11 @@ var viewResult = function viewResult(req, res) {
   var result = _Validations2.default.validateId(req.params.officeId);
 
   if (result.error) {
-    return res.json({
+    var errMessage = result.error.details[0].message;
+
+    return res.status(400).json({
       status: 400,
-      error: result.error.details[0].context.value + ' is an invalid value'
+      error: errMessage.replace(/[^a-zA-Z ]/g, "")
     });
   }
 
@@ -72,14 +76,14 @@ var viewResult = function viewResult(req, res) {
 
   _db2.default.client.query(query, function (err, result) {
     if (err) {
-      return res.json({
+      return res.status(400).json({
         status: 400,
         message: 'Data cannot be retrieved'
       });
     }
 
     if (result.rowCount === 0) {
-      return res.json({
+      return res.status(404).json({
         status: 404,
         message: 'Office with ID ' + officeId + ' not found'
       });
@@ -96,7 +100,7 @@ var viewResult = function viewResult(req, res) {
       });
     }
 
-    return res.json({
+    return res.status(200).json({
       status: 200,
       data: electionResult
     });

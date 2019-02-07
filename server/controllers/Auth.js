@@ -8,40 +8,23 @@ import Validations from './Validations';
 dotenv.config();
 
 const signup = (req, res) => {
-  if(!req.file) {
-    return res.json({
-      status: 400,
-      message: 'Please upload a party logo'
-    });
-  }
-
-  const signupData = {
-    passporturl: req.file.path,
-    email: req.body.email,
-    password: req.body.password,
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    othername: req.body.othername,
-    telephone: req.body.telephone,
-  }
-
-  const result = Validations.validateUser(signupData);
+  const result = Validations.validateUser(req.body);
 
   if (result.error) {
-    return res.json({
+    const errMessage = result.error.details[0].message;
+
+    return res.status(400).json({
       status: 400,
-      error: `${result.error.details[0].context.value} is an invalid value`,
+      error: errMessage.replace(/[^a-zA-Z ]/g, ""),
     });
   }
   
-  const passporturl = req.file.path;
-  const email = req.body.email;
   const pword = req.body.password;
-  const privilege = 0;
+  const isAdmin = false;
 
   bcrypt.hash(pword, 10, (err, hash) => {
     if (err) {
-      return res.json({
+      return res.status(400).json({
         status: 400,
         message: 'Password cannot be hashed',
       });
@@ -49,35 +32,35 @@ const signup = (req, res) => {
 
     const query = {
       text: 'INSERT INTO users(email, password, firstname, lastname, othername, telephone, privilege, passporturl) VALUES($1, $2, $3, $4, $5, $6, $7, $8)',
-      values: [email, hash, req.body.firstname, req.body.lastname, req.body.othername, req.body.telephone, privilege, passporturl],
+      values: [req.body.email, hash, req.body.firstname, req.body.lastname, req.body.othername, req.body.phoneNumber, isAdmin, req.body.passportUrl],
     };
 
     db.client.query(query, (err, result) => {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           status: 400,
           message: err.detail.replace(/[=,(,)]/gi, ''),
         });
       }
 
-      db.client.query('SELECT * FROM users WHERE email=$1', [email], (err, result) => {
+      db.client.query('SELECT * FROM users WHERE email=$1', [req.body.email], (err, result) => {
         if (err) {
-          return res.json({
+          return res.status(400).json({
             status: 400,
-            message: 'Data cannot be retrieved',
+            message: err.detail.replace(/[=,(,)]/gi, ''),
           });
         }
 
         jwt.sign({
           id: result.rows[0].userid,
-          privilege: result.rows[0].privilege,
+          isAdmin: result.rows[0].privilege
         },
         process.env.SECRET,
         {
           expiresIn: '1y',
         }, (err, loginToken) => {
           if (err) {
-            return res.json({
+            return res.status(400).json({
               status: 400,
               message: err,
             });
@@ -89,6 +72,7 @@ const signup = (req, res) => {
               {
                 token: loginToken,
                 user: {
+                  id: result.rows[0].userid,
                   passportUrl: result.rows[0].passporturl,
                   name: `${result.rows[0].firstname} ${result.rows[0].lastname} ${result.rows[0].othername}`,
                   email: result.rows[0].email,
@@ -108,22 +92,24 @@ const login = (req, res) => {
   const result = Validations.validateUserLogin(req.body);
 
   if (result.error) {
-    return res.json({
+    const errMessage = result.error.details[0].message;
+
+    return res.status(400).json({
       status: 400,
-      error: `${result.error.details[0].context.value} is an invalid value`,
+      error: errMessage.replace(/[^a-zA-Z ]/g, ""),
     });
   }
 
   db.client.query('SELECT * FROM users WHERE email=$1', [req.body.email], (err, result) => {
     if (err) {
-      return res.json({
+      return res.status(400).json({
         status: 400,
         message: 'Data cannot be added to database',
       });
     }
 
     if (result.rowCount === 0) {
-      return res.json({
+      return res.status(404).json({
         status: 404,
         error: `User with email ${req.body.email} not found`,
       });
@@ -133,16 +119,16 @@ const login = (req, res) => {
       if(response) {
         jwt.sign({
           id: result.rows[0].userid,
-          privilege: result.rows[0].privilege,
+          isAdmin: result.rows[0].privilege,
         },
         process.env.SECRET,
         {
           expiresIn: '1y',
         }, (err, loginToken) => {
           if (err) {
-            return res.json({
+            return res.status(400).json({
               status: 400,
-              message: 'Data cannot be added to database',
+              message: 'Error generating token',
             });
           }
   
@@ -164,7 +150,7 @@ const login = (req, res) => {
           })
         });
       } else {
-        return res.json({
+        return res.status(400).json({
           status: 400,
           message: 'Invalid username or password',
         });

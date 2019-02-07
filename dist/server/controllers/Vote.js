@@ -26,9 +26,11 @@ var castVote = function castVote(req, res) {
   var result = _Validations2.default.validateVote(voterData);
 
   if (result.error) {
-    return res.json({
+    var errMessage = result.error.details[0].message;
+
+    return res.status(400).json({
       status: 400,
-      error: result.error.details[0].context.value + ' is an invalid value'
+      error: errMessage.replace(/[^a-zA-Z ]/g, "")
     });
   }
 
@@ -36,24 +38,24 @@ var castVote = function castVote(req, res) {
   var candidateId = parseInt(req.body.candidate, 10);
 
   var query = {
-    text: 'INSERT INTO votes(officeid, candidateid, voterid) VALUES($1, $2, $3)',
+    text: 'INSERT INTO votes(officeid, candidateid, voterid) VALUES($1, $2, $3) RETURNING *',
     values: [officeId, candidateId, voterId]
   };
 
   _db2.default.client.query(query, function (err, result) {
     if (err) {
-      return res.json({
+      return res.status(400).json({
         status: 400,
         message: 'You can only cast your vote once for this office'
       });
     }
 
-    return res.json({
+    return res.status(201).json({
       status: 201,
       data: {
-        office: officeId,
-        candidate: candidateId,
-        voter: voterId
+        office: result.officeid,
+        candidate: result.candidateid,
+        voter: result.voterid
       }
     });
   });

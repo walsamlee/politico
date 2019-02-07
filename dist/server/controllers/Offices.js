@@ -19,9 +19,11 @@ var Offices = {
     var result = _Validations2.default.validateOffice(req.body);
 
     if (result.error) {
-      return res.json({
+      var errMessage = result.error.details[0].message;
+
+      return res.status(400).json({
         status: 400,
-        error: result.error.details[0].context.value + ' is an invalid value'
+        error: errMessage.replace(/[^a-zA-Z ]/g, "")
       });
     }
 
@@ -36,12 +38,12 @@ var Offices = {
 
     _db2.default.client.query(query, function (err, result) {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           status: 400,
-          message: 'Data cannot be added to database'
+          message: err.detail
         });
       }
-      return res.json({
+      return res.status(201).json({
         status: 201,
         data: [{
           id: officeId,
@@ -54,13 +56,14 @@ var Offices = {
   viewOffices: function viewOffices(req, res) {
     _db2.default.client.query('SELECT * FROM offices', function (err, result) {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           status: 400,
-          message: 'Data could not be retrieved'
+          message: err.detail
         });
       }
 
       var offices = [];
+
       for (var i = 0; i < result.rowCount; i++) {
         var office = {
           id: result.rows[i].officeid,
@@ -70,7 +73,7 @@ var Offices = {
 
         offices.push(office);
       }
-      return res.json({
+      return res.status(200).json({
         status: 200,
         data: offices
       });
@@ -80,9 +83,11 @@ var Offices = {
     var result = _Validations2.default.validateId(req.params.officeId);
 
     if (result.error) {
-      return res.json({
+      var errMessage = result.error.details[0].message;
+
+      return res.status(400).json({
         status: 400,
-        error: result.error.details[0].context.value + ' is an invalid value'
+        error: errMessage.replace(/[^a-zA-Z ]/g, "")
       });
     }
 
@@ -90,19 +95,19 @@ var Offices = {
 
     _db2.default.client.query('SELECT * FROM offices WHERE officeid=$1', [officeId], function (err, result) {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           status: 400,
-          message: 'Data cannot be retrieved'
+          message: err.detail
         });
       }
       if (result.rowCount === 0) {
-        return res.json({
+        return res.status(404).json({
           status: 404,
           message: 'Office with ID ' + officeId + ' not found'
         });
       }
 
-      return res.json({
+      return res.status(200).json({
         status: 200,
         data: {
           id: result.rows[0].officeid,

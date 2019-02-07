@@ -29,40 +29,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _dotenv2.default.config();
 
 var signup = function signup(req, res) {
-  if (!req.file) {
-    return res.json({
-      status: 400,
-      message: 'Please upload a party logo'
-    });
-  }
-
-  var signupData = {
-    passporturl: req.file.path,
-    email: req.body.email,
-    password: req.body.password,
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    othername: req.body.othername,
-    telephone: req.body.telephone
-  };
-
-  var result = _Validations2.default.validateUser(signupData);
+  var result = _Validations2.default.validateUser(req.body);
 
   if (result.error) {
-    return res.json({
+    var errMessage = result.error.details[0].message;
+
+    return res.status(400).json({
       status: 400,
-      error: result.error.details[0].context.value + ' is an invalid value'
+      error: errMessage.replace(/[^a-zA-Z ]/g, "")
     });
   }
 
-  var passporturl = req.file.path;
-  var email = req.body.email;
   var pword = req.body.password;
-  var privilege = 0;
+  var isAdmin = false;
 
   _bcrypt2.default.hash(pword, 10, function (err, hash) {
     if (err) {
-      return res.json({
+      return res.status(400).json({
         status: 400,
         message: 'Password cannot be hashed'
       });
@@ -70,33 +53,33 @@ var signup = function signup(req, res) {
 
     var query = {
       text: 'INSERT INTO users(email, password, firstname, lastname, othername, telephone, privilege, passporturl) VALUES($1, $2, $3, $4, $5, $6, $7, $8)',
-      values: [email, hash, req.body.firstname, req.body.lastname, req.body.othername, req.body.telephone, privilege, passporturl]
+      values: [req.body.email, hash, req.body.firstname, req.body.lastname, req.body.othername, req.body.phoneNumber, isAdmin, req.body.passportUrl]
     };
 
     _db2.default.client.query(query, function (err, result) {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           status: 400,
           message: err.detail.replace(/[=,(,)]/gi, '')
         });
       }
 
-      _db2.default.client.query('SELECT * FROM users WHERE email=$1', [email], function (err, result) {
+      _db2.default.client.query('SELECT * FROM users WHERE email=$1', [req.body.email], function (err, result) {
         if (err) {
-          return res.json({
+          return res.status(400).json({
             status: 400,
-            message: 'Data cannot be retrieved'
+            message: err.detail.replace(/[=,(,)]/gi, '')
           });
         }
 
         _jsonwebtoken2.default.sign({
           id: result.rows[0].userid,
-          privilege: result.rows[0].privilege
+          isAdmin: result.rows[0].privilege
         }, process.env.SECRET, {
           expiresIn: '1y'
         }, function (err, loginToken) {
           if (err) {
-            return res.json({
+            return res.status(400).json({
               status: 400,
               message: err
             });
@@ -107,6 +90,7 @@ var signup = function signup(req, res) {
             data: [{
               token: loginToken,
               user: {
+                id: result.rows[0].userid,
                 passportUrl: result.rows[0].passporturl,
                 name: result.rows[0].firstname + ' ' + result.rows[0].lastname + ' ' + result.rows[0].othername,
                 email: result.rows[0].email,
@@ -125,22 +109,24 @@ var login = function login(req, res) {
   var result = _Validations2.default.validateUserLogin(req.body);
 
   if (result.error) {
-    return res.json({
+    var errMessage = result.error.details[0].message;
+
+    return res.status(400).json({
       status: 400,
-      error: result.error.details[0].context.value + ' is an invalid value'
+      error: errMessage.replace(/[^a-zA-Z ]/g, "")
     });
   }
 
   _db2.default.client.query('SELECT * FROM users WHERE email=$1', [req.body.email], function (err, result) {
     if (err) {
-      return res.json({
+      return res.status(400).json({
         status: 400,
         message: 'Data cannot be added to database'
       });
     }
 
     if (result.rowCount === 0) {
-      return res.json({
+      return res.status(404).json({
         status: 404,
         error: 'User with email ' + req.body.email + ' not found'
       });
@@ -150,14 +136,14 @@ var login = function login(req, res) {
       if (response) {
         _jsonwebtoken2.default.sign({
           id: result.rows[0].userid,
-          privilege: result.rows[0].privilege
+          isAdmin: result.rows[0].privilege
         }, process.env.SECRET, {
           expiresIn: '1y'
         }, function (err, loginToken) {
           if (err) {
-            return res.json({
+            return res.status(400).json({
               status: 400,
-              message: 'Data cannot be added to database'
+              message: 'Error generating token'
             });
           }
 
@@ -177,7 +163,7 @@ var login = function login(req, res) {
           });
         });
       } else {
-        return res.json({
+        return res.status(400).json({
           status: 400,
           message: 'Invalid username or password'
         });

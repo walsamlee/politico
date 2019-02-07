@@ -21,9 +21,9 @@ var loggedIn = function loggedIn(req, res, next) {
 
   _jsonwebtoken2.default.verify(token, process.env.SECRET, function (err, decoded) {
     if (err) {
-      return res.json({
+      return res.status(401).json({
         status: 401,
-        message: 'Unauthorized access'
+        message: err.message
       });
     }
 
@@ -38,16 +38,17 @@ var isAdmin = function isAdmin(req, res, next) {
 
   _jsonwebtoken2.default.verify(token, process.env.SECRET, function (err, decoded) {
     if (err) {
-      return res.json({
+      return res.status(401).json({
         status: 401,
-        message: 'Unauthorized access'
+        message: err.message
       });
     }
 
-    if (decoded.privilege !== 1) {
-      return res.json({
-        status: 401,
-        message: 'Unauthorized access'
+    if (decoded.isAdmin !== 'true') {
+      console.log(decoded.isAdmin);
+      return res.status(403).json({
+        status: 403,
+        message: "Access forbidden"
       });
     }
 
