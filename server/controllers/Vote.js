@@ -2,7 +2,15 @@ import db from '../models/db';
 import Validations from './Validations';
 
 const castVote = (req, res) => {
-  const result = Validations.validateVote(req.body);
+  const voterId = parseInt(req.userData.id, 10);
+
+  const voterData = {
+    office: req.body.office,
+    candidate: req.body.candidate,
+    voter: voterId
+  }
+
+  const result = Validations.validateVote(voterData);
 
   if (result.error) {
     return res.json({
@@ -13,7 +21,6 @@ const castVote = (req, res) => {
 
   const officeId = parseInt(req.body.office, 10);
   const candidateId = parseInt(req.body.candidate, 10);
-  const voterId = parseInt(req.userData.id, 10);
 
   const query = {
     text: 'INSERT INTO votes(officeid, candidateid, voterid) VALUES($1, $2, $3)',

@@ -15,7 +15,15 @@ var _Validations2 = _interopRequireDefault(_Validations);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var castVote = function castVote(req, res) {
-  var result = _Validations2.default.validateVote(req.body);
+  var voterId = parseInt(req.userData.id, 10);
+
+  var voterData = {
+    office: req.body.office,
+    candidate: req.body.candidate,
+    voter: voterId
+  };
+
+  var result = _Validations2.default.validateVote(voterData);
 
   if (result.error) {
     return res.json({
@@ -26,7 +34,6 @@ var castVote = function castVote(req, res) {
 
   var officeId = parseInt(req.body.office, 10);
   var candidateId = parseInt(req.body.candidate, 10);
-  var voterId = parseInt(req.userData.id, 10);
 
   var query = {
     text: 'INSERT INTO votes(officeid, candidateid, voterid) VALUES($1, $2, $3)',
