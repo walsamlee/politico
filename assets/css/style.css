@@ -550,6 +550,7 @@ a:hover {
 
 .footer p {
     margin: 0;
+    text-align: center;
 }
 
 @media screen and (max-width: 1200px) {
