@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 body {
+    font-family: 'Roboto', sans-serif;
     background: #555;
+    line-height: 1.8;
 }
 
 a {
@@ -37,6 +41,10 @@ a:hover {
 .menu nav a:hover {
     background: #01213D;
     text-decoration: none;
+}
+
+#vote-link {
+    display: none;
 }
 
 .menu .search {
@@ -87,6 +95,7 @@ a:hover {
 
 .brand-logo img {
     width: 25%;
+    padding-left: 25px;
 }
 
 .mini-menu-icon a {
@@ -102,6 +111,7 @@ a:hover {
 }
 
 .homepage {
+    overflow: auto;
     max-width: 1300px;
     min-height: 500px;
     padding: 30px;
@@ -116,10 +126,6 @@ a:hover {
     text-align: center;
 }
 
-.homepage .sect2 {
-
-}
-
 .sect-title {
     text-align: center;
 }
@@ -127,12 +133,12 @@ a:hover {
 .sect-title h1 {
     margin: 0;
     font-size: 45px;
-    color: #c22216;
+    color: #00213f;
 }
 
 .sect-title h4 {
     margin: 0 0 20px 0;
-    color: #c22216;
+    color: #00213f;
 }
 
 .sect-body {
@@ -160,9 +166,17 @@ a:hover {
 }
 
 .btn-cart {
+    color: #000;
+    /* background-color: #e5eaef; */
+    /* border-color: #01213D; */
+    margin-bottom: 20px;
+    border: 1px solid #e5eaef;
+}
+
+.btn-cart:hover {
     color: #fff;
-    background-color: #01213D;
-    border-color: #01213D;
+    background: #003566;
+    text-decoration: none;
 }
 
 .btn-login {
@@ -245,6 +259,41 @@ a:hover {
     margin-top: 20px;
 }
 
+.failure {
+    display: none;
+    background: #c22216;
+    color: #fff;
+}
+
+.failure p {
+    padding: 5px 0;
+}
+
+#password-compare {
+    display: none;
+    color: #ff0505;
+    background: #ffeaea;
+    padding: 5px 10px;
+}
+
+#error-message {
+    display: none;
+    margin: 10px 0;
+    padding: 7px 0;
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+#success-message {
+    display: none;
+    margin: 10px 0;
+    padding: 7px 0;
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
 .login-form {
     color: #fff;
     overflow: auto;
@@ -258,6 +307,17 @@ a:hover {
 .login-form h1 {
     margin: 0;
     color: #034A8A;
+}
+
+.success {
+    display: none;
+    color: #fff;
+    background: #5cb85c
+}
+
+.success p {
+    margin: 0;
+    padding: 5px 0;
 }
 
 #login input[type=text], #login input[type=password], .form-table input[type=text], .form-table input[type=email], .form-table input[type=password] {
@@ -317,9 +377,13 @@ a:hover {
 
 .edit-board .party {
     text-align: center;
-    width: 100%;
-    padding: 10px 0;
-    background: #e6eaef;
+    margin-bottom: 20px;
+    width: 99%;
+    border: 1px solid #e6eaef;
+    padding: 14px 0;
+    box-shadow: inset 0px 0px 2px 0px #80808059;
+    border-radius: 7px;
+    /* background: #e6eaef61; */
 }
 
 .edit-board .party .party-logo {
@@ -386,8 +450,16 @@ a:hover {
     width: 31.3%;
     overflow: auto;
     padding: 10px 0;
-    margin: 10px 1%;
+    margin: 20px 1%;
     float: left;
+}
+
+.col-3 a {
+    color: #000;
+}
+
+.col-3 a:hover {
+    text-decoration: none;
 }
 
 .cur-party-logo img {
@@ -430,6 +502,36 @@ a:hover {
     width: 40%;
     float: left;
     padding: 20px;
+}
+
+.party-info {
+    overflow: auto;
+}
+
+.party-info .party-logo {
+    width: 40%;
+    float: left;
+}
+
+.party-info .party-logo img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    border-radius: 15px;
+}
+
+.party-details {
+    width: 55%;
+    float: left;
+}
+
+.party-details p {
+    text-align: left;
+}
+
+.party-candidates {
+    margin: 10px 0;
 }
 
 .footer {
