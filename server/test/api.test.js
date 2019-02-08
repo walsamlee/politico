@@ -35,7 +35,7 @@ describe('CRUD politico app', () => {
 
   it('test POST /api/v1/auth/login', (done) => {
     request(app)
-      .get('/api/v1/auth/login')
+      .post('/api/v1/auth/login')
       .send(testdata.user)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
