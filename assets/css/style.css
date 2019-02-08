@@ -134,6 +134,14 @@ a:hover {
     text-align: left;
 }
 
+.homepage .sect1 p {
+    text-align: center;
+}
+
+.homepage .sect2 .sect-body p {
+    text-align: justify;
+}
+
 .sect-title {
     text-align: center;
 }
