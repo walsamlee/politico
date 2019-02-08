@@ -8,13 +8,16 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="../scripts/js/main.js"></script>
+    <script src="../scripts/js/userjs/signup.js"></script>
 </head>
 <body>
     <div class="main">
         <div class="header">
             <div class="brand">
                 <div class="brand-logo">
-                    <img src="../assets/images/politico.png" alt="brand-logo">
+                    <a href="#">
+                        <img src="../assets/images/politico.png" alt="brand-logo">
+                    </a>
                 </div>
             </div>
 
@@ -23,11 +26,6 @@
                     <nav>
                         <a href="../index.html">Home</a>
                     </nav>
-                    <div class="search">
-                        <form action="#">
-                            <input type="search" name="search" placeholder="Search">
-                        </form>
-                    </div>
                     <div class="mini-menu-icon">
                         <a href="javascript:void(0);" onclick="miniMenu()"><i class="fas fa-bars"></i></a>
                     </div>
@@ -37,8 +35,16 @@
 
         <div class="dashboard">
             <div class="signup-form">
-                <form method="POST" id="sign-up" name="sign-up" action="">
+                <form id="sign-up" method="POST" action="" enctype="multipart/form-data">
                     <table class="form-table">
+                        <tr>
+                            <td class="label">
+                                <label for="passportUrl">Passport Photograph: </label>
+                            </td>
+                            <td>
+                                <input id="passporturl" type="file" accept="image/*" name="image">
+                            </td>
+                        </tr> 
                         <tr>
                             <td class="label">
                                 <label for="firstname">First Name: </label>
@@ -65,10 +71,10 @@
                         </tr>
                         <tr>
                             <td class="label">
-                                <label for="phonenumber">Phone Number: </label>
+                                <label for="telephone">Phone Number: </label>
                             </td>
                             <td>
-                                <input id="phonenumber" type="text" name="phonenumber">
+                                <input id="telephone" type="text" name="telephone">
                             </td>
                         </tr>
                         <tr>
@@ -84,7 +90,7 @@
                                 <label for="password">Password: </label>
                             </td>
                             <td>
-                                <input id="password" type="password" name="password">
+                                <input id="password" type="password" name="password" onkeyup="passwordCompare(this.form)">
                             </td>
                         </tr>
                         <tr>
@@ -92,21 +98,31 @@
                                 <label for="password2">Confirm Password: </label>
                             </td>
                             <td>
-                                <input id="password2" type="password" name="password2">
+                                <input id="password2" type="password" name="password2" onkeyup="passwordCompare(this.form)">
                             </td>
                         </tr>
                         <tr>
-                            <td class="label">
-                                <label for="passport">Passport Photograph: </label>
-                            </td>
+                            <td></td>
                             <td>
-                                <input id="passport" type="file" accept="image/*" name="passport">
+                                <p id="password-compare">Password not the same</p>
                             </td>
-                        </tr>                 
+                        </tr>
                         <tr>
                             <td></td>
                             <td>
-                                <input type="button" class="btn btn-cart" value="Sign-Up">
+                                <p id="error-message">Invalid Input or Empty Field(s) Detected</p>
+                            </td>
+                        </tr> 
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p id="success-message">Invalid Input or Empty Field(s) Detected</p>
+                            </td>
+                        </tr>                
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="button" class="btn btn-cart" value="Sign-Up" onclick="signUp()">
                                 <input type="reset" class="btn btn-cart" value="Reset">
                             </td>
                         </tr>

@@ -1,6 +1,9 @@
 import request from 'supertest';
 import { expect } from 'chai';
+import http from 'node-mocks-http';
 
+import Vote from '../controllers/Vote';
+import Auth from '../middlewares/Verifications';
 import testdata from './testdata';
 import TestTables from '../models/creatTables';
 import app from '../app';
@@ -41,6 +44,9 @@ describe('CRUD politico app', () => {
         if (err) throw err;
         else {
           const responseData = JSON.parse(response.text);
+          if(responseData.status === 400) {
+            expect(responseData.message).to.be.a('string');
+          }
           expect(response).to.be.a('object');
         }
 
@@ -415,4 +421,76 @@ describe('CRUD politico app', () => {
         done();
       });
   });
+
+  it('test isAdmin function for admin', (done) => {
+      const adminTestDecode = {
+          "id": 3,
+          "email": "user3@politico.com",
+          "privilege": 1,
+          "iat": 1549401664,
+          "exp": 1580959264
+        }
+      const req = http.createRequest({
+          headers: {
+              token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ1c2VyM0Bwb2xpdGljby5jb20iLCJwcml2aWxlZ2UiOjEsImlhdCI6MTU0OTQwMTY2NCwiZXhwIjoxNTgwOTU5MjY0fQ.0l8bspMrUvO9bYB3koEG6qSP0xtwni3xOJ245S0qBPo"
+          }
+      });
+
+      const res = http.createResponse();
+      const next = () => {};
+
+      Auth.isAdmin(req, res, next);
+      expect(res.statusCode).to.deep.equal(200);
+      
+      done();
+  });
+
+  it('test loggedIn function for admin', (done) => {
+      const adminTestDecode = {
+          "id": 3,
+          "email": "user3@politico.com",
+          "privilege": 1,
+          "iat": 1549401664,
+          "exp": 1580959264
+        }
+      const req = http.createRequest({
+          headers: {
+              token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ1c2VyM0Bwb2xpdGljby5jb20iLCJwcml2aWxlZ2UiOjEsImlhdCI6MTU0OTQwMTY2NCwiZXhwIjoxNTgwOTU5MjY0fQ.0l8bspMrUvO9bYB3koEG6qSP0xtwni3xOJ245S0qBPo"
+          }
+      });
+
+      const res = http.createResponse();
+      const next = () => {};
+
+      Auth.loggedIn(req, res, next);
+      
+      expect(res.statusCode).to.deep.equal(200);
+      
+      done();
+  });
+
+  it('test cast vote function for admin', (done) => {
+      const testVote = {
+        office: 1,
+        candidate: 4,
+        voter: 1,
+      }
+
+      const req = http.createRequest({
+        body: testVote,
+        headers: {
+            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ1c2VyM0Bwb2xpdGljby5jb20iLCJwcml2aWxlZ2UiOjEsImlhdCI6MTU0OTQwMTY2NCwiZXhwIjoxNTgwOTU5MjY0fQ.0l8bspMrUvO9bYB3koEG6qSP0xtwni3xOJ245S0qBPo"
+        }
+
+      });
+
+      const res = http.createResponse();
+      const next = () => {};
+
+      Vote.castVote(req, res);
+      expect(res.statusCode).to.deep.equal(200);
+      
+      done();
+  });
+  
 });

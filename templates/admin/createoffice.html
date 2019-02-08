@@ -8,13 +8,16 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="../scripts/js/main.js"></script>
+    <script src="../scripts/js/adminjs/createoffice.js"></script>
 </head>
 <body>
     <div class="main">
         <div class="header">
             <div class="brand">
                 <div class="brand-logo">
-                    <img src="../assets/images/politico.png" alt="brand-logo">
+                    <a href="#">
+                        <img src="../assets/images/politico.png" alt="brand-logo">
+                    </a>
                 </div>
             </div>
 
@@ -25,11 +28,6 @@
                         <a href="createparty.html">Create Party</a>
                         <a href="../index.html">Logout</a>
                     </nav>
-                    <div class="search">
-                        <form action="#">
-                            <input type="search" name="search" placeholder="Search">
-                        </form>
-                    </div>
                     <div class="mini-menu-icon">
                         <a href="javascript:void(0);" onclick="miniMenu()"><i class="fas fa-bars"></i></a>
                     </div>
@@ -39,20 +37,25 @@
 
         <div class="dashboard">
             <div class="signup-form">
-                <form method="POST" id="sign-up" name="sign-up" action="">
+                <div class="success" id="success">
+                    <p>Office Successfully Created</p>
+                </div>
+                <form method="POST" id="create-office" name="sign-up" action="">
                     <table class="form-table">
+                        <tr>
+                            <td class="label">
+                                <label for="office-id">Office ID: </label>
+                            </td>
+                            <td>
+                                <input id="office-id" type="text" name=officeid>
+                            </td>
+                        </tr>
                         <tr>
                             <td class="label">
                                 <label for="office-type">Office Type: </label>
                             </td>
                             <td>
-                                <select id="office-type" name="office-type">
-                                    <option value="options"></option>
-                                    <option value="federal">Federal</option>
-                                    <option value="legislative">Legislative</option>
-                                    <option value="state">State</option>
-                                    <option value="local government">Local government</option>
-                                </select>
+                                <input id="office-type" type="text" name=officetype>
                             </td>
                         </tr>
                         <tr>
@@ -66,7 +69,7 @@
                         <tr>
                             <td></td>
                             <td>
-                                <input type="button" class="btn btn-cart" value="Save">
+                                <input type="button" class="btn btn-cart" value="Save" onclick="createOffice(this.form)">
                                 <input type="reset" class="btn btn-cart" value="Reset">
                             </td>
                         </tr>
