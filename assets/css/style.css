@@ -167,10 +167,8 @@ a:hover {
 
 .btn-cart {
     color: #000;
-    /* background-color: #e5eaef; */
-    /* border-color: #01213D; */
     margin-bottom: 20px;
-    border: 1px solid #e5eaef;
+    border: 1px solid #b6c1cc;
 }
 
 .btn-cart:hover {
