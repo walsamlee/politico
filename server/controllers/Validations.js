@@ -2,7 +2,6 @@ import Joi from 'joi';
 
 const validateParty = (party) => {
   const schema = {
-    id: Joi.number().integer().required(),
     name: Joi.string().required(),
     hqAddress: Joi.string().required(),
     logoUrl: Joi.string().required(),
@@ -48,13 +47,13 @@ const validateEdit = (id, name) => {
 
 const validateUser = (user) => {
   const schema = {
-    passportUrl: Joi.string().required(),
+    passportUrl: Joi.string().allow(''),
     email: Joi.string().email({ minDomainAtoms: 2 }).required(),
     password: Joi.required(),
-    firstName: Joi.string().required(),
-    lastName: Joi.string().required(),
-    otherName: Joi.string().required(),
-    telephone: Joi.number().integer().required(),
+    firstname: Joi.string().required(),
+    lastname: Joi.string().required(),
+    othername: Joi.string().allow(''),
+    phoneNumber: Joi.number().integer().required(),
   };
 
   return Joi.validate(user, schema);
@@ -82,7 +81,7 @@ const validateVote = (vote) => {
 const validateUserLogin = (user) => {
   const schema = {
     email: Joi.string().email({ minDomainAtoms: 2 }).required(),
-    password: Joi.required(),
+    password: Joi.string().required(),
   };
 
   return Joi.validate(user, schema);

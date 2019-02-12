@@ -6,9 +6,11 @@ const Offices = {
     const result = Validations.validateOffice(req.body);
 
     if (result.error) {
-      return res.json({
+      const errMessage = result.error.details[0].message;
+
+      return res.status(400).json({
         status: 400,
-        error: `${result.error.details[0].context.value} is an invalid value`,
+        error: errMessage.replace(/[^a-zA-Z ]/g, ""),
       });
     }
 
@@ -23,12 +25,12 @@ const Offices = {
 
     db.client.query(query, (err, result) => {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           status: 400,
-          message: 'Data cannot be added to database',
+          message: err.detail,
         });
       }
-      return res.json({
+      return res.status(201).json({
         status: 201,
         data: [
           {
@@ -44,13 +46,14 @@ const Offices = {
   viewOffices(req, res) {
     db.client.query('SELECT * FROM offices', (err, result) => {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           status: 400,
-          message: 'Data could not be retrieved',
+          message: err.detail,
         });
       }
 
       const offices = [];
+
       for (let i = 0; i < result.rowCount; i++) {
         const office = {
           id: result.rows[i].officeid,
@@ -60,7 +63,7 @@ const Offices = {
 
         offices.push(office);
       }
-      return res.json({
+      return res.status(200).json({
         status: 200,
         data: offices,
       });
@@ -71,9 +74,11 @@ const Offices = {
     const result = Validations.validateId(req.params.officeId);
 
     if (result.error) {
-      return res.json({
+      const errMessage = result.error.details[0].message;
+
+      return res.status(400).json({
         status: 400,
-        error: `${result.error.details[0].context.value} is an invalid value`,
+        error: errMessage.replace(/[^a-zA-Z ]/g, ""),
       });
     }
 
@@ -81,19 +86,19 @@ const Offices = {
 
     db.client.query('SELECT * FROM offices WHERE officeid=$1', [officeId], (err, result) => {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           status: 400,
-          message: 'Data cannot be retrieved',
+          message: err.detail,
         });
       }
       if (result.rowCount === 0) {
-        return res.json({
+        return res.status(404).json({
           status: 404,
           message: `Office with ID ${officeId} not found`,
         });
       }
 
-      return res.json({
+      return res.status(200).json({
         status: 200,
         data: {
           id: result.rows[0].officeid,
