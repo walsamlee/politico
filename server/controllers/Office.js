@@ -28,12 +28,12 @@ const registerCandidate = (req, res) => {
     if (err) {
       return res.status(400).json({
         status: 400,
-        message: err.detail,
+        message: err,
       });
     }
 
-    return res.status(200).json({
-      status: 200,
+    return res.status(201).json({
+      status: 201,
       data: {
         office,
         user,
