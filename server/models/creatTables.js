@@ -1,44 +1,9 @@
 import db from '../models/db';
+import Seed from '../models/seed';
 
 const createTables = () => {
-    db.client.query('DROP TABLE IF EXISTS users', (err, result) => {
-        if(err) {
-            return {
-                status: 400,
-                message: 'Unable to drop table'
-            }
-        }
-    });
-    
-    db.client.query('DROP TABLE IF EXISTS parties', (err, result) => {
-        if(err) {
-            return {
-                status: 400,
-                message: 'Unable to drop table'
-            }
-        }
-    });
-    
-    db.client.query('DROP TABLE IF EXISTS offices', (err, result) => {
-        if(err) {
-            return {
-                status: 400,
-                message: 'Unable to drop table'
-            }
-        }
-    });
-    
-    db.client.query('DROP TABLE IF EXISTS votes', (err, result) => {
-        if(err) {
-            return {
-                status: 400,
-                message: 'Unable to drop table'
-            }
-        }
-    });
-    
     const sqlUsers = `CREATE TABLE users( 
-        userid integer, 
+        userid serial, 
         email text PRIMARY KEY NOT NULL, 
         password text, 
         firstname text, 
@@ -49,7 +14,7 @@ const createTables = () => {
         passporturl text)`;
     
     const sqlParties = `CREATE TABLE parties(
-        partyid integer,
+        partyid serial,
         name text,
         hqaddress text,
         logourl text
@@ -66,41 +31,73 @@ const createTables = () => {
         candidateid integer,
         voterid integer
     )`;
-    
-    db.client.query(sqlUsers, (err, result) => {
+
+    const sqlCandidates = `CREATE TABLE candidates(
+        officeid integer,
+        userid integer,
+        PRIMARY KEY (officeid, userid)
+    )`;
+
+    db.client.query('DROP TABLE IF EXISTS users', (err, result) => {
         if(err) {
-            return {
-                status: 400,
-                message: 'Unable to create table'
-            };
+            console.log(err)
         }
+
+        db.client.query(sqlUsers, (err, result) => {
+            if(err) {
+                console.log(err)
+            }
+    
+            Seed.admin();
+        });
     });
     
-    db.client.query(sqlParties, (err, result) => {
+    db.client.query('DROP TABLE IF EXISTS parties', (err, result) => {
         if(err) {
-            return {
-                status: 400,
-                message: 'Unable to create table'
-            };
+            console.log(err)
         }
+    
+        db.client.query(sqlParties, (err, result) => {
+            if(err) {
+                console.log(err)
+            }
+        });
     });
     
-    db.client.query(sqlOffices, (err, result) => {
+    db.client.query('DROP TABLE IF EXISTS offices', (err, result) => {
         if(err) {
-            return {
-                status: 400,
-                message: 'Unable to create table'
-            };
+            console.log(err)
         }
+    
+        db.client.query(sqlOffices, (err, result) => {
+            if(err) {
+                console.log(err)
+            }
+        });
     });
     
-    db.client.query(sqlVotes, (err, result) => {
+    db.client.query('DROP TABLE IF EXISTS votes', (err, result) => {
         if(err) {
-            return {
-                status: 400,
-                message: 'Unable to create table'
-            };
+            console.log(err)
         }
+    
+        db.client.query(sqlVotes, (err, result) => {
+            if(err) {
+                console.log(err)
+            }
+        });
+    });
+
+    db.client.query('DROP TABLE IF EXISTS candidates', (err, result) => {
+        if(err) {
+            console.log(err)
+        }
+    
+        db.client.query(sqlCandidates, (err, result) => {
+            if(err) {
+                console.log(err)
+            }
+        });
     });
 }
 

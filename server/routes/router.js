@@ -9,7 +9,7 @@ import Vote from '../controllers/Vote';
 
 const router = express.Router();
 
-router.get('/auth/login', Auth.login);
+router.post('/auth/login', Auth.login);
 router.post('/auth/signup', Auth.signup);
 
 router.patch('/parties/:partyId/name', Verifications.isAdmin, Parties.editPartyById);

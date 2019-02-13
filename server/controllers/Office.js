@@ -9,9 +9,11 @@ const registerCandidate = (req, res) => {
   const result = Validations.validateCandidate(candidateDetails);
 
   if (result.error) {
-    return res.json({
+    const errMessage = result.error.details[0].message;
+
+    return res.status(400).json({
       status: 400,
-      error: `${result.error.details[0].context.value} is an invalid value`,
+      error: errMessage.replace(/[^a-zA-Z ]/g, ""),
     });
   }
 
@@ -24,14 +26,14 @@ const registerCandidate = (req, res) => {
 
   db.client.query(query, (err, result) => {
     if (err) {
-      return res.json({
+      return res.status(400).json({
         status: 400,
-        message: 'Cannot add user to this office! User may already be registered for this office',
+        message: err,
       });
     }
 
-    return res.json({
-      status: 200,
+    return res.status(201).json({
+      status: 201,
       data: {
         office,
         user,
@@ -44,9 +46,11 @@ const viewResult = (req, res) => {
   const result = Validations.validateId(req.params.officeId);
 
   if (result.error) {
-    return res.json({
+    const errMessage = result.error.details[0].message;
+
+    return res.status(400).json({
       status: 400,
-      error: `${result.error.details[0].context.value} is an invalid value`,
+      error: errMessage.replace(/[^a-zA-Z ]/g, ""),
     });
   }
 
@@ -66,14 +70,14 @@ const viewResult = (req, res) => {
 
   db.client.query(query, (err, result) => {
     if (err) {
-      return res.json({
+      return res.status(400).json({
         status: 400,
         message: 'Data cannot be retrieved',
       });
     }
 
     if (result.rowCount === 0) {
-      return res.json({
+      return res.status(404).json({
         status: 404,
         message: `Office with ID ${officeId} not found`,
       });
@@ -90,7 +94,7 @@ const viewResult = (req, res) => {
       });
     }
 
-    return res.json({
+    return res.status(200).json({
       status: 200,
       data: electionResult,
     });

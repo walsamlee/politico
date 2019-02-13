@@ -8,15 +8,13 @@ const loggedIn = (req, res, next) => {
 
   jwt.verify(token, process.env.SECRET, (err, decoded) => {
     if (err) {
-      return res.json({
+      return res.status(401).json({
         status: 401,
-        message: 'Unauthorized access',
+        message: err.message,
       });
     }
 
     req.userData = decoded;
-
-    // res.status(200);
 
     next();
   });
@@ -27,16 +25,16 @@ const isAdmin = (req, res, next) => {
 
   jwt.verify(token, process.env.SECRET, (err, decoded) => {
     if (err) {
-      return res.json({
+      return res.status(401).json({
         status: 401,
-        message: 'Unauthorized access',
+        message: err.message,
       });
     }
 
-    if(decoded.privilege !== 1) {
-      return res.json({
-        status: 401,
-        message: 'Unauthorized access'
+    if(decoded.isAdmin !== 'true') {
+      return res.status(403).json({
+        status: 403,
+        message: "Access forbidden"
       })
     }
 
