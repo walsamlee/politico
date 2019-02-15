@@ -30,7 +30,7 @@ a:hover {
 .menu nav {
     width: 68%;
     float: left;
-    padding: 25px 10px;
+    padding: 20px 10px;
 }
 
 .menu nav a {
@@ -183,7 +183,7 @@ a:hover {
 
 .btn-cart {
     color: #000;
-    margin-bottom: 20px;
+    margin: 0 5px 20px;
     border: 1px solid #b6c1cc;
 }
 
@@ -330,13 +330,26 @@ a:hover {
 }
 
 .success p {
+    text-align: center;
+    margin: 0;
+    padding: 5px 0;
+}
+
+.error {
+    display: none;
+    color: #fff;
+    background-color: #d9534f;
+}
+
+.error p {
+    text-align: center;
     margin: 0;
     padding: 5px 0;
 }
 
 #login input[type=text], #login input[type=password], .form-table input[type=text], .form-table input[type=email], .form-table input[type=password] {
     display: block;
-    width: 100%;
+    width: 75%;
     box-sizing: border-box;
     padding: 12px 20px 12px 20px;
     margin: 10px 0;
@@ -370,11 +383,21 @@ a:hover {
 }
 
 .dashboard .signup-form {
-    width: 100%;
+    width: 98%;
 }
 
 .form-table {
     width: 100%;
+}
+
+.form-table .btn-cart {
+    background: #003566;
+    color: #fff;
+}
+
+.form-table .btn-cart:hover {
+    background: #0035666e;
+    color: #003566;
 }
 
 .label {
@@ -546,6 +569,24 @@ a:hover {
 
 .party-candidates {
     margin: 10px 0;
+}
+
+.edit-party-details {
+    margin: 10px 0;
+    padding: 10px 25px;
+    width: 70%;
+    background: #e6eaef;
+    border: 1px solid #e6eaef;
+    box-shadow: inset 0px 0px 2px 0px #80808059;
+    border-radius: 7px;
+}
+
+.edit-party-details .cur-party-logo img {
+    width: 10%;
+}
+
+#edit-op-message-box {
+    display: block;
 }
 
 .footer {

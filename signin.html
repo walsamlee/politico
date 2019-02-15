@@ -6,19 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Politico - Login</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <script src="../scripts/js/main.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="scripts/js/main.js"></script>
+    <script src="scripts/js/login.js"></script>
 </head>
 <body>
     <div class="signin-main">
         <div class="sign-in">
             <div class="signin-logo">
-                <a href="../index.html">
-                    <img src="../assets/images/politico.png" alt="brand-logo">
-                </a>
+                <img src="assets/images/politico.png" alt="brand-logo">
             </div>
             <div class="login-form">
                 <h1><i class="fas fa-unlock-alt"></i></h1>
+                <div class="failure" id="failure">
+                    <p>Wrong Username or Password</p>
+                </div>
                 <form method="POST" id="login" name="login" action="">
                     <div>
                         <input id="email" type="text" name="email" placeholder="Email">
@@ -27,7 +29,7 @@
                         <input id="password" type="password" name="password" placeholder="Password">
                     </div>
                     <div class="login-buttons">
-                        <a href="editparty.html" class="btn btn-login">Sign In</a>
+                        <input type="button" class="btn btn-login" value="Sign In" onclick="thisLogin(this.form)">
                     </div>
                 </form>
                 <div class="sign-in-footer">

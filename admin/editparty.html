@@ -4,27 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Politico - Dashboard: Political Parties</title>
+    <title>Politico - Edit Political Party</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="../scripts/js/main.js"></script>
+    <script src="../scripts/js/adminjs/editparty.js"></script>
 </head>
 <body>
     <div class="main">
         <div class="header">
             <div class="brand">
                 <div class="brand-logo">
-                    <a href="../index.html">
-                        <img src="../assets/images/politico.png" alt="brand-logo">
-                    </a>
+                    <img src="../assets/images/politico.png" alt="brand-logo">
                 </div>
             </div>
 
             <div class="navigation-bar">
                 <div class="menu" id="menu">
                     <nav>
+                        <a href="viewparties.html">View Parties</a>
                         <a href="createparty.html">Create Party</a>
-                        <a href="createoffice.html">Create Office</a>
+                        <a href="createoffice.html">Create Party</a>
                         <a href="../index.html">Logout</a>
                     </nav>
                     <div class="mini-menu-icon">
@@ -32,100 +32,47 @@
                     </div>
                 </div>
             </div>
+            <div id="edit-op-message-box">
+
+            </div>
         </div>
 
         <div class="dashboard">
-            <div class="edit-board">
-                <div class="col-3">
-                    <div class="party">
-                        <div class="party-logo">
-                            <img src="../assets/images/adc.png" alt="adc logo">
-                        </div>
-                        <h3>ADC</h3>
-                        <a href="editpartysingle.html" class="btn btn-cart">Edit</a>
-                        <a href="deleteparty.html" class="btn btn-cart">Delete</a>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="party">
-                        <div class="party-logo">
-                            <img src="../assets/images/adp.jpg" alt="adc logo">
-                        </div>
-                        <h3>ADP</h3>
-                        <a href="editpartysingle.html" class="btn btn-cart">Edit</a>
-                        <a href="deleteparty.html" class="btn btn-cart">Delete</a>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="party">
-                        <div class="party-logo">
-                            <img src="../assets/images/apc.png" alt="apc logo">
-                        </div>
-                        <h3>APC</h3>
-                        <a href="editpartysingle.html" class="btn btn-cart">Edit</a>
-                        <a href="deleteparty.html" class="btn btn-cart">Delete</a>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="party">
-                        <div class="party-logo">
-                            <img src="../assets/images/apga.png" alt="apga logo">
-                        </div>
-                        <h3>APGA</h3>
-                        <a href="editpartysingle.html" class="btn btn-cart">Edit</a>
-                        <a href="deleteparty.html" class="btn btn-cart">Delete</a>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="party">
-                        <div class="party-logo">
-                            <img src="../assets/images/kowa.jpg" alt="kowa logo">
-                        </div>
-                        <h3>KP</h3>
-                        <a href="editpartysingle.html" class="btn btn-cart">Edit</a>
-                        <a href="deleteparty.html" class="btn btn-cart">Delete</a>
-                    </div>
-                </div>
-                <div class="col-3">
-                   <div class="party">
-                       <div class="party-logo">
-                            <img src="../assets/images/labour.png" alt="labour logo">
-                       </div>
-                        <h3>LP</h3>
-                        <a href="editpartysingle.html" class="btn btn-cart">Edit</a>
-                        <a href="deleteparty.html" class="btn btn-cart">Delete</a>
-                    </div>
-                </div>
-                <div class="col-3">
-                   <div class="party">
-                       <div class="party-logo">
-                            <img src="../assets/images/ncp.jpg" alt="ncp logo">
-                       </div>
-                        <h3>NCP</h3>
-                        <a href="editpartysingle.html" class="btn btn-cart">Edit</a>
-                        <a href="deleteparty.html" class="btn btn-cart">Delete</a>
-                    </div>
-                </div>
-                <div class="col-3">
-                   <div class="party">
-                       <div class="party-logo">
-                            <img src="../assets/images/pdp.jpg" alt="pdp logo">
-                       </div>
-                        <h3>PDP</h3>
-                        <a href="editpartysingle.html" class="btn btn-cart">Edit</a>
-                        <a href="deleteparty.html" class="btn btn-cart">Delete</a>
-                    </div>
-                </div>
-                <div class="col-3">
-                   <div class="party">
-                       <div class="party-logo">
-                            <img src="../assets/images/upn.png" alt="upn logo">
-                       </div>
-                        <h3>UPN</h3>
-                        <a href="editpartysingle.html" class="btn btn-cart">Edit</a>
-                        <a href="deleteparty.html" class="btn btn-cart">Delete</a>
-                    </div>
-                </div>
+            <div class="signup-form">
+                <form method="POST" id="editparty" name="editparty" action="">
+                    <table class="form-table">
+                        <tr>
+                            <td class="label">
+                                
+                            </td>
+                            <td>
+                                <div id="edit-party-details" class="edit-party-details">
+                                    <div class="cur-party-logo">
+                                        <img src="../assets/images/icon.png" alt="defaul image">
+                                    </div>
+                                    <div class="edit-party-name">
+                                        
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                
+                            </td>
+                            <td>
+                                <input id="partyname" type="text" name="partyname" placeholder="Enter new party name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="button" class="btn btn-cart" value="Save" onclick="editParty(this.form)">
+                                <input type="button" class="btn btn-cart" value="Cancel">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
             </div>
         </div>
     </div>
