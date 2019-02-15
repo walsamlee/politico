@@ -10,7 +10,7 @@ const loggedIn = (req, res, next) => {
     if (err) {
       return res.status(401).json({
         status: 401,
-        message: err.message,
+        error: err.message,
       });
     }
 
@@ -27,14 +27,14 @@ const isAdmin = (req, res, next) => {
     if (err) {
       return res.status(401).json({
         status: 401,
-        message: err.message,
+        error: err.message,
       });
     }
 
     if(decoded.isAdmin !== 'true') {
       return res.status(403).json({
         status: 403,
-        message: "Access forbidden"
+        error: "Access forbidden"
       })
     }
 

@@ -28,7 +28,7 @@ const registerCandidate = (req, res) => {
     if (err) {
       return res.status(400).json({
         status: 400,
-        message: err,
+        error: err,
       });
     }
 
@@ -72,14 +72,14 @@ const viewResult = (req, res) => {
     if (err) {
       return res.status(400).json({
         status: 400,
-        message: 'Data cannot be retrieved',
+        error: 'Data cannot be retrieved',
       });
     }
 
     if (result.rowCount === 0) {
       return res.status(404).json({
         status: 404,
-        message: `Office with ID ${officeId} not found`,
+        error: `Office with ID ${officeId} not found`,
       });
     }
 

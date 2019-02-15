@@ -26,7 +26,7 @@ const signup = (req, res) => {
     if (err) {
       return res.status(400).json({
         status: 400,
-        message: 'Password cannot be hashed',
+        error: 'Password cannot be hashed',
       });
     }
 
@@ -39,7 +39,7 @@ const signup = (req, res) => {
       if (err) {
         return res.status(400).json({
           status: 400,
-          message: err.detail.replace(/[=,(,)]/gi, ''),
+          error: err.detail.replace(/[=,(,)]/gi, ''),
         });
       }
 
@@ -47,7 +47,7 @@ const signup = (req, res) => {
         if (err) {
           return res.status(400).json({
             status: 400,
-            message: err.detail.replace(/[=,(,)]/gi, ''),
+            error: err.detail.replace(/[=,(,)]/gi, ''),
           });
         }
 
@@ -62,7 +62,7 @@ const signup = (req, res) => {
           if (err) {
             return res.status(400).json({
               status: 400,
-              message: err,
+              error: err,
             });
           }
 
@@ -104,7 +104,7 @@ const login = (req, res) => {
     if (err) {
       return res.status(400).json({
         status: 400,
-        message: 'Data cannot be added to database',
+        error: 'Data cannot be added to database',
       });
     }
 
@@ -128,7 +128,7 @@ const login = (req, res) => {
           if (err) {
             return res.status(400).json({
               status: 400,
-              message: 'Error generating token',
+              error: 'Error generating token',
             });
           }
   
@@ -152,7 +152,7 @@ const login = (req, res) => {
       } else {
         return res.status(400).json({
           status: 400,
-          message: 'Invalid username or password',
+          error: 'Invalid username or password',
         });
       }
     });

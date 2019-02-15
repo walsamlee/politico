@@ -33,7 +33,7 @@ const castVote = (req, res) => {
     if (err) {
       return res.status(400).json({
         status: 400,
-        message: 'You can only cast your vote once for this office',
+        error: 'You can only cast your vote once for this office',
       });
     }
 

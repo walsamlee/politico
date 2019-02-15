@@ -94,7 +94,7 @@ const Offices = {
       if (result.rowCount === 0) {
         return res.status(404).json({
           status: 404,
-          message: `Office with ID ${officeId} not found`,
+          error: `Office with ID ${officeId} not found`,
         });
       }
 

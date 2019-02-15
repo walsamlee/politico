@@ -100,15 +100,13 @@ const Parties = {
       if (err) {
         return res.status(400).json({
           status: 400,
-          message: err.detail,
+          error: err.detail,
         });
       }
       if (result.rowCount === 0) {
         return res.status(404).json({
           status: 404,
-          data: {
-            message: `Party with ID ${partyId} not found`,
-          },
+          error: `Party with ID ${partyId} not found`,
         });
       }
       return res.status(200).json({
@@ -175,13 +173,13 @@ const Parties = {
       if (err) {
         return res.status(400).json({
           status: 400,
-          message: err.detail,
+          error: err.detail,
         });
       }
       if (result.rowCount === 0) {
         return res.status(404).json({
-          error: 404,
-          message: `Party with ID ${partyId} could not be found`,
+          status: 404,
+          error: `Party with ID ${partyId} could not be found`,
         });
       }
       return res.status(200).json({
