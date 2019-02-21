@@ -7,8 +7,6 @@
     <title>Politico - Create Political Party</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/style.css">
-    <script src="../scripts/js/main.js"></script>
-    <script src="../scripts/js/adminjs/createoffice.js"></script>
 </head>
 <body>
     <div class="main">
@@ -24,46 +22,52 @@
             <div class="navigation-bar">
                 <div class="menu" id="menu">
                     <nav>
-                        <a href="editparty.html">Home</a>
-                        <a href="createparty.html">Create Party</a>
-                        <a href="../index.html">Logout</a>
+                        <div id="pry-menu-items" class="pry-menu-items">
+                            <a href="viewparties.html">View Parties</a>
+                            <a href="createparty.html">Create Party</a>
+                            <a href="../index.html">Logout</a>
+                        </div>
+                        <div class="logout">
+                            <button id="logout" onclick="logout()">Logout</button>
+                            <a id="login" href="../signin.html">Login</a>
+                        </div>
                     </nav>
                     <div class="mini-menu-icon">
                         <a href="javascript:void(0);" onclick="miniMenu()"><i class="fas fa-bars"></i></a>
                     </div>
                 </div>
             </div>
+            <div id="edit-op-message-box">
+
+            </div>
         </div>
 
         <div class="dashboard">
             <div class="signup-form">
-                <div class="success" id="success">
-                    <p>Office Successfully Created</p>
-                </div>
                 <form method="POST" id="create-office" name="sign-up" action="">
                     <table class="form-table">
                         <tr>
                             <td class="label">
-                                <label for="office-id">Office ID: </label>
+                                
                             </td>
                             <td>
-                                <input id="office-id" type="text" name=officeid>
+                                <input id="office-id" type="text" name=officeid placeholder="Office ID">
                             </td>
                         </tr>
                         <tr>
                             <td class="label">
-                                <label for="office-type">Office Type: </label>
+                                
                             </td>
                             <td>
-                                <input id="office-type" type="text" name=officetype>
+                                <input id="office-type" type="text" name=officetype placeholder="Office Type">
                             </td>
                         </tr>
                         <tr>
                             <td class="label">
-                                <label for="officename">Office Name: </label>
+                                
                             </td>
                             <td>
-                                <input id="officename" type="text" name="officename">
+                                <input id="officename" type="text" name="officename" placeholder="Office Name">
                             </td>
                         </tr>
                         <tr>
@@ -83,5 +87,8 @@
             <p>Andela Developer Challenge &copy; 2019</p>
         </div>
     </footer>
+
+    <script src="../scripts/js/main.js"></script>
+    <script src="../scripts/js/adminjs/createoffice.js"></script>
 </body>
 </html>

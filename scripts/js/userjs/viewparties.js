@@ -12,6 +12,8 @@ fetch('https://sam-politico.herokuapp.com/api/v1/parties')
         const columnNode = document.createElement('div');
         const nameNode = document.createElement('h3');
         const viewNode = document.createElement('a');
+
+        const logoImg = document.createElement('img');
         
         columnNode.className = 'col-3';
         partyNode.className = 'party';
@@ -20,13 +22,20 @@ fetch('https://sam-politico.herokuapp.com/api/v1/parties')
 
         const nameText = document.createTextNode(party.name);
         const viewText = document.createTextNode('View');
+
+        logoImg.setAttribute('src', party.logoUrl);
+        logoImg.setAttribute('alt', 'Party Logo');
         
+        logoNode.appendChild(logoImg);
         nameNode.appendChild(nameText);
         viewNode.appendChild(viewText);
+
         viewNode.href = document.location.href.replace(/[^/]*$/, '') + 'viewparty.html?=' + party.id;
         
+        partyNode.appendChild(logoNode);
         partyNode.appendChild(nameNode);
         partyNode.appendChild(viewNode);
+
         columnNode.appendChild(partyNode);
 
         display.appendChild(columnNode);

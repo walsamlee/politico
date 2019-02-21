@@ -6,16 +6,29 @@ const url2 = `https://sam-politico.herokuapp.com/api/v1/parties/${searchId}/name
 
 const token = localStorage.getItem('token');
 
-fetch(url)
+if(!localStorage.getItem('token') || (localStorage.getItem('what') !== 'true')) {
+    document.getElementById('pry-menu-items').style.display = 'none';
+    document.getElementById('editparty').style.display = 'none';
+} else {
+    fetch(url)
     .then(res => res.json())
     .then(response => {
         console.log(response);
-        if(!response.error) {
+        if(response.status === 200) {
             const dispNode = document.getElementById('edit-party-details');
+            const partyLogo = document.getElementById('cur-party-logo');
 
+            const partyImg = document.createElement('img');
             const nameP = document.createElement('p');
 
             const nameText = document.createTextNode(response.data[0].name);
+
+            partyLogo.className = 'cur-party-logo';
+
+            partyImg.setAttribute('src', response.data[0].logoUrl);
+            partyImg.setAttribute('alt', 'party logo');
+
+            partyLogo.appendChild(partyImg);
 
             nameP.appendChild(nameText);
             dispNode.appendChild(nameP);
@@ -27,7 +40,7 @@ fetch(url)
 
             const messageNode = document.createElement('p');
             
-            const messageText = document.createTextNode(`${response.message}`);
+            const messageText = document.createTextNode(`${response.error}`);
 
             messageNode.appendChild(messageText);
 
@@ -43,6 +56,7 @@ fetch(url)
         
     })
     .catch(error => console.error(`Error: ${error}`));
+}
 
 const editParty = (form) => {
     if(form.partyname.value === '') {
@@ -78,25 +92,6 @@ const editParty = (form) => {
         })
             .then(res => res.json())
             .then(response => {
-                if(response.status === 404) {
-                    const dispNode = document.getElementById('edit-op-message-box');
-
-                    dispNode.className = 'error';
-
-                    const messageNode = document.createElement('p');
-                    
-                    const messageText = document.createTextNode(`${response.error}`);
-
-                    messageNode.appendChild(messageText);
-
-                    dispNode.removeChild(dispNode.childNodes[0]);
-                    dispNode.appendChild(messageNode);
-
-                    dispNode.style.display = 'block';
-                    setTimeout(() => {
-                        dispNode.style.display = 'none';
-                        }, 8000);
-                }
                 if(response.status === 200) {
                     const dispNode = document.getElementById('edit-op-message-box');
     
@@ -116,6 +111,24 @@ const editParty = (form) => {
                         }, 4000);
                     
                     window.location = `${document.location.href.replace(/[^/]*$/, '')}viewparties.html`;
+                } else {
+                    const dispNode = document.getElementById('edit-op-message-box');
+
+                    dispNode.className = 'error';
+
+                    const messageNode = document.createElement('p');
+                    
+                    const messageText = document.createTextNode(`${response.error}`);
+
+                    messageNode.appendChild(messageText);
+
+                    dispNode.removeChild(dispNode.childNodes[0]);
+                    dispNode.appendChild(messageNode);
+
+                    dispNode.style.display = 'block';
+                    setTimeout(() => {
+                        dispNode.style.display = 'none';
+                        }, 8000);
                 }
             })
             .catch(error => console.error(`Error: ${error}`));    

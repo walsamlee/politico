@@ -7,8 +7,6 @@
     <title>Politico - Edit Political Party</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/style.css">
-    <script src="../scripts/js/main.js"></script>
-    <script src="../scripts/js/adminjs/editparty.js"></script>
 </head>
 <body>
     <div class="main">
@@ -22,10 +20,15 @@
             <div class="navigation-bar">
                 <div class="menu" id="menu">
                     <nav>
-                        <a href="viewparties.html">View Parties</a>
-                        <a href="createparty.html">Create Party</a>
-                        <a href="createoffice.html">Create Party</a>
-                        <a href="../index.html">Logout</a>
+                        <div id="pry-menu-items" class="pry-menu-items">
+                            <a href="viewparties.html">View Parties</a>
+                            <a href="createparty.html">Create Party</a>
+                            <a href="createoffice.html">Create Party</a>
+                        </div>
+                        <div class="logout">
+                            <button id="logout" onclick="logout()">Logout</button>
+                            <a id="login" href="../signin.html">Login</a>
+                        </div>
                     </nav>
                     <div class="mini-menu-icon">
                         <a href="javascript:void(0);" onclick="miniMenu()"><i class="fas fa-bars"></i></a>
@@ -47,8 +50,8 @@
                             </td>
                             <td>
                                 <div id="edit-party-details" class="edit-party-details">
-                                    <div class="cur-party-logo">
-                                        <img src="../assets/images/icon.png" alt="defaul image">
+                                    <div id="cur-party-logo" class="cur-party-logo">
+                                        
                                     </div>
                                     <div class="edit-party-name">
                                         
@@ -81,5 +84,8 @@
             <p>Andela Developer Challenge &copy; 2019</p>
         </div>
     </footer>
+
+    <script src="../scripts/js/main.js"></script>
+    <script src="../scripts/js/adminjs/editparty.js"></script>
 </body>
 </html>

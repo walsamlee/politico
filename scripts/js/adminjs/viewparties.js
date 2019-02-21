@@ -1,10 +1,7 @@
 fetch('https://sam-politico.herokuapp.com/api/v1/parties')
 .then(res => res.json())
 .then(response => {
-    console.log(response.data);
-
     response.data.forEach(party => {
-        console.log(party);
         const display = document.getElementById('display');
         
         const partyNode = document.createElement('div');
@@ -13,6 +10,7 @@ fetch('https://sam-politico.herokuapp.com/api/v1/parties')
         const nameNode = document.createElement('h3');
         const editNode = document.createElement('a');
         const deleteNode = document.createElement('a');
+        const logoImg = document.createElement('img');
         
         columnNode.className = 'col-3';
         partyNode.className = 'party';
@@ -20,22 +18,47 @@ fetch('https://sam-politico.herokuapp.com/api/v1/parties')
         editNode.className = 'btn btn-cart';
         deleteNode.className = 'btn btn-cart';
 
-        const nameText = document.createTextNode(party.name);
-        const editText = document.createTextNode('Edit');
-        const deleteText = document.createTextNode('Delete');
-        
-        nameNode.appendChild(nameText);
-        editNode.appendChild(editText);
-        deleteNode.appendChild(deleteText);
-        editNode.href = document.location.href.replace(/[^/]*$/, '') + 'editparty.html?=' + party.id;
-        deleteNode.href = document.location.href.replace(/[^/]*$/, '') + 'deleteparty.html?=' + party.id;
-        
-        partyNode.appendChild(nameNode);
-        partyNode.appendChild(editNode);
-        partyNode.appendChild(deleteNode);
-        columnNode.appendChild(partyNode);
+        if(!localStorage.getItem('token') || (localStorage.getItem('what') !== 'true')){
+            document.getElementById('pry-menu-items').style.display = 'none';
 
-        display.appendChild(columnNode);
+            const nameText = document.createTextNode(party.name);
+            const editText = document.createTextNode('View');
+
+            logoImg.setAttribute('src', party.logoUrl);
+
+            nameNode.appendChild(nameText);
+            logoNode.appendChild(logoImg);
+            editNode.appendChild(editText);
+            editNode.href = `http://${document.location.host}/users/viewparty.html?=${party.id}`;
+            
+            partyNode.appendChild(logoNode);
+            partyNode.appendChild(nameNode);
+            partyNode.appendChild(editNode);
+            columnNode.appendChild(partyNode);
+
+            display.appendChild(columnNode);
+        } else {
+            const nameText = document.createTextNode(party.name);
+            const editText = document.createTextNode('Edit');
+            const deleteText = document.createTextNode('Delete');
+            
+            logoImg.setAttribute('src', party.logoUrl);
+
+            nameNode.appendChild(nameText);
+            logoNode.appendChild(logoImg);
+            editNode.appendChild(editText);
+            deleteNode.appendChild(deleteText);
+            editNode.href = document.location.href.replace(/[^/]*$/, '') + 'editparty.html?=' + party.id;
+            deleteNode.href = document.location.href.replace(/[^/]*$/, '') + 'deleteparty.html?=' + party.id;
+            
+            partyNode.appendChild(logoNode);
+            partyNode.appendChild(nameNode);
+            partyNode.appendChild(editNode);
+            partyNode.appendChild(deleteNode);
+            columnNode.appendChild(partyNode);
+
+            display.appendChild(columnNode);
+        }
     });     
 })
 .catch(error => console.error('Error', error));

@@ -20,7 +20,8 @@ const thisLogin = (form) => {
         setTimeout(() => { document.getElementById('failure').style.display = 'none'; }, 3000);
       } else {
         localStorage.setItem('token', response.data[0].token);
-        localStorage.setItem('user', response.data[0].user.id);
+        localStorage.setItem('who', response.data[0].user.id);
+        localStorage.setItem('what', response.data[0].user.isAdmin);
         
         if (response.data[0].user.isAdmin === 'false') {
           window.location = `http://${document.location.host}/users/viewparties.html`;

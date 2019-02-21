@@ -7,8 +7,6 @@
     <title>Politico - Dashboard: Political Parties</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/style.css">
-    <script src="../scripts/js/main.js"></script>
-    <script src="../scripts/js/userjs/displayparties.js"></script>
 </head>
 <body>
     <div class="main">
@@ -21,9 +19,14 @@
             <div class="navigation-bar">
                 <div class="menu" id="menu">
                     <nav>
-                        <a href="candidates.html">Vote</a>
-                        <a href="votehistory.html">Voting History</a>
-                        <a href="../index.html">Logout</a>
+                        <div id="pry-menu-items" class="pry-menu-items">
+                            <a href="candidates.html">Vote</a>
+                            <a href="votehistory.html">Voting History</a>
+                        </div>
+                        <div class="logout">
+                            <button id="logout" onclick="logout()">Logout</button>
+                            <a id="login" href="../signin.html">Login</a>
+                        </div>
                     </nav>
                     <div class="mini-menu-icon">
                         <a href="javascript:void(0);" onclick="miniMenu()"><i class="fas fa-bars"></i></a>
@@ -34,33 +37,7 @@
 
         <div class="dashboard">
             <div id="display" class="edit-board">
-                <div class="col-3">
-                   <div class="party">
-                       <div class="party-logo">
-                            <img src="../assets/images/ncp.jpg" alt="ncp logo">
-                       </div>
-                        <h3>NCP</h3>
-                        <a href="#" class="btn btn-cart">View</a>
-                    </div>
-                </div>
-                <div class="col-3">
-                   <div class="party">
-                       <div class="party-logo">
-                            <img src="../assets/images/pdp.jpg" alt="pdp logo">
-                       </div>
-                        <h3>PDP</h3>
-                        <a href="#" class="btn btn-cart">View</a>
-                    </div>
-                </div>
-                <div class="col-3">
-                   <div class="party">
-                       <div class="party-logo">
-                            <img src="../assets/images/upn.png" alt="upn logo">
-                       </div>
-                        <h3>UPN</h3>
-                        <a href="#" class="btn btn-cart">View</a>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -69,5 +46,8 @@
             <p>Andela Developer Challenge &copy; 2019</p>
         </div>
     </footer>
+
+    <script src="../scripts/js/main.js"></script>
+    <script src="../scripts/js/userjs/viewparties.js"></script>
 </body>
 </html>

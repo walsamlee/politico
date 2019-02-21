@@ -7,7 +7,6 @@
     <title>Politico - Dashboard: Political Parties</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/style.css">
-    <script src="../scripts/js/main.js"></script>
 </head>
 <body>
     <div class="main">
@@ -21,15 +20,23 @@
             <div class="navigation-bar">
                 <div class="menu" id="menu">
                     <nav>
-                        <a href="candidates.html">Vote</a>
-                        <a href="votehistory.html">Voting History</a>
-                        <a href="candidates.html">Parties</a>
-                        <a href="../index.html">Logout</a>
+                        <div id="pry-menu-items" class="pry-menu-items">
+                            <a href="candidates.html">Vote</a>
+                            <a href="votehistory.html">Voting History</a>
+                            <a href="viewparties.html">Parties</a>
+                        </div>
+                        <div class="logout">
+                            <button id="logout" onclick="logout()">Logout</button>
+                            <a id="login" href="../signin.html">Login</a>
+                        </div>
                     </nav>
                     <div class="mini-menu-icon">
                         <a href="javascript:void(0);" onclick="miniMenu()"><i class="fas fa-bars"></i></a>
                     </div>
                 </div>
+            </div>
+            <div id="edit-op-message-box">
+
             </div>
         </div>
 
@@ -37,15 +44,15 @@
             <div class="edit-board">   
                 <div id="party-info" class="party-info">
                     <div id="party-logo" class="party-logo">
-                        <img src="../assets/images/upn.png" alt="upn logo">
+                        
                     </div>
                     <div id="party-details" class="party-details">
-                        <p>This is party details</p>
+                        
                     </div>
                 </div>
-                <div id="party-candidates">
+                <div class="party-candidates">
                     <div id="party-candidates-list" class="party-candidates-list">
-                        <p>List of party candidates</p>
+                        
                     </div>
                 </div> 
             </div>
@@ -56,5 +63,8 @@
             <p>Andela Developer Challenge &copy; 2019</p>
         </div>
     </footer>
+
+    <script src="../scripts/js/main.js"></script>
+    <script src="../scripts/js/userjs/singleparty.js"></script>
 </body>
 </html>

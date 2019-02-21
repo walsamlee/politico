@@ -22,15 +22,15 @@ a:hover {
 }
 
 .navigation-bar {
-    padding: 0 10px;
+    padding: 0;
     background: #023563;
     overflow: auto;
 }
 
 .menu nav {
-    width: 68%;
+    width: 94%;
     float: left;
-    padding: 20px 10px;
+    padding: 14px 26px;
 }
 
 .menu nav a {
@@ -41,6 +41,33 @@ a:hover {
 .menu nav a:hover {
     background: #01213D;
     text-decoration: none;
+}
+
+.pry-menu-items {
+    float: left;
+    padding: 5px 0;
+}
+
+.logout {
+    padding: 0;
+    float: right;
+}
+
+.logout button {
+    cursor: pointer;
+    padding: 10px;
+    color: #fff;
+    font-size: 16px;
+    background: #003566;
+}
+
+.menu nav .logout a {
+    padding: 5px 10px;
+    border: solid 1px #fff;
+}
+
+.logout button:hover {
+    background: #01213D
 }
 
 #vote-link {
@@ -239,7 +266,7 @@ a:hover {
 }
 
 .signin-main .menu nav {
-    width: 98%;
+    width: 94%;
     text-align: right;
 }
 
@@ -401,9 +428,17 @@ a:hover {
 }
 
 .label {
-    width: 140px;
+    width: 0;
     text-align: right;
     padding: 10px;
+}
+
+#logoPreview {
+    width: 20%;
+}
+
+#party-logo-label {
+    cursor: pointer;
 }
 
 .edit-board, .history-board, .profile-board {
@@ -543,11 +578,15 @@ a:hover {
 
 .party-info {
     overflow: auto;
+    padding: 15px 0;
+    border: solid 1px #e6eaef;
+    border-radius: 7px;
 }
 
 .party-info .party-logo {
-    width: 40%;
-    float: left;
+    margin: 0 auto;
+    width: 20%;
+    padding: 10px 25px;
 }
 
 .party-info .party-logo img {
@@ -559,30 +598,32 @@ a:hover {
 }
 
 .party-details {
+    margin: 0 auto;
     width: 55%;
-    float: left;
+    padding: 10px 25px;
 }
 
 .party-details p {
-    text-align: left;
+    margin-top: 0;
+    text-align: center;
 }
 
 .party-candidates {
+    padding: 0 25px;
     margin: 10px 0;
 }
 
-.edit-party-details {
-    margin: 10px 0;
+.party-candidates h3 {
+    margin-top: 0;
+}
+
+.edit-party-details, .delete-party-details {
+    margin: 25px 0;
     padding: 10px 25px;
     width: 70%;
-    background: #e6eaef;
     border: 1px solid #e6eaef;
     box-shadow: inset 0px 0px 2px 0px #80808059;
     border-radius: 7px;
-}
-
-.edit-party-details .cur-party-logo img {
-    width: 10%;
 }
 
 #edit-op-message-box {
@@ -638,7 +679,7 @@ a:hover {
     .signin-main .menu nav {
         width: 70%;
     }
-    .menu a, .menu .search {
+    .menu a, .menu .logout {
         display: none;
     }
     .mini-menu-icon a {
@@ -675,6 +716,12 @@ a:hover {
         right: 0;
         top: 0;
     }
+    .pry-menu-items {
+        width: 100%;
+    }
+    .menu nav {
+        width: 0;
+    }
     .menu.responsive nav {
         width: 100%;
         padding: 50px 0 10px; 
@@ -685,14 +732,13 @@ a:hover {
       text-align: left;
       padding: 15px 20px; 
     }
-    .menu.responsive .search {
-        float: none;
+    .menu.responsive .logout {
+        float: left;
         display: block;
         width: 100%;
     }
-    .menu.responsive .search input[type=search] {
-        width: 96%;
-        margin: 10px;
+    .menu.responsive .logout button {
+        margin: 10px 20px;
     }
     .history-board .vote {
         width: 70%;

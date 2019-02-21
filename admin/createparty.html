@@ -7,7 +7,6 @@
     <title>Politico - Create Political Party</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/style.css">
-    <script src="../scripts/js/main.js"></script>
 </head>
 <body>
     <div class="main">
@@ -21,54 +20,66 @@
             <div class="navigation-bar">
                 <div class="menu" id="menu">
                     <nav>
-                        <a href="editparty.html">Home</a>
-                        <a href="createoffice.html">Create Party</a>
-                        <a href="../index.html">Logout</a>
+                        <div id="pry-menu-items" class="pry-menu-items">
+                            <a href="viewparties.html">View Parties</a>
+                            <a href="createoffice.html">Create Office</a>
+                        </div>
+                        <div class="logout">
+                            <button id="logout" onclick="logout()">Logout</button>
+                            <a id="login" href="../signin.html">Login</a>
+                        </div>                       
                     </nav>
-                    <div class="search">
-                        <form action="#">
-                            <input type="search" name="search" placeholder="Search">
-                        </form>
-                    </div>
                     <div class="mini-menu-icon">
                         <a href="javascript:void(0);" onclick="miniMenu()"><i class="fas fa-bars"></i></a>
                     </div>
                 </div>
             </div>
+            <div id="edit-op-message-box">
+
+            </div>
         </div>
 
         <div class="dashboard">
             <div class="signup-form">
-                <form method="POST" id="sign-up" name="sign-up" action="">
+                <form method="POST" id="create-party" name="sign-up" action="">
                     <table class="form-table">
                         <tr>
-                            <td class="label">
-                                <label for="partyname">Party Name: </label>
-                            </td>
+                            <td class="label"></td>
                             <td>
-                                <input id="party-name" type="text" name="partyname">
+                                <img src="../assets/images/icon.png" alt="party-logo" id="logoPreview">
                             </td>
                         </tr>
                         <tr>
                             <td class="label">
-                                <label for="part-hq-address">HQ Address: </label>
+                                
                             </td>
                             <td>
-                                <input id="part-hq-address" type="text" name="parthqaddress">
+                                <label id="party-logo-label" class="btn btn-cart" for="party-logo">
+                                    <input id="party-logo" type="file" accept="image/*" name="partylogo" style="display:none">
+                                    Select Party Logo
+                                </label>
                             </td>
                         </tr>
                         <tr>
                             <td class="label">
-                                <label for="party-logo">Party Logo: </label>
+                                
                             </td>
                             <td>
-                                <input id="party-logo" type="file" accept="image/*" name="partylogo">
+                                <input id="party-name" type="text" name="partyname" placeholder="Party Name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                
+                            </td>
+                            <td>
+                                <input id="part-hq-address" type="text" name="parthqaddress" placeholder="HQ Address">
                             </td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>
-                                <input type="button" class="btn btn-cart" value="Sign-Up">
+                                <input type="button" class="btn btn-cart" value="Save" onclick="createParty(this.form)">
                                 <input type="reset" class="btn btn-cart" value="Reset">
                             </td>
                         </tr>
@@ -82,5 +93,9 @@
             <p>Andela Developer Challenge &copy; 2019</p>
         </div>
     </footer>
+
+    <script src="../scripts/js/main.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../scripts/js/adminjs/createparty.js"></script>
 </body>
 </html>

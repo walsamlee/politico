@@ -7,8 +7,6 @@
     <title>Politico - Dashboard: Political Parties</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/style.css">
-    <script src="../scripts/js/main.js"></script>
-    <script src="../scripts/js/adminjs/viewparties.js"></script>
 </head>
 <body>
     <div class="main">
@@ -22,9 +20,14 @@
             <div class="navigation-bar">
                 <div class="menu" id="menu">
                     <nav>
-                        <a href="createparty.html">Create Party</a>
-                        <a href="createoffice.html">Create Office</a>
-                        <a href="../index.html">Logout</a>
+                        <div id="pry-menu-items" class="pry-menu-items">
+                            <a href="createparty.html">Create Party</a>
+                            <a href="createoffice.html">Create Office</a>
+                        </div>
+                        <div class="logout">
+                            <button id="logout" onclick="logout()">Logout</button>
+                            <a id="login" href="../signin.html">Login</a>
+                        </div>
                     </nav>
                     <div class="mini-menu-icon">
                         <a href="javascript:void(0);" onclick="miniMenu()"><i class="fas fa-bars"></i></a>
@@ -35,36 +38,7 @@
 
         <div class="dashboard">
             <div id="display" class="edit-board">
-                <div class="col-3">
-                    <div class="party">
-                        <div class="party-logo">
-                            <img src="../assets/images/adc.png" alt="adc logo">
-                        </div>
-                        <h3>ADC</h3>
-                        <a href="editpartysingle.html" class="btn btn-cart">Edit</a>
-                        <a href="deleteparty.html" class="btn btn-cart">Delete</a>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="party">
-                        <div class="party-logo">
-                            <img src="../assets/images/adp.jpg" alt="adc logo">
-                        </div>
-                        <h3>ADP</h3>
-                        <a href="editpartysingle.html" class="btn btn-cart">Edit</a>
-                        <a href="deleteparty.html" class="btn btn-cart">Delete</a>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="party">
-                        <div class="party-logo">
-                            <img src="../assets/images/apc.png" alt="apc logo">
-                        </div>
-                        <h3>APC</h3>
-                        <a href="editpartysingle.html" class="btn btn-cart">Edit</a>
-                        <a href="deleteparty.html" class="btn btn-cart">Delete</a>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -73,5 +47,8 @@
             <p>Andela Developer Challenge &copy; 2019</p>
         </div>
     </footer>
+
+    <script src="../scripts/js/main.js"></script>
+    <script src="../scripts/js/adminjs/viewparties.js"></script>
 </body>
 </html>
