@@ -14,11 +14,70 @@ var _Validations2 = _interopRequireDefault(_Validations);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var runForOffice = function runForOffice(req, res) {
+  var aspirantDetails = {
+    user: req.body.id,
+    office: req.body.office,
+    party: req.body.party
+  };
+
+  var result = _Validations2.default.validateAspirant(aspirantDetails);
+
+  if (result.error) {
+    var errMessage = result.error.details[0].message;
+
+    return res.status(400).json({
+      status: 400,
+      error: errMessage.replace(/[^a-zA-Z ]/g, "")
+    });
+  }
+
+  var user = parseInt(req.body.id, 10);
+  var office = parseInt(req.body.office, 10);
+  var party = parseInt(req.body.party, 10);
+
+  var query = {
+    text: 'INSERT INTO aspirants(userid, officeid, partyid) VALUES($1, $2, $3) RETURNING *',
+    values: [user, office, party]
+  };
+
+  _db2.default.client.query(query, function (err, result) {
+    if (err) {
+      return res.status(400).json({
+        status: 400,
+        error: err.detail
+      });
+    }
+
+    return res.status(201).json({
+      status: 201,
+      data: result.rows[0]
+    });
+  });
+};
+
+var viewAspirants = function viewAspirants(req, res) {
+  _db2.default.client.query('SELECT * FROM aspirants', function (err, result) {
+    if (err) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Data cannot be retrieved from the database'
+      });
+    }
+
+    return res.status(200).json({
+      status: 200,
+      data: result.rows
+    });
+  });
+};
+
 var registerCandidate = function registerCandidate(req, res) {
   var candidateDetails = {
     office: req.body.office,
     user: req.params.userId
   };
+
   var result = _Validations2.default.validateCandidate(candidateDetails);
 
   if (result.error) {
@@ -109,7 +168,9 @@ var viewResult = function viewResult(req, res) {
 
 var Results = {
   registerCandidate: registerCandidate,
-  viewResult: viewResult
+  viewResult: viewResult,
+  runForOffice: runForOffice,
+  viewAspirants: viewAspirants
 };
 
 exports.default = Results;

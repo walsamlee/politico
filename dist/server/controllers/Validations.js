@@ -97,6 +97,16 @@ var validateUserLogin = function validateUserLogin(user) {
   return _joi2.default.validate(user, schema);
 };
 
+var validateAspirant = function validateAspirant(user) {
+  var schema = {
+    user: _joi2.default.number().integer().required(),
+    office: _joi2.default.number().integer().required(),
+    party: _joi2.default.number().integer().required()
+  };
+
+  return _joi2.default.validate(user, schema);
+};
+
 var Validatitions = {
   validateParty: validateParty,
   validateOffice: validateOffice,
@@ -105,7 +115,8 @@ var Validatitions = {
   validateUserLogin: validateUserLogin,
   validateUser: validateUser,
   validateCandidate: validateCandidate,
-  validateVote: validateVote
+  validateVote: validateVote,
+  validateAspirant: validateAspirant
 };
 
 exports.default = Validatitions;

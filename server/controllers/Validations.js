@@ -87,6 +87,16 @@ const validateUserLogin = (user) => {
   return Joi.validate(user, schema);
 };
 
+const validateAspirant = (user) => {
+  const schema = {
+    user: Joi.number().integer().required(),
+    office: Joi.number().integer().required(),
+    party: Joi.number().integer().required(),
+  }
+
+  return Joi.validate(user, schema);
+}
+
 const Validatitions = {
   validateParty,
   validateOffice,
@@ -95,7 +105,8 @@ const Validatitions = {
   validateUserLogin,
   validateUser,
   validateCandidate,
-  validateVote
+  validateVote,
+  validateAspirant
 };
 
 export default Validatitions;

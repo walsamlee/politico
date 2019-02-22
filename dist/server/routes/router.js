@@ -49,6 +49,8 @@ router.post('/offices', _Verifications2.default.isAdmin, _Offices2.default.creat
 router.get('/offices', _Offices2.default.viewOffices);
 router.get('/offices/:officeId', _Offices2.default.viewOfficeById);
 
+router.post('/office/run', _Verifications2.default.loggedIn, _Office2.default.runForOffice);
+router.get('/office/aspirants', _Verifications2.default.isAdmin, _Office2.default.viewAspirants);
 router.post('/office/:userId/register', _Verifications2.default.isAdmin, _Office2.default.registerCandidate);
 router.get('/office/:officeId/result', _Office2.default.viewResult);
 

@@ -22,6 +22,8 @@ router.post('/offices', Verifications.isAdmin, Offices.createOffice);
 router.get('/offices', Offices.viewOffices);
 router.get('/offices/:officeId', Offices.viewOfficeById);
 
+router.post('/office/run', Verifications.loggedIn, Office.runForOffice);
+router.get('/office/aspirants', Verifications.isAdmin, Office.viewAspirants);
 router.post('/office/:userId/register', Verifications.isAdmin, Office.registerCandidate);
 router.get('/office/:officeId/result', Office.viewResult);
 
