@@ -40,9 +40,9 @@ const castVote = (req, res) => {
     return res.status(201).json({
       status: 201,
       data: {
-        office: result.officeid,
-        candidate: result.candidateid,
-        voter: result.voterid,
+        office: result.rows[0].officeid,
+        candidate: result.rows[0].candidateid,
+        voter: result.rows[0].voterid,
       },
     });
   });

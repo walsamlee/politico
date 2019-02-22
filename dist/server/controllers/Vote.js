@@ -49,13 +49,14 @@ var castVote = function castVote(req, res) {
         error: 'You can only cast your vote once for this office'
       });
     }
+    console.log(result.rows[0]);
 
     return res.status(201).json({
       status: 201,
       data: {
-        office: result.officeid,
-        candidate: result.candidateid,
-        voter: result.voterid
+        office: result.rows[0].officeid,
+        candidate: result.rows[0].candidateid,
+        voter: result.rows[0].voterid
       }
     });
   });
