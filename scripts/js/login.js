@@ -22,6 +22,10 @@ const thisLogin = (form) => {
         localStorage.setItem('token', response.data[0].token);
         localStorage.setItem('who', response.data[0].user.id);
         localStorage.setItem('what', response.data[0].user.isAdmin);
+        localStorage.setItem('picture', response.data[0].user.passportUrl);
+        localStorage.setItem('name', response.data[0].user.name);
+        localStorage.setItem('phone', response.data[0].user.phoneNumber);
+        localStorage.setItem('email', response.data[0].user.email);
         
         if (response.data[0].user.isAdmin === 'false') {
           window.location = `http://${document.location.host}/users/viewparties.html`;

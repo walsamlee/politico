@@ -7,7 +7,6 @@
     <title>Politico - Login</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
-    <script src="scripts/js/main.js"></script>
 </head>
 <body>
     <div class="signin-main">
@@ -21,14 +20,65 @@
             <div class="navigation-bar">
                 <div class="menu" id="menu">
                     <nav>
-                        <a id="signin-link" href="signin.html">Login</a>
-                        <a id="signup-link" href="users/signup.html">Register</a>
-                        <a id="vote-link" href="users/candidates.html">Vote</a>
+                        <div id="pry-menu-items" class="pry-menu-items">
+                            <a id="create-party-link" href="./admin/createparty.html">Create Party</a>
+                            <a id="addmin-view-parties-link" href="./admin/viewparties.html">View Parties</a>
+                            <a id="create-office-link" href="./admin/createoffice.html">Create Office</a>
+                            <a id="user-view-parties-link" href="./users/viewparties.html">View Parties</a>
+                            <a id="vote-link" href="users/candidates.html">Vote</a>
+                            <a id="vote-history-link" href="users/votehistory.html">Voting History</a>
+                        </div>
+                        <div class="logout">
+                            <button id="user-icon" onclick="showProfile()"><i class="fas fa-user"></i></button>
+                            <button id="logout" onclick="logout()">Logout</button>
+                            <a id="login" href="../signin.html">Login</a>
+                            <a id="signup" href="users/signup.html">Register</a>
+                        </div>
                     </nav>
+                    
                     <div class="mini-menu-icon">
                         <a href="javascript:void(0);" onclick="miniMenu()"><i class="fas fa-bars"></i></a>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="user-info">
+            <div id="user-info-main" class="user-info-main">
+                <div class="profile-pic">
+                    <img src="../assets/images/male.png" alt="Profile picture">
+                </div>
+                <div class="profile-details">
+                    <h3>Akinwale Samuel</h3>
+                    <p>admin1@politico.com</p>
+                    <p>1234567890</p>
+                </div>
+                <div class="office-interest">
+                    <p>Run for Office</p>
+                    <form method="POST" action="">
+                        <div>
+                            <label for="party">Party</label>
+                            <select name="party">
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="fiat">Fiat</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="office">Office</label>
+                            <select name="office">
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="fiat">Fiat</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                        </div>
+                        <div>
+                            <input type="button" class="btn cart-btn" value="Submit">
+                        </div>
+                    </form>
+                </div>
+
             </div>
         </div> 
         <div class="center-img">
@@ -125,5 +175,7 @@
             <p>Andela Developer Challenge &copy; 2019</p>
         </div>
     </footer>
+
+    <script src="scripts/js/main.js"></script>
 </body>
 </html>

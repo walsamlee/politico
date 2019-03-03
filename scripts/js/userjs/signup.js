@@ -24,6 +24,14 @@ const signUp = () => {
           document.getElementById('error-message').style.display = 'none';
         }, 3000);
       } else {
+        localStorage.setItem('token', response.data[0].token);
+        localStorage.setItem('who', response.data[0].user.id);
+        localStorage.setItem('what', response.data[0].user.isAdmin);
+        localStorage.setItem('picture', response.data[0].user.passportUrl);
+        localStorage.setItem('name', response.data[0].user.name);
+        localStorage.setItem('phone', response.data[0].user.phoneNumber);
+        localStorage.setItem('email', response.data[0].user.email);
+
         document.getElementById('success-message').style.display = 'block';
         setTimeout(() => {
           document.getElementById('success-message').style.display = 'none';

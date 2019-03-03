@@ -54,16 +54,20 @@ a:hover {
 }
 
 .logout button {
+    float: left;
+    margin-left: 10px;
     cursor: pointer;
     padding: 10px;
     color: #fff;
     font-size: 16px;
     background: #003566;
+    border-radius: 5px;
 }
 
 .menu nav .logout a {
     padding: 5px 10px;
-    border: solid 1px #fff;
+    margin: 0 5px;
+    float: right;
 }
 
 .logout button:hover {
@@ -256,10 +260,6 @@ a:hover {
     background: #01213D;
 }
 
-.signin-main .menu nav a {
-    text-transform: uppercase;
-}
-
 .signin-main .menu nav a:hover {
     background: #023563;
     text-decoration: none;
@@ -376,7 +376,7 @@ a:hover {
 
 #login input[type=text], #login input[type=password], .form-table input[type=text], .form-table input[type=email], .form-table input[type=password] {
     display: block;
-    width: 75%;
+    width: 100%;
     box-sizing: border-box;
     padding: 12px 20px 12px 20px;
     margin: 10px 0;
@@ -406,11 +406,63 @@ a:hover {
 }
 
 .dashboard {
-    padding: 10px;
+    padding: 10px 50px;
 }
 
 .dashboard .signup-form {
+    margin: 0 auto;
     width: 98%;
+}
+
+.user-info {
+    overflow: auto;
+    background: #ccc;
+}
+
+.user-info-main {
+    overflow: auto;
+    background: #fff;
+    min-height: 150px;
+    margin: 20px 0;
+    padding: 10px 50px;
+}
+
+.user-info-main .profile-pic {
+    overflow: hidden;
+    float: left;
+    max-width: 140px;
+    width: 32%;
+    height: 140px;
+    border: solid 1px #ccc;
+    border-radius: 120px;
+    text-align: center;
+}
+
+.user-info-main .profile-pic img {
+    width: 100%;
+}
+
+.user-info-main .profile-details {
+    float: left;
+    width: 38%;
+    padding: 10px 20px;
+}
+
+.user-info-main .profile-details h3, .user-info-main .profile-details p {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.office-interest {
+    float: left;
+    width: 35%;
+    padding: 10px 20px;
+    background: #f3f2f2;
+    border-radius: 5px;
+}
+
+.office-interest p {
+    margin: 0 0;
 }
 
 .form-table {

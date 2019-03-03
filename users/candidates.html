@@ -7,7 +7,6 @@
     <title>Politico - Candidates</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/style.css">
-    <script src="../scripts/js/main.js"></script>
 </head>
 <body>
     <div class="main">
@@ -21,16 +20,16 @@
             <div class="navigation-bar">
                 <div class="menu" id="menu">
                     <nav>
-                        <a href="viewparties.html">Home</a>
-                        <a href="votehistory.html">Voting History</a>
-                        <a href="pswordreset.html">Password Reset</a>
-                        <a href="../index.html">Logout</a>
+                        <div id="pry-menu-items" class="pry-menu-items">
+                            <a href="../index.html">Home</a>
+                            <a href="viewparties.html">View Parties</a>
+                            <a href="votehistory.html">Voting History</a>
+                        </div>
+                        <div class="logout">
+                            <button id="logout" onclick="logout()">Logout</button>
+                            <a id="login" href="../signin.html">Login</a>
+                        </div>
                     </nav>
-                    <div class="search">
-                        <form action="#">
-                            <input type="search" name="search" placeholder="Search">
-                        </form>
-                    </div>
                     <div class="mini-menu-icon">
                         <a href="javascript:void(0);" onclick="miniMenu()"><i class="fas fa-bars"></i></a>
                     </div>
@@ -152,5 +151,7 @@
             <p>Andela Developer Challenge &copy; 2019</p>
         </div>
     </footer>
+
+    <script src="../scripts/js/main.js"></script>
 </body>
 </html>
