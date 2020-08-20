@@ -4,7 +4,7 @@
   "description": "Politico enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency",
   "main": "app.js",
   "dependencies": {
-    "bcrypt": "^3.0.3",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
